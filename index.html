@@ -453,19 +453,15 @@
     }
     .scenic-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
     .scenic-card {
       border-radius: 16px;
       overflow: hidden;
       position: relative;
-      min-height: 300px;
+      min-height: 380px;
       cursor: pointer;
-    }
-    .scenic-card.large {
-      grid-row: span 2;
-      min-height: 620px;
     }
     .scenic-bg {
       position: absolute;
@@ -477,9 +473,6 @@
     .scenic-card:hover .scenic-bg {
       transform: scale(1.05);
     }
-    .scenic-1 { background-image: url('assets/images/yuanjiajie.jpg'); }
-    .scenic-2 { background-image: url('assets/images/jinbianxi.jpg'); }
-    .scenic-3 { background-image: url('assets/images/tianzishan.jpg'); }
     .scenic-overlay {
       position: absolute;
       inset: 0;
@@ -507,6 +500,11 @@
       opacity: 0.8;
       line-height: 1.6;
     }
+    .scenic-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 4px;
+    }
     .scenic-link {
       margin-top: 12px;
       font-size: 12px;
@@ -514,6 +512,29 @@
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 32px;
+    }
+    .pagination-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(13, 43, 30, 0.2);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .pagination-dot.active {
+      background: var(--green-mid);
+      width: 28px;
+      border-radius: 5px;
+    }
+    .pagination-dot:hover:not(.active) {
+      background: rgba(13, 43, 30, 0.4);
     }
 
     /* ========== EXPERIENCE ========== */
@@ -872,8 +893,7 @@
     @media (max-width: 1024px) {
       .news-grid { grid-template-columns: repeat(2, 1fr); }
       .exp-grid { grid-template-columns: repeat(2, 1fr); }
-      .scenic-grid { grid-template-columns: 1fr; }
-      .scenic-card.large { grid-row: span 1; min-height: 400px; }
+      .scenic-grid { grid-template-columns: repeat(2, 1fr); }
       .gallery-masonry { columns: 2; }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -882,6 +902,7 @@
       .mobile-menu-btn { display: flex; }
       .news-grid { grid-template-columns: 1fr; }
       .exp-grid { grid-template-columns: 1fr; }
+      .scenic-grid { grid-template-columns: 1fr; }
       .transport-layout { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .info-inner { gap: 24px; }
@@ -1002,6 +1023,9 @@
       </div>
       <div class="scenic-grid" id="scenicGrid">
         <!-- Scenic cards will be rendered by JS -->
+      </div>
+      <div class="pagination-container" id="scenicPagination">
+        <!-- Pagination dots will be rendered by JS -->
       </div>
     </div>
   </section>
@@ -1344,43 +1368,144 @@
 
     var scenicData = [
       {
-        href: 'yuanjiajie.html',
-        imgClass: 'scenic-1',
+        id: 'yuanjiajie',
+        href: 'scenic-detail.html?id=yuanjiajie',
+        img: 'assets/images/yuanjiajie.jpg',
         large: true,
         tag: 'UNESCO 世界遗产',
         tagEn: 'UNESCO World Heritage',
-        name: '袁家界 · 阿凡达取景地',
-        nameEn: 'Yuanjiajie · Avatar Filming Site',
+        name: '袁家界',
+        nameEn: 'Yuanjiajie',
+        subTitle: '阿凡达取景地',
+        subTitleEn: 'Avatar Filming Site',
         desc: '电影《阿凡达》中潘多拉星球悬浮山的原型——南天一柱所在地，云雾缭绕，宛如仙境。',
-        descEn: 'The prototype of Hallelujah Mountain in Avatar, where the floating peaks of Pandora were inspired. Misty and magical.',
-        linkText: '探索更多 →',
-        linkTextEn: 'Explore More →'
+        descEn: 'The prototype of Hallelujah Mountain in Avatar, where the floating peaks of Pandora were inspired. Misty and magical.'
       },
       {
-        href: 'jinbianxi.html',
-        imgClass: 'scenic-2',
-        large: false,
-        tag: '天然氧吧',
-        tagEn: 'Natural Oxygen Bar',
-        name: '金鞭溪',
-        nameEn: 'Jinbian Stream',
-        desc: '全长7.5公里，溪水清澈，两岸奇峰耸立，是公园内最经典的徒步路线。',
-        descEn: '7.5km of crystal-clear streams and towering peaks. The most classic hiking route in the park.',
-        linkText: '探索更多 →',
-        linkTextEn: 'Explore More →'
-      },
-      {
-        href: 'tianzishan.html',
-        imgClass: 'scenic-3',
+        id: 'tianzishan',
+        href: 'scenic-detail.html?id=tianzishan',
+        img: 'assets/images/tianzishan.jpg',
         large: false,
         tag: '天子御笔',
         tagEn: 'Imperial Brush',
         name: '天子山',
         nameEn: 'Tianzi Mountain',
+        subTitle: '缩小的仙境',
+        subTitleEn: 'Miniature Fairyland',
         desc: '因《阿凡达》电影名声大噪，被誉为"缩小的仙境"，日出云海蔚为壮观。',
-        descEn: 'Famous from Avatar, known as the "Miniature Fairyland". Spectacular sunrise and sea of clouds.',
-        linkText: '探索更多 →',
-        linkTextEn: 'Explore More →'
+        descEn: 'Famous from Avatar, known as the "Miniature Fairyland". Spectacular sunrise and sea of clouds.'
+      },
+      {
+        id: 'jinbianxi',
+        href: 'scenic-detail.html?id=jinbianxi',
+        img: 'assets/images/jinbianxi.jpg',
+        large: false,
+        tag: '天然氧吧',
+        tagEn: 'Natural Oxygen Bar',
+        name: '金鞭溪',
+        nameEn: 'Jinbian Stream',
+        subTitle: '7.5公里徒步胜境',
+        subTitleEn: '7.5km Hiking Paradise',
+        desc: '全长7.5公里，溪水清澈，两岸奇峰耸立，是公园内最经典的徒步路线。',
+        descEn: '7.5km of crystal-clear streams and towering peaks. The most classic hiking route in the park.'
+      },
+      {
+        id: 'huangshijia',
+        href: 'scenic-detail.html?id=huangshijia',
+        img: 'assets/images/gal-yuanjiajie.jpg',
+        large: false,
+        tag: '土家风情',
+        tagEn: 'Tujia Culture',
+        name: '黄石寨',
+        nameEn: 'Huangshijia',
+        subTitle: '不上黄石寨，枉到张家界',
+        subTitleEn: 'Essential Zhangjiajie',
+        desc: '相传张良在此修行，有"不上黄石寨，枉到张家界"之说，是公园最大的凌空观景台。',
+        descEn: 'Legend says Zhang Liang cultivated here. The largest aerial viewing platform in the park with stunning panoramic views.'
+      },
+      {
+        id: 'silkongqiao',
+        href: 'scenic-detail.html?id=silkongqiao',
+        img: 'assets/images/gal-clouds.jpg',
+        large: false,
+        tag: '天下第一桥',
+        tagEn: 'First Bridge Under Heaven',
+        name: '天下第一桥',
+        nameEn: 'First Bridge Under Heaven',
+        subTitle: '天然石桥奇观',
+        subTitleEn: 'Natural Stone Bridge',
+        desc: '两座石峰之间自然形成的石桥，距谷底高约387米，堪称自然界的一大奇迹。',
+        descEn: 'A natural stone bridge formed between two peaks, standing 387m above the valley floor. A true wonder of nature.'
+      },
+      {
+        id: 'yongding',
+        href: 'scenic-detail.html?id=yongding',
+        img: 'assets/images/gal-culture.jpg',
+        large: false,
+        tag: '土家古镇',
+        tagEn: 'Tujia Ancient Town',
+        name: '永定古城',
+        nameEn: 'Yongding Ancient Town',
+        subTitle: '土家族文化中心',
+        subTitleEn: 'Tujia Cultural Center',
+        desc: '保存完好的土家古镇，体验土家族传统文化、建筑风格和民俗风情。',
+        descEn: 'A well-preserved Tujia ancient town with traditional culture, architecture and folk customs.'
+      },
+      {
+        id: 'shadao',
+        href: 'scenic-detail.html?id=shadao',
+        img: 'assets/images/gal-sunrise.jpg',
+        large: false,
+        tag: '精华路线',
+        tagEn: 'Classic Route',
+        name: '沙刀沟',
+        nameEn: 'Shadao Valley',
+        subTitle: '探险者的天堂',
+        subTitleEn: 'Adventurer\'s Paradise',
+        desc: '沟壑纵横，景观独特，是喜欢探险的游客必去之地，充满原始森林的神秘感。',
+        descEn: 'A maze of gullies with unique landscapes, perfect for adventurers seeking wilderness experiences.'
+      },
+      {
+        id: 'shuangshiyoupu',
+        href: 'scenic-detail.html?id=shuangshiyoupu',
+        img: 'assets/images/gal-spring.jpg',
+        large: false,
+        tag: '山水画廊',
+        tagEn: 'Scenic Gallery',
+        name: '双壁映秀',
+        nameEn: 'Twin Peaks',
+        subTitle: '两峰对峙奇观',
+        subTitleEn: 'Facing Peaks',
+        desc: '两座笔直的石峰相对而立，形成独特的门户景观，是拍照留念的绝佳地点。',
+        descEn: 'Two towering stone peaks facing each other, forming a unique gateway. Perfect for photos.'
+      },
+      {
+        id: 'wulongkarst',
+        href: 'scenic-detail.html?id=wulongkarst',
+        img: 'assets/images/gal-autumn.jpg',
+        large: false,
+        tag: '喀斯特地貌',
+        tagEn: 'Karst Landscape',
+        name: '武隆溶洞',
+        nameEn: 'Wulong Karst Caves',
+        subTitle: '地下奇幻世界',
+        subTitleEn: 'Underground Wonderland',
+        desc: '典型的喀斯特溶洞景观，洞内石笋、石柱、石花形态万千，美不胜收。',
+        descEn: 'Typical karst cave landscape with diverse stalactites, stalagmites and stone flowers.'
+      },
+      {
+        id: 'tianpingshan',
+        href: 'scenic-detail.html?id=tianpingshan',
+        img: 'assets/images/gal-winter.jpg',
+        large: false,
+        tag: '云海日出',
+        tagEn: 'Sunrise & Sea of Clouds',
+        name: '天平山',
+        nameEn: 'Tianping Mountain',
+        subTitle: '观日出最佳点',
+        subTitleEn: 'Best Sunrise Viewpoint',
+        desc: '海拔1200米，是观赏日出、俯瞰云海的最佳地点之一，视野开阔壮美。',
+        descEn: 'At 1,200m elevation, one of the best spots for sunrise views and sea of clouds. Breathtaking panoramic scenery.'
       }
     ];
 
@@ -1464,23 +1589,45 @@
 
     function renderScenic() {
       var container = document.getElementById('scenicGrid');
+      var pagination = document.getElementById('scenicPagination');
       var lang = AppState.currentLang;
+      var isZh = lang === 'zh';
+      var itemsPerPage = 3;
+      var totalPages = Math.ceil(scenicData.length / itemsPerPage);
+      var currentPage = AppState.scenicPage || 1;
+      
+      // Calculate start and end indices
+      var startIdx = (currentPage - 1) * itemsPerPage;
+      var endIdx = Math.min(startIdx + itemsPerPage, scenicData.length);
+      var pageItems = scenicData.slice(startIdx, endIdx);
+      
+      // Render current page items
       var html = '';
-
-      scenicData.forEach(function(item) {
-        var isZh = lang === 'zh';
-        var largeClass = item.large ? ' large' : '';
-        html += '<a href="' + item.href + '" class="scenic-card' + largeClass + ' fade-up">';
-        html += '<div class="scenic-bg ' + item.imgClass + '"></div>';
+      pageItems.forEach(function(item) {
+        html += '<a href="' + item.href + '" class="scenic-card fade-up">';
+        html += '<div class="scenic-bg" style="background-image: url(\'' + item.img + '\')"></div>';
         html += '<div class="scenic-overlay">';
         html += '<div class="scenic-tag">' + (isZh ? item.tag : item.tagEn) + '</div>';
         html += '<h3 class="scenic-name">' + (isZh ? item.name : item.nameEn) + '</h3>';
+        html += '<p class="scenic-sub">' + (isZh ? item.subTitle : item.subTitleEn) + '</p>';
         html += '<p class="scenic-desc">' + (isZh ? item.desc : item.descEn) + '</p>';
-        html += '<span class="scenic-link">' + (isZh ? item.linkText : item.linkTextEn) + '</span>';
+        html += '<span class="scenic-link">' + (isZh ? '探索更多 →' : 'Explore More →') + '</span>';
         html += '</div></a>';
       });
-
+      
       container.innerHTML = html;
+      
+      // Render pagination dots
+      var dotsHtml = '';
+      for (var i = 1; i <= totalPages; i++) {
+        dotsHtml += '<button class="pagination-dot' + (i === currentPage ? ' active' : '') + '" onclick="goToScenicPage(' + i + ')"></button>';
+      }
+      pagination.innerHTML = dotsHtml;
+    }
+    
+    function goToScenicPage(page) {
+      AppState.scenicPage = page;
+      renderScenic();
     }
 
     function renderGallery() {
