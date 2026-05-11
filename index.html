@@ -1620,7 +1620,7 @@
         pageItems.forEach(function(item, idx) {
           console.log('[renderScenic] Item', idx, ':', item.id, ', img:', item.img);
           html += '<a href="' + item.href + '" class="scenic-card fade-up">';
-          html += '<div class="scenic-bg" style="background-image: url('' + item.img + '')"></div>';
+          html += '<div class="scenic-bg" style="background-image: url(\'' + item.img + '\')"></div>';
           html += '<div class="scenic-overlay">';
           html += '<div class="scenic-tag">' + (isZh ? item.tag : item.tagEn) + '</div>';
           html += '<h3 class="scenic-name">' + (isZh ? item.name : item.nameEn) + '</h3>';
