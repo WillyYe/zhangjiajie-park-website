@@ -908,8 +908,8 @@
         <a href="#transport" data-i18n="nav_transport">Transport</a>
       </nav>
       <div class="lang-switch">
-        <button onclick="switchLang('zh')">中文</button>
-        <button onclick="switchLang('en')" class="active">EN</button>
+        <button onclick="switchLang('zh')" data-lang="zh">中文</button>
+        <button onclick="switchLang('en')" class="active" data-lang="en">EN</button>
       </div>
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -1404,7 +1404,7 @@
       document.querySelectorAll('.lang-switch button').forEach(function(btn) {
         btn.classList.remove('active');
       });
-      document.querySelector('.lang-switch button[onclick="switchLang(\\'' + lang + '\\')"]').classList.add('active');
+      document.querySelector('.lang-switch button[data-lang="' + lang + '"]').classList.add('active');
       
       // Update all i18n elements
       document.querySelectorAll('[data-i18n]').forEach(function(el) {
