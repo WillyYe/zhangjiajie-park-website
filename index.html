@@ -135,10 +135,9 @@
     .scenic-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:transform .25s;min-height:280px}
     .scenic-card:hover{transform: scale(1.01)}
     .scenic-card.large{grid-row:span 2;min-height:580px}
-    .scenic-bg{position:absolute;inset:0;background-size:cover;background-position:center}
-    .sc-card1 .scenic-bg{background:linear-gradient(135deg,#2d4a3a,#4a7a5a,#1a3a2a)}
-    .sc-card2 .scenic-bg{background:linear-gradient(135deg,#1a2a4a,#3a5a8a,#0d1a3a)}
-    .sc-card3 .scenic-bg{background:linear-gradient(135deg,#4a3a1a,#8a6a3a,#2a1a0d)}
+    .scenic-card.sc-card1{background:linear-gradient(135deg,#2d4a3a,#4a7a5a,#1a3a2a)}
+    .scenic-card.sc-card2{background:linear-gradient(135deg,#1a2a4a,#3a5a8a,#0d1a3a)}
+    .scenic-card.sc-card3{background:linear-gradient(135deg,#4a3a1a,#8a6a3a,#2a1a0d)}
     .scenic-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:#fff}
     .scenic-overlay .scenic-tag{font-size:11px;color:var(--gold-light);letter-spacing:2px;margin-bottom:6px}
     .scenic-overlay h3{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:600;margin-bottom:6px}
@@ -543,33 +542,30 @@
       <p data-i18n="scenic_desc">鬼斧神工的自然奇观，每一处都令人叹为观止</p>
     </div>
     <div class="scenic-grid">
-      <div class="scenic-card large sc-card1 fade-left" onclick="window.location.href='yuanjiajie.html'">
-        <div class="scenic-bg"></div>
+      <a href="yuanjiajie.html" class="scenic-card large sc-card1 fade-left">
         <div class="scenic-overlay">
           <div class="scenic-tag" data-i18n="sc_card1_tag">UNESCO 世界遗产</div>
           <h3 data-i18n="sc_card1_title">袁家界 · 阿凡达取景地</h3>
           <p data-i18n="sc_card1_desc">电影《阿凡达》中潘多拉星球悬浮山的原型——南天一柱所在地，云雾缭绕，宛如仙境。</p>
           <div class="scenic-more" data-i18n="sc_more">探索更多 →</div>
         </div>
-      </div>
-      <div class="scenic-card sc-card2 fade-right" onclick="window.location.href='jinbianxi.html'">
-        <div class="scenic-bg"></div>
+      </a>
+      <a href="jinbianxi.html" class="scenic-card sc-card2 fade-right">
         <div class="scenic-overlay">
           <div class="scenic-tag" data-i18n="sc_card2_tag">天然氧吧</div>
           <h3 data-i18n="sc_card2_title">金鞭溪</h3>
           <p data-i18n="sc_card2_desc">全长7.5公里，溪水清澈，两岸奇峰耸立，是公园内最经典的徒步路线。</p>
           <div class="scenic-more" data-i18n="sc_more">探索更多 →</div>
         </div>
-      </div>
-      <div class="scenic-card sc-card3 fade-right" onclick="window.location.href='tianzishan.html'">
-        <div class="scenic-bg"></div>
+      </a>
+      <a href="tianzishan.html" class="scenic-card sc-card3 fade-right">
         <div class="scenic-overlay">
           <div class="scenic-tag" data-i18n="sc_card3_tag">观日圣地</div>
           <h3 data-i18n="sc_card3_title">天子山</h3>
           <p data-i18n="sc_card3_desc">海拔1262米，是观赏日出、云海的绝佳地点，有"扩大的盆景，缩小的仙境"之美誉。</p>
           <div class="scenic-more" data-i18n="sc_more">探索更多 →</div>
         </div>
-      </div>
+      </a>
     </div>
   </section>
 
