@@ -335,7 +335,7 @@
       <div class="announce-header">
         <h3 data-i18n="announce_title">公园公告</h3>
         <p data-i18n="announce_sub">ANNOUNCEMENT</p>
-        <button class="announce-close" onclick="closeAnnounce()">✕</button>
+        <button class="announce-close" onclick="closeAnnounce()" aria-label="关闭公告">✕</button>
       </div>
       <div class="announce-body">
         <span class="announce-tag" data-i18n="announce_tag">最新通知</span>
@@ -373,19 +373,19 @@
       </nav>
       <div class="nav-right">
         <div class="lang-switch">
-          <button class="active" onclick="switchLang('zh')">中文</button>
-          <button onclick="switchLang('en')">EN</button>
+          <button class="active" onclick="switchLang('zh')" aria-label="切换到中文">中文</button>
+          <button onclick="switchLang('en')" aria-label="Switch to English">EN</button>
         </div>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
           <span></span><span></span><span></span>
-        </div>
+        </button>
       </div>
     </div>
   </header>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-slide slide1 active" id="heroSlide0" onclick="openLightbox(0)">
+    <div class="hero-slide slide1 active" id="heroSlide0" role="button" tabindex="0" aria-label="查看幻灯片 1：石柱奇观" onclick="openLightbox(0)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p1"></div>
@@ -399,7 +399,7 @@
       </div>
       <div class="slide-overlay"></div>
     </div>
-    <div class="hero-slide slide2" id="heroSlide1" onclick="openLightbox(1)">
+    <div class="hero-slide slide2" id="heroSlide1" role="button" tabindex="0" aria-label="查看幻灯片 2：云海奇观" onclick="openLightbox(1)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p3"></div>
@@ -410,7 +410,7 @@
       </div>
       <div class="slide-overlay"></div>
     </div>
-    <div class="hero-slide slide3" id="heroSlide2" onclick="openLightbox(2)">
+    <div class="hero-slide slide3" id="heroSlide2" role="button" tabindex="0" aria-label="查看幻灯片 3：溪流秘境" onclick="openLightbox(2)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p7"></div>
@@ -437,10 +437,10 @@
         <button class="hero-btn outline" onclick="openVideoModal()" data-i18n="hero_btn2">观看宣传片</button>
       </div>
     </div>
-    <div class="hero-dots">
-      <div class="dot active" onclick="goSlide(0)"></div>
-      <div class="dot" onclick="goSlide(1)"></div>
-      <div class="dot" onclick="goSlide(2)"></div>
+    <div class="hero-dots" role="tablist" aria-label="幻灯片导航">
+      <div class="dot active" onclick="goSlide(0)" role="tab" aria-selected="true" aria-label="幻灯片 1"></div>
+      <div class="dot" onclick="goSlide(1)" role="tab" aria-selected="false" aria-label="幻灯片 2"></div>
+      <div class="dot" onclick="goSlide(2)" role="tab" aria-selected="false" aria-label="幻灯片 3"></div>
     </div>
     <div class="scroll-hint">
       <span data-i18n="scroll_hint">向下滚动</span>
@@ -757,16 +757,16 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
-    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="关闭灯箱">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="上一张">‹</button>
+    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="下一张">›</button>
     <img class="lightbox-img" id="lightboxImg" src="" alt="" />
     <div class="lightbox-title" id="lightboxTitle"></div>
   </div>
 
   <!-- VIDEO MODAL -->
   <div class="video-modal" id="videoModal">
-    <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
+    <button class="video-modal-close" onclick="closeVideoModal()" aria-label="关闭视频">✕</button>
     <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
       <source src="assets/videos/promotional.mp4" type="video/mp4">
       <!-- 视频加载失败时显示占位符 -->
@@ -788,7 +788,7 @@
     <div class="admin-panel">
       <div class="admin-header">
         <h3>📸 内容管理后台</h3>
-        <button class="admin-close" onclick="closeAdmin()">✕</button>
+        <button class="admin-close" onclick="closeAdmin()" aria-label="关闭管理面板">✕</button>
       </div>
       <div class="admin-body">
         <div class="admin-tip">
@@ -930,7 +930,7 @@
         <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px" data-i18n="footer_subscribe">订阅获取最新活动与优惠信息</p>
         <div class="footer-subscribe">
           <input type="email" id="subscribeEmail" placeholder="your@email.com" data-i18n-placeholder="footer_email_placeholder" />
-          <button onclick="handleSubscribe()" data-i18n="footer_subscribe_btn">订阅</button>
+          <button onclick="handleSubscribe()" data-i18n="footer_subscribe_btn" aria-label="订阅资讯">订阅</button>
         </div>
       </div>
     </div>
@@ -1137,9 +1137,11 @@
       // 移除当前活动状态
       if (slides[prevSlide]) {
         slides[prevSlide].classList.remove('active');
+        slides[prevSlide].setAttribute('aria-selected', 'false');
       }
       if (dots[prevSlide]) {
         dots[prevSlide].classList.remove('active');
+        dots[prevSlide].setAttribute('aria-selected', 'false');
       }
       
       // 计算下一个幻灯片索引
@@ -1148,9 +1150,11 @@
       // 添加新活动状态
       if (slides[currentSlide]) {
         slides[currentSlide].classList.add('active');
+        slides[currentSlide].setAttribute('aria-selected', 'true');
       }
       if (dots[currentSlide]) {
         dots[currentSlide].classList.add('active');
+        dots[currentSlide].setAttribute('aria-selected', 'true');
       }
     }
     
