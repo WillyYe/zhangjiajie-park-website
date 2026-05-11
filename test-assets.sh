@@ -117,6 +117,17 @@ else
   FAIL=$((FAIL+1))
 fi
 
+# Test 7: Check video README
+echo ""
+echo "测试 7: 检查视频说明文档..."
+if [ -f "assets/videos/README.md" ]; then
+  echo "  ✓ 视频说明文档已创建"
+  PASS=$((PASS+1))
+else
+  echo "  ✗ 视频说明文档缺失"
+  FAIL=$((FAIL+1))
+fi
+
 # Summary
 echo ""
 echo "=========================================="
@@ -127,7 +138,7 @@ echo "失败: $FAIL"
 echo ""
 
 if [ "$FAIL" -eq 0 ]; then
-  echo "✓ 所有测试通过！网站已正确配置图片资源。"
+  echo "✓ 所有测试通过！网站已正确配置图片和视频资源。"
   exit 0
 else
   echo "✗ 存在 $FAIL 个测试失败，请检查。"
