@@ -61,8 +61,6 @@
     .lang-switch{display:flex;background:rgba(255,255,255,0.1);border-radius:20px;overflow:hidden}
     .lang-switch button{padding:5px 12px;font-size:12px;color:rgba(255,255,255,0.7);border-radius:20px;transition:background .2s,color .2s;border:none;cursor:pointer}
     .lang-switch button.active{background:var(--gold);color:#fff}
-    .nav-ticket{background:var(--gold);color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500;transition:background .2s;border:none;cursor:pointer}
-    .nav-ticket:hover{background:var(--gold-light)}
     .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
     .hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
 
@@ -108,8 +106,6 @@
     .info-icon{width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
     .info-text .info-label{font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:1px}
     .info-text .info-value{font-size:15px;font-weight:500;margin-top:2px}
-    .info-ticket{background:var(--gold);color:#fff;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;transition:background .2s;border:none;cursor:pointer}
-    .info-ticket:hover{background:var(--gold-light)}
     /* SECTION COMMON */
     .section{padding:var(--section-pad) 24px;max-width:1280px;margin:0 auto}
     .section-header{text-align:center;margin-bottom:48px}
@@ -281,7 +277,7 @@
   <div class="announce-overlay" id="announceModal">
     <div class="announce-box">
       <div class="announce-header">
-        <h3 data-i18n="announce_title">公园公告</h3>>
+        <h3 data-i18n="announce_title">公园公告</h3>
         <p data-i18n="announce_sub">ANNOUNCEMENT</p>
         <button class="announce-close" onclick="closeAnnounce()">✕</button>
       </div>
@@ -320,7 +316,6 @@
           <button class="active" onclick="switchLang('zh')">中文</button>
           <button onclick="switchLang('en')">EN</button>
         </div>
-        <button class="nav-ticket" data-i18n="nav_book">立即预订</button>
         <div class="hamburger" id="hamburger" onclick="toggleMenu()">
           <span></span><span></span><span></span>
         </div>
@@ -417,7 +412,7 @@
           <div class="info-value" data-i18n="info_weather_v">晴 18-26°C</div>
         </div>
       </div>
-      <button class="info-ticket" data-i18n="info_btn">立即购票</button>
+
     </div>
   </div>
 
@@ -757,7 +752,7 @@
         hero_title:'张家界国家森林公园', hero_desc:'探索云端石柱，感受自然奇观。中国第一个国家森林公园，世界自然遗产，阿凡达取景地。',
         hero_btn1:'规划我的行程', hero_btn2:'观看宣传片', scroll_hint:'向下滚动',
         info_price:'门票价格', info_price_v:'¥225 / 4天', info_hours:'开放时间',
-        info_hours_v:'06:30 - 18:30', info_weather:'今日天气', info_weather_v:'晴 18-26°C', info_btn:'立即购票',
+        info_hours_v:'06:30 - 18:30', info_weather:'今日天气', info_weather_v:'晴 18-26°C',
         news_tag:'PARK NEWS', news_title:'公园资讯', news_desc:'了解张家界最新动态、活动公告与游客须知',
         news_tag1:'公告', news1_title:'2026年旺季运营时间调整通知', news1_desc:'自5月1日起，公园运营时间调整为6:30-18:30，请游客合理安排游览时间。',
         news_tag2:'活动', news2_title:'第十届张家界国际森林文化节开幕', news2_desc:'本次文化节将持续一个月，包含摄影大赛、民俗表演、生态科普等系列活动。',
@@ -787,7 +782,7 @@
         footer_faq:'常见问题', footer_contact:'联系我们', footer_safety:'安全须知', footer_sitemap:'网站地图',
         footer_subscribe:'订阅获取最新活动与优惠信息', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'订阅',
         footer_icp:'湘ICP备XXXXXXXX号', footer_privacy:'隐私政策', footer_terms:'使用条款',
-        nav_about:'关于公园', nav_plan:'规划游览', nav_exp:'体验活动', nav_explore:'探索发现', nav_ticket:'预订中心', nav_news:'最新动态', nav_book:'立即预订',
+        nav_about:'关于公园', nav_plan:'规划游览', nav_exp:'体验活动', nav_explore:'探索发现', nav_ticket:'预订中心', nav_news:'最新动态',
         map_label:'📍 张家界国家森林公园区位图'
       },
       en: {
@@ -799,7 +794,7 @@
         hero_title:'Zhangjiajie National Forest Park', hero_desc:'Explore cloud-piercing pillars and experience natural wonders. China first national forest park, a UNESCO World Heritage Site and the filming location of Avatar.',
         hero_btn1:'Plan My Trip', hero_btn2:'Watch Promo', scroll_hint:'Scroll Down',
         info_price:'Ticket Price', info_price_v:'¥225 / 4 Days', info_hours:'Opening Hours',
-        info_hours_v:'06:30 - 18:30', info_weather:'Today's Weather', info_weather_v:'Sunny 18-26°C', info_btn:'Buy Tickets',
+        info_hours_v:'06:30 - 18:30', info_weather:'Today's Weather', info_weather_v:'Sunny 18-26°C',
         news_tag:'PARK NEWS', news_title:'Park News', news_desc:'Stay updated with the latest news, events and notices',
         news_tag1:'Notice', news1_title:'2026 Peak Season Hours Adjustment', news1_desc:'From May 1, park hours are adjusted to 6:30-18:30. Please plan your visit accordingly.',
         news_tag2:'Event', news2_title:'10th Zhangjiajie Intl Forest Culture Festival', news2_desc:'Month-long festival featuring photo contest, folk performances, and eco-education events.',
@@ -829,7 +824,7 @@
         footer_faq:'FAQ', footer_contact:'Contact Us', footer_safety:'Safety Info', footer_sitemap:'Sitemap',
         footer_subscribe:'Subscribe for latest events and offers', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'Subscribe',
         footer_icp:'Xiang ICP XXXXXXXX', footer_privacy:'Privacy Policy', footer_terms:'Terms of Use',
-        nav_about:'About', nav_plan:'Plan Visit', nav_exp:'Experiences', nav_explore:'Explore', nav_ticket:'Book Now', nav_news:'News', nav_book:'Book Now',
+        nav_about:'About', nav_plan:'Plan Visit', nav_exp:'Experiences', nav_explore:'Explore', nav_ticket:'Book Now', nav_news:'News',
         map_label:'📍 Zhangjiajie National Forest Park Location'
       }
     };
@@ -921,6 +916,9 @@
         }, 16);
       });
     }
+
+    // 初始化语言
+    switchLang("zh");
   </script>
 </body>
 </html>
