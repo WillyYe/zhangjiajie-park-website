@@ -1431,5 +1431,17 @@
       } catch(e){}
     });
   </script>
+  
+  <!-- 管理后台快捷入口按钮 -->
+  <button id="adminQuickBtn" onclick="openAdmin()" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--gold);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:none;">📸 管理后台</button>
+  
+  <script>
+    // 显示管理后台快捷按钮
+    document.addEventListener('keydown', function(e) {
+      if(e.ctrlKey && e.shiftKey && e.key === 'A') {
+        document.getElementById('adminQuickBtn').style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
