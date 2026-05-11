@@ -1588,18 +1588,22 @@
     }
 
     function renderScenic() {
+      console.log('[DEBUG] renderScenic called');
       var container = document.getElementById('scenicGrid');
       var pagination = document.getElementById('scenicPagination');
+      console.log('[DEBUG] container:', container, 'pagination:', pagination);
       var lang = AppState.currentLang;
       var isZh = lang === 'zh';
       var itemsPerPage = 3;
       var totalPages = Math.ceil(scenicData.length / itemsPerPage);
+      console.log('[DEBUG] totalPages:', totalPages, 'scenicData.length:', scenicData.length);
       var currentPage = AppState.scenicPage || 1;
       
       // Calculate start and end indices
       var startIdx = (currentPage - 1) * itemsPerPage;
       var endIdx = Math.min(startIdx + itemsPerPage, scenicData.length);
       var pageItems = scenicData.slice(startIdx, endIdx);
+      console.log('[DEBUG] startIdx:', startIdx, 'endIdx:', endIdx, 'pageItems:', pageItems.length);
       
       // Render current page items
       var html = '';
@@ -1614,8 +1618,10 @@
         html += '<span class="scenic-link">' + (isZh ? '探索更多 →' : 'Explore More →') + '</span>';
         html += '</div></a>';
       });
+      console.log('[DEBUG] Generated HTML length:', html.length);
       
       container.innerHTML = html;
+      console.log('[DEBUG] innerHTML set, container children:', container.children.length);
       
       // Render pagination dots
       var dotsHtml = '';
