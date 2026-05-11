@@ -268,6 +268,9 @@
       .hero-actions{flex-direction:column;align-items:center}
       .exp-grid{grid-template-columns:1fr}
       .lang-switch{display:none}
+      .mobile-lang-switch{display:flex;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1)}
+      .mobile-lang-switch button{padding:8px 16px;border-radius:20px;font-size:13px;background:rgba(255,255,255,0.1);color:#fff;border:none}
+      .mobile-lang-switch button.active{background:var(--gold);color:#fff}
     }
     /* GALLERY LIGHTBOX */
     .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:none;align-items:center;justify-content:center;flex-direction:column}
@@ -375,6 +378,10 @@
         <a href="#gallery" onclick="scrollToSection('gallery')" data-i18n="nav_explore">探索发现</a>
         <a href="#virtual" onclick="scrollToSection('virtual')" data-i18n="nav_ticket">预订中心</a>
         <a href="#news" onclick="scrollToSection('news')" data-i18n="nav_news">最新动态</a>
+        <div class="mobile-lang-switch">
+          <button onclick="switchLang('zh')">中文</button>
+          <button onclick="switchLang('en')">EN</button>
+        </div>
       </nav>
       <div class="nav-right">
         <div class="lang-switch">
@@ -1028,8 +1035,14 @@
     function switchLang(lang) {
       currentLang = lang;
       document.querySelectorAll('.lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
-      if(lang === 'zh') document.querySelector('.lang-switch button:first-child').classList.add('active');
-      else document.querySelector('.lang-switch button:last-child').classList.add('active');
+      document.querySelectorAll('.mobile-lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
+      if(lang === 'zh') {
+        document.querySelector('.lang-switch button:first-child').classList.add('active');
+        document.querySelector('.mobile-lang-switch button:first-child').classList.add('active');
+      } else {
+        document.querySelector('.lang-switch button:last-child').classList.add('active');
+        document.querySelector('.mobile-lang-switch button:last-child').classList.add('active');
+      }
       document.querySelectorAll('[data-i18n]').forEach(function(el){
         var key = el.getAttribute('data-i18n');
         if(i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
