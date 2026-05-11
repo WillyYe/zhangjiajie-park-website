@@ -5,1526 +5,1608 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>张家界国家森林公园 | Zhangjiajie National Forest Park</title>
   <meta name="description" content="张家界国家森林公园官方网站 — 世界自然遗产，阿凡达取景地，中国第一个国家森林公园。" />
-  <meta property="og:title" content="张家界国家森林公园" />
-  <meta property="og:description" content="探索云端石柱，感受自然奇观。" />
-  <meta name="theme-color" content="#0d2b1e" />
+  <meta name="theme-color" content="#1a4a30" />
+  
+  <!-- Preconnect for Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet" />
+  
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth;font-size:16px}
-    body{font-family:'Inter','Noto Sans SC',sans-serif;color:#1a1a1a;background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-    img{display:block;max-width:100%}
-    a{text-decoration:none;color:inherit}
-    button{cursor:pointer;border:none;background:none;font-family:inherit}
-    ul{list-style:none}
-    :root{
-      --green-dark:#0d2b1e;--green-mid:#1a4a30;--green-accent:#2d6a4f;
-      --green-light:#52b788;--gold:#b5882a;--gold-light:#d4a843;
-      --cream:#f7f3ee;--text-dark:#1a1a1a;--text-mid:#4a4a4a;
-      --text-light:#888;--border:#e0dbd4;--nav-height:72px;--section-pad:80px;
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    /* ANNOUNCEMENT */
-    .announce-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
-    .announce-overlay.open{opacity:1;visibility:visible}
-    .announce-box{background:#fff;border-radius:16px;max-width:520px;width:92%;overflow:hidden;transform: translateY(20px);transition:transform .35s;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
-    .announce-overlay.open .announce-box{transform: translateY(0)}
-    .announce-header{background:linear-gradient(135deg,var(--green-dark),var(--green-mid));padding:24px 28px 18px;position:relative}
-    .announce-header h3{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:600;color:#fff;letter-spacing:2px}
-    .announce-header p{font-size:12px;color:rgba(255,255,255,0.65);margin-top:4px}
-    .announce-close{position:absolute;top:18px;right:18px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.15);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
-    .announce-close:hover{background:rgba(255,255,255,0.3)}
-    .announce-body{padding:24px 28px}
-    .announce-body .announce-tag{display:inline-block;background:#f0faf4;color:var(--green-accent);font-size:12px;padding:3px 10px;border-radius:10px;margin-bottom:10px}
-    .announce-body p{font-size:14px;color:var(--text-mid);line-height:1.8;margin-bottom:12px}
-    .announce-footer{padding:16px 28px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
-    .announce-btn{padding:8px 20px;border-radius:6px;font-size:13px;cursor:pointer;transition:background .2s}
-    .announce-btn.primary{background:var(--green-accent);color:#fff}
-    .announce-btn.primary:hover{background:var(--green-mid)}
-    .announce-btn.secondary{background:#f5f5f5;color:var(--text-mid)}
-    .announce-btn.secondary:hover{background:#eee}
-    /* HEADER */
-    #header{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-height);transition:background .3s,box-shadow .3s}
-    #header.scrolled{background:rgba(13,43,30,0.97);box-shadow:0 2px 16px rgba(0,0,0,0.25);backdrop-filter: blur(8px)}
-    #header.top{background:linear-gradient(to bottom,rgba(0,0,0,0.5),transparent)}
-    .nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;justify-content:space-between}
-    .nav-logo{display:flex;align-items:center;gap:12px}
-    .nav-logo .logo-icon{width:42px;height:42px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
-    .nav-logo .logo-text{display:flex;flex-direction:column}
-    .nav-logo .logo-cn{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:#fff;letter-spacing:2px}
-    .nav-logo .logo-en{font-size:10px;color:rgba(255,255,255,0.65);letter-spacing:1px;margin-top:1px}
-    .nav-links{display:flex;align-items:center;gap:4px}
-    .nav-links a{color:rgba(255,255,255,0.85);font-size:13.5px;padding:8px 14px;border-radius:6px;transition:background .2s,color .2s;white-space:nowrap}
-    .nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.1)}
-    .nav-right{display:flex;align-items:center;gap:10px}
-    .lang-switch{display:flex;background:rgba(255,255,255,0.1);border-radius:20px;overflow:hidden}
-    .lang-switch button{padding:5px 12px;font-size:12px;color:rgba(255,255,255,0.7);border-radius:20px;transition:background .2s,color .2s;border:none;cursor:pointer}
-    .lang-switch button.active{background:var(--gold);color:#fff}
-    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
-    .hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
 
-    /* HERO */
-    #hero{height:100vh;min-height:600px;position:relative;overflow:hidden}
-    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}
-    .hero-slide.active{opacity:1}
-    .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center}
-    .slide1 .slide-bg{background-image:url('assets/images/hero-pillars.jpg')}
-    .slide2 .slide-bg{background-image:url('assets/images/hero-clouds.jpg')}
-    .slide3 .slide-bg{background-image:url('assets/images/hero-stream.jpg')}
-    .slide-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.15)}
-    .pillars{position:absolute;bottom:0;left:0;right:0;height:55%;display:flex;align-items:flex-end;justify-content:center;gap:6%;opacity:0.18}
-    .pillar{width:60px;border-radius:8px 8px 0 0;background:linear-gradient(to top,#fff,rgba(255,255,255,0.6))}
-    .pillar.p1{height:90%}.pillar.p2{height:70%;width:45px}.pillar.p3{height:100%;width:70px}
-    .pillar.p4{height:60%;width:50px}.pillar.p5{height:80%;width:55px}.pillar.p6{height:75%;width:40px}
-    .hero-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);backdrop-filter: blur(6px);padding:6px 16px;border-radius:20px;font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:2px;margin-bottom:24px;border:1px solid rgba(255,255,255,0.15)}
-    .hero-badge .badge-dot{width:6px;height:6px;background:var(--green-light);border-radius:50%;animation:pulse-dot 2s infinite}
-    @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
-    .hero-content h1{font-family:'Noto Serif SC',serif;font-size:clamp(36px,6vw,68px);font-weight:700;color:#fff;letter-spacing:6px;line-height:1.2;margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,0.3)}
-    .hero-content h1 .en-title{display:block;font-family:'Inter',sans-serif;font-size:clamp(14px,2vw,20px);font-weight:300;letter-spacing:4px;color:rgba(255,255,255,0.65);margin-top:8px}
-    .hero-content p{font-size:clamp(14px,1.5vw,17px);color:rgba(255,255,255,0.8);max-width:560px;line-height:1.7;margin-bottom:32px}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-    .hero-btn{padding:13px 32px;border-radius:8px;font-size:14px;font-weight:500;transition:transform .2s,box-shadow .2s;border:none;cursor:pointer}
-    .hero-btn:hover{transform: translateY(-2px)}
-    .hero-btn.primary{background:var(--gold);color:#fff;box-shadow:0 4px 16px rgba(181,136,42,0.3)}
-    .hero-btn.primary:hover{box-shadow:0 6px 24px rgba(181,136,42,0.45)}
-    .hero-btn.outline{border:1px solid rgba(255,255,255,0.4);color:#fff;backdrop-filter: blur(4px);background:transparent}
-    .hero-btn.outline:hover{background:rgba(255,255,255,0.1)}
-    .hero-dots{position:absolute;bottom:48px;left:50%;transform: translateX(-50%);display:flex;gap:10px}
-    .hero-dots .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.35);cursor:pointer;transition:background .3s,transform .3s;border:none}
-    .hero-dots .dot.active{background:var(--gold);transform: scale(1.2)}
-    .scroll-hint{position:absolute;bottom:20px;left:50%;transform: translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,0.5);font-size:11px;letter-spacing:2px}
-    .scroll-hint .mouse{width:22px;height:34px;border:2px solid rgba(255,255,255,0.4);border-radius:11px;position:relative}
-    .scroll-hint .mouse::after{content:'';position:absolute;top:6px;left:50%;transform: translateX(-50%);width:3px;height:8px;background:rgba(255,255,255,0.6);border-radius:2px;animation:scroll-anim 1.5s infinite}
-    @keyframes scroll-anim{0%{opacity:1;top:6px}100%{opacity:0;top:18px}}
-
-    /* INFO BAR */
-    #info-bar{background:linear-gradient(135deg,var(--green-dark),var(--green-mid));color:#fff;padding:20px 0;position:relative;z-index:10}
-    .info-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-    .info-item{display:flex;align-items:center;gap:12px}
-    .info-icon{width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-    .info-text .info-label{font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:1px}
-    .info-text .info-value{font-size:15px;font-weight:500;margin-top:2px}
-    /* SECTION COMMON */
-    .section{padding:var(--section-pad) 24px;max-width:1280px;margin:0 auto}
-    .section-header{text-align:center;margin-bottom:48px}
-    .section-header .sec-tag{display:inline-block;font-size:11px;color:var(--green-accent);letter-spacing:3px;text-transform: uppercase;margin-bottom:10px;background:#f0faf4;padding:4px 14px;border-radius:10px}
-    .section-header h2{font-family:'Noto Serif SC',serif;font-size:clamp(24px,3.5vw,36px);font-weight:700;color:var(--green-dark);letter-spacing:2px;margin-bottom:10px}
-    .section-header p{font-size:14px;color:var(--text-mid);max-width:520px;margin:0 auto;line-height:1.7}
-    .section-more{display:flex;justify-content:center;margin-top:40px}
-    .section-more a{display:inline-flex;align-items:center;gap:6px;color:var(--green-accent);font-size:14px;font-weight:500;transition:gap .2s}
-    .section-more a:hover{gap:10px}
-    /* NEWS */
-    .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    .news-card{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:transform .25s,box-shadow .25s;cursor:pointer}
-    .news-card:hover{transform: translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,0.1)}
-    .news-img{height:200px;position:relative;overflow:hidden;background-size:cover;background-position:center}
-    .news-img .news-date{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.55);backdrop-filter: blur(4px);color:#fff;padding:6px 12px;border-radius:8px;text-align:center}
-    .news-date .d-day{font-size:20px;font-weight:600;line-height:1}
-    .news-date .d-month{font-size:10px;opacity:0.8;margin-top:2px}
-    .news-tag{position:absolute;bottom:14px;left:14px;background:var(--green-accent);color:#fff;font-size:11px;padding:3px 10px;border-radius:8px}
-    .news-body{padding:18px 20px 22px}
-    .news-body h3{font-size:16px;font-weight:600;color:var(--text-dark);line-height:1.5;margin-bottom:8px}
-    .news-body p{font-size:13px;color:var(--text-mid);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    .news-meta{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:12px;color:var(--text-light)}
-
-    /* SCENIC */
-    #scenic{background:var(--cream)}
-    .scenic-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:20px}
-    .scenic-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:transform .25s;min-height:280px}
-    .scenic-card:hover{transform: scale(1.01)}
-    .scenic-card.large{grid-row:span 2;min-height:580px}
-    .scenic-card.sc-card1{background-image:url('assets/images/yuanjiajie.jpg')}
-    .scenic-card.sc-card2{background-image:url('assets/images/jinbianxi.jpg')}
-    .scenic-card.sc-card3{background-image:url('assets/images/tianzishan.jpg')}
-    .scenic-card{background-size:cover;background-position:center;background-repeat:no-repeat}
-    .scenic-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:#fff}
-    .scenic-overlay .scenic-tag{font-size:11px;color:var(--gold-light);letter-spacing:2px;margin-bottom:6px}
-    .scenic-overlay h3{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:600;margin-bottom:6px}
-    .scenic-overlay p{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6}
-    .scenic-overlay .scenic-more{margin-top:14px;font-size:12px;color:var(--gold);display:flex;align-items:center;gap:4px}
-    /* EXPERIENCE */
-    .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-    .exp-card{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.05);transition:transform .25s,box-shadow .25s;cursor:pointer}
-    .exp-card:hover{transform: translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,0.1)}
-    .exp-img{height:180px;position:relative;overflow:hidden;background-size:cover;background-position:center}
-    .exp-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-    .exp-body{padding:18px 20px 22px}
-    .exp-body h3{font-size:16px;font-weight:600;color:var(--text-dark);margin-bottom:6px}
-    .exp-body p{font-size:13px;color:var(--text-mid);line-height:1.6}
-    .exp-body .exp-link{display:inline-block;margin-top:12px;font-size:13px;color:var(--green-accent);font-weight:500}
-    /* VIRTUAL TOUR */
-    #virtual{scroll-margin-top:var(--nav-height)}
-    .virtual-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
-    .virtual-preview{border-radius:16px;overflow:hidden;background:url('assets/images/hero-pillars.jpg') center/cover no-repeat;height:400px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center}
-    .virtual-preview::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)}
-    .virtual-preview .mountain-icon{font-size:100px;opacity:0.2;position:absolute}
-    .virtual-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-    .virtual-play-btn{width:72px;height:72px;background:rgba(255,255,255,0.2);backdrop-filter: blur(8px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;border:2px solid rgba(255,255,255,0.5);transition:transform .2s,background .2s}
-    .virtual-play-btn:hover{transform: scale(1.08);background:rgba(255,255,255,0.35)}
-    .virtual-info h3{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:600;color:var(--green-dark);margin-bottom:14px}
-    .virtual-info>p{font-size:14px;color:var(--text-mid);line-height:1.9;margin-bottom:18px}
-    .virtual-features{display:flex;flex-direction:column;gap:12px}
-    .virtual-feat{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text-dark)}
-    .virtual-feat .feat-icon{width:36px;height:36px;background:#f0faf4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-
-    /* GALLERY */
-    #gallery{background:var(--cream)}
-    .gallery-filter{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:36px}
-    .gallery-filter button{padding:8px 20px;border-radius:20px;font-size:13px;color:var(--text-mid);background:#f5f5f5;cursor:pointer;transition:background .2s,color .2s;border:none}
-    .gallery-filter button.active,.gallery-filter button:hover{background:var(--green-accent);color:#fff}
-    .gallery-masonry{columns:3;column-gap:16px}
-    .gallery-item{break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;transition:transform .25s}
-    .gallery-item:hover{transform: translateY(-3px)}
-    .g-img{width:100%;display:block;border-radius:12px;object-fit:cover}
-    .g-img-wrapper{width:100%;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .g-img-wrapper img{width:100%;height:100%;object-fit:cover}
-    .g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent 60%);border-radius:12px;display:flex;align-items:flex-end;padding:16px;opacity:0;transition:opacity .25s}
-    .gallery-item:hover .g-overlay{opacity:1}
-    .g-title{font-size:13px;color:#fff;font-weight:500}
-    /* TRANSPORT */
-    #transport{scroll-margin-top:var(--nav-height)}
-    .transport-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
-    .transport-map{border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);height:420px;position:relative;display:flex;align-items:center;justify-content:center}
-    .transport-map::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(0,0,0,0.02) 30px,rgba(0,0,0,0.02) 31px)}
-    .transport-map .map-label{font-size:14px;color:var(--green-mid);font-weight:500;letter-spacing:1px}
-    .map-pin{position:absolute;width:14px;height:14px;background:var(--gold);border-radius:50% 50% 50% 0;transform: rotate(-45deg);animation:pin-pulse 1.5s infinite}
-    .map-pin::after{content:'';position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);width:6px;height:6px;background:#fff;border-radius:50%}
-    @keyframes pin-pulse{0%,100%{box-shadow:0 0 0 0 rgba(181,136,42,0.4)}50%{box-shadow:0 0 0 10px rgba(181,136,42,0)}}
-    .map-pin.p1{top:35%;left:55%}.map-pin.p2{top:50%;left:40%}.map-pin.p3{top:65%;left:60%}
-    .transport-ways{display:flex;flex-direction:column;gap:16px}
-    .transport-card{background:#fff;border-radius:12px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,0.06);display:flex;align-items:flex-start;gap:16px;transition:transform .2s,box-shadow .2s;cursor:pointer}
-    .transport-card:hover{transform: translateX(4px);box-shadow:0 4px 18px rgba(0,0,0,0.1)}
-    .transport-icon{width:44px;height:44px;background:#f0faf4;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-    .transport-info h4{font-size:15px;font-weight:500;color:var(--text-dark);margin-bottom:4px}
-    .transport-info p{font-size:13px;color:var(--text-mid);line-height:1.6}
-    .transport-info .transport-tag{display:inline-block;font-size:11px;color:var(--green-accent);background:#f0faf4;padding:2px 8px;border-radius:8px;margin-top:6px}
-
-    /* FOOTER */
-    #footer{background:var(--green-dark);color:rgba(255,255,255,0.75);padding:60px 0 0;font-size:14px}
-    .footer-grid{max-width:1280px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
-    .footer-brand .brand-name{font-family:'Noto Serif SC',serif;font-size:18px;color:#fff;letter-spacing:2px;margin-bottom:10px}
-    .footer-brand .brand-desc{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.55);margin-bottom:18px}
-    .footer-social{display:flex;gap:10px}
-    .footer-social a{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .2s}
-    .footer-social a:hover{background:rgba(255,255,255,0.18)}
-    .footer-col h4{font-size:14px;color:#fff;font-weight:500;margin-bottom:16px;letter-spacing:1px}
-    .footer-col ul{display:flex;flex-direction:column;gap:10px}
-    .footer-col ul a{font-size:13px;color:rgba(255,255,255,0.55);transition:color .2s}
-    .footer-col ul a:hover{color:var(--gold-light)}
-    .footer-subscribe{display:flex;gap:0;margin-top:12px}
-    .footer-subscribe input{flex:1;padding:10px 14px;border:none;border-radius:6px 0 0 6px;font-size:13px;outline:none;background:rgba(255,255,255,0.1);color:#fff}
-    .footer-subscribe input::placeholder{color:rgba(255,255,255,0.4)}
-    .footer-subscribe button{padding:10px 16px;background:var(--gold);color:#fff;border:none;border-radius:0 6px 6px 0;font-size:13px;cursor:pointer;transition:background .2s}
-    .footer-subscribe button:hover{background:var(--gold-light)}
-    .footer-bottom{max-width:1280px;margin:40px auto 0;padding:18px 24px;border-top:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.4)}
-    .footer-bottom a{color:rgba(255,255,255,0.5);margin-left:16px;transition:color .2s}
-    .footer-bottom a:hover{color:var(--gold-light)}
-    /* SCROLL ANIMATIONS */
-    .fade-up{opacity:0;transform: translateY(30px);transition:opacity .6s ease,transform .6s ease}
-    .fade-up.visible{opacity:1;transform: translateY(0)}
-    .fade-left{opacity:0;transform: translateX(-30px);transition:opacity .6s ease,transform .6s ease}
-    .fade-left.visible{opacity:1;transform: translateX(0)}
-    .fade-right{opacity:0;transform: translateX(30px);transition:opacity .6s ease,transform .6s ease}
-    .fade-right.visible{opacity:1;transform: translateX(0)}
-    /* MOBILE */
-    @media(max-width:1024px){
-      .news-grid{grid-template-columns:repeat(2,1fr)}
-      .exp-grid{grid-template-columns:repeat(2,1fr)}
-      .scenic-grid{grid-template-columns:1fr}
-      .scenic-card.large{grid-row:span 1;min-height:280px}
-      .virtual-layout{grid-template-columns:1fr}
-      .transport-layout{grid-template-columns:1fr}
-      .gallery-masonry{columns:2}
-      .footer-grid{grid-template-columns:1fr 1fr}
+    /* ========== COLOR VARIABLES ========== */
+    :root {
+      --green-dark: #0d2b1e;
+      --green-mid: #1a4a30;
+      --green-light: #2d6a4f;
+      --green-accent: #52b788;
+      --gold: #b5882a;
+      --gold-light: #d4a843;
+      --cream: #f7f3ee;
+      --cream-dark: #e8e4de;
+      --text-dark: #1a1a1a;
+      --text-mid: #4a4a4a;
+      --text-light: #888;
+      --border: #e0dbd4;
+      --white: #fff;
+      --shadow: rgba(0,0,0,0.1);
+      --nav-height: 64px;
     }
-    @media(max-width:768px){
-      .nav-links{display:none;position:fixed;top:var(--nav-height);left:0;right:0;background:rgba(13,43,30,0.98);flex-direction:column;padding:16px;gap:0;backdrop-filter: blur(8px)}
-      .nav-links.open{display:flex}
-      .nav-links a{padding:12px 16px;border-radius:6px;font-size:14px}
-      .hamburger{display:flex}
-      .hero-content h1{letter-spacing:3px}
-      .news-grid{grid-template-columns:1fr}
-      .exp-grid{grid-template-columns:1fr 1fr}
-      .gallery-masonry{columns:1}
-      .footer-grid{grid-template-columns:1fr}
-      .info-inner{flex-direction:column;align-items:flex-start}
+
+    /* ========== HEADER ========== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--green-dark);
+      height: var(--nav-height);
+      transition: background 0.3s, box-shadow 0.3s;
     }
-    @media(max-width:480px){
-      :root{--section-pad:48px}
-      .hero-actions{flex-direction:column;align-items:center}
-      .exp-grid{grid-template-columns:1fr}
-      .lang-switch{display:none}
-      .mobile-lang-switch{display:flex;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1)}
-      .mobile-lang-switch button{padding:8px 16px;border-radius:20px;font-size:13px;background:rgba(255,255,255,0.1);color:#fff;border:none}
-      .mobile-lang-switch button.active{background:var(--gold);color:#fff}
+    .header.scrolled {
+      background: rgba(13, 43, 30, 0.98);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.2);
     }
-    /* GALLERY LIGHTBOX */
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:none;align-items:center;justify-content:center;flex-direction:column}
-    .lightbox.open{display:flex}
-    .lightbox-img{max-width:90vw;max-height:75vh;border-radius:12px;object-fit:contain}
-    .lightbox-title{color:#fff;margin-top:16px;font-size:16px;text-align:center}
-    .lightbox-close{position:absolute;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
-    .lightbox-close:hover{background:rgba(255,255,255,0.25)}
-    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
-    .lightbox-nav:hover{background:rgba(255,255,255,0.25)}
-    .lightbox-prev{left:20px}.lightbox-next{right:20px}
-    /* VIDEO MODAL */
-    .video-modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:none;align-items:center;justify-content:center;flex-direction:column}
-    .video-modal.open{display:flex}
-    .video-modal video{max-width:90vw;max-height:75vh;border-radius:12px}
-    .video-modal-close{position:absolute;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
-    .video-modal-close:hover{background:rgba(255,255,255,0.25)}
-    /* ADMIN PANEL */
-    .admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2500;display:none;align-items:flex-start;justify-content:flex-end}
-    .admin-overlay.open{display:flex}
-    .admin-panel{width:380px;max-width:92vw;height:100vh;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.15);overflow-y:auto;transform:translateX(100%);transition:transform .3s}
-    .admin-overlay.open .admin-panel{transform:translateX(0)}
-    .admin-header{background:linear-gradient(135deg,var(--green-dark),var(--green-mid));padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
-    .admin-header h3{color:#fff;font-size:16px;font-weight:500}
-    .admin-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.15);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
-    .admin-close:hover{background:rgba(255,255,255,0.3)}
-    .admin-body{padding:24px}
-    .admin-section{margin-bottom:28px}
-    .admin-section h4{font-size:13px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
-    .admin-field{margin-bottom:14px}
-    .admin-field label{display:block;font-size:13px;color:var(--text-mid);margin-bottom:6px;font-weight:500}
-    .admin-field input,.admin-field select,.admin-field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;transition:border-color .2s;background:#fafafa}
-    .admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--green-accent);background:#fff}
-    .admin-field textarea{resize:vertical;min-height:80px;font-family:inherit}
-    .admin-btn{display:block;width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s;border:none;text-align:center}
-    .admin-btn.primary{background:var(--green-accent);color:#fff}
-    .admin-btn.primary:hover{background:var(--green-mid)}
-    .admin-btn.secondary{background:#f0f0f0;color:var(--text-mid)}
-    .admin-btn.secondary:hover{background:#e0e0e0}
-    .admin-upload{border:2px dashed var(--border);border-radius:12px;padding:32px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
-    .admin-upload:hover{border-color:var(--green-accent);background:#f8fdf9}
-    .admin-upload input{display:none}
-    .admin-upload-icon{font-size:36px;margin-bottom:8px}
-    .admin-upload-text{font-size:13px;color:var(--text-mid)}
-    .admin-upload-text span{color:var(--green-accent);font-weight:500}
-    .admin-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .admin-preview-item{width:72px;height:72px;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border)}
-    .admin-preview-item img{width:100%;height:100%;object-fit:cover}
-    .admin-preview-item .remove-btn{position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none}
-    .admin-msg{padding:12px 16px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
-    .admin-msg.success{background:#e8f5e9;color:#2e7d32;display:block}
-    .admin-msg.error{background:#ffebee;color:#c62828;display:block}
-    .admin-tip{background:#f0faf4;border-radius:8px;padding:14px 16px;font-size:12px;color:var(--green-accent);line-height:1.6;margin-bottom:16px}
-    .admin-tip strong{display:block;margin-bottom:4px}
-    .admin-stat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-    .admin-stat-item{background:#f8f8f8;border-radius:10px;padding:14px;text-align:center}
-    .admin-stat-item .stat-num{font-size:24px;font-weight:600;color:var(--green-dark)}
-    .admin-stat-item .stat-label{font-size:11px;color:var(--text-light);margin-top:2px}
-    .admin-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
-    .admin-tab{padding:8px 14px;background:#f0f0f0;border-radius:8px;font-size:12px;cursor:pointer;transition:all .2s;border:none}
-    .admin-tab:hover{background:#e0e0e0}
-    .admin-tab.active{background:var(--green-accent);color:#fff}
-    .admin-tab-content{display:none}
-    .admin-tab-content.active{display:block}
-    .admin-danger{background:#fff5f5;border:1px solid #ffcdd2;border-radius:8px;padding:14px 16px;font-size:12px;color:#c62828;line-height:1.6;margin-bottom:16px}
-    .admin-danger strong{display:block;margin-bottom:4px}
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .logo-cn {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    .logo-en {
+      font-size: 9px;
+      opacity: 0.7;
+      letter-spacing: 1px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav a {
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+    }
+    .lang-switch {
+      display: flex;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .lang-switch button {
+      padding: 6px 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch button.active {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+    }
+    .mobile-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .slide-1 .hero-slide-bg { background-image: url('assets/images/hero-pillars.jpg'); }
+    .slide-2 .hero-slide-bg { background-image: url('assets/images/hero-clouds.jpg'); }
+    .slide-3 .hero-slide-bg { background-image: url('assets/images/hero-stream.jpg'); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      padding: 0 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(6px);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green-accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero-title-en {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(12px, 1.5vw, 16px);
+      font-weight: 300;
+      letter-spacing: 3px;
+      opacity: 0.7;
+      margin-top: 8px;
+    }
+    .hero-desc {
+      font-size: clamp(14px, 1.2vw, 16px);
+      max-width: 500px;
+      opacity: 0.9;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(181,136,42,0.3);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 24px rgba(181,136,42,0.4);
+    }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.4);
+      color: var(--white);
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .hero-dots {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    .hero-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      border: none;
+    }
+    .hero-dot.active {
+      background: var(--gold);
+      transform: scale(1.2);
+    }
+
+    /* ========== INFO BAR ========== */
+    .info-bar {
+      background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
+      color: var(--white);
+      padding: 20px 0;
+    }
+    .info-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .info-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .info-label {
+      font-size: 11px;
+      opacity: 0.6;
+      letter-spacing: 1px;
+    }
+    .info-value {
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--green-accent);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      background: #f0faf4;
+      padding: 4px 14px;
+      border-radius: 10px;
+    }
+    .section-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-mid);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ========== NEWS ========== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .news-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+    .news-img {
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .news-date {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      color: var(--white);
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .news-date-day {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .news-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: var(--green-accent);
+      color: var(--white);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .news-body {
+      padding: 18px 20px 22px;
+    }
+    .news-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .news-text {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ========== SCENIC ========== */
+    #scenic {
+      background: var(--cream);
+      padding: 80px 24px;
+    }
+    .scenic-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .scenic-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .scenic-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      min-height: 300px;
+      cursor: pointer;
+    }
+    .scenic-card.large {
+      grid-row: span 2;
+      min-height: 620px;
+    }
+    .scenic-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.4s;
+    }
+    .scenic-card:hover .scenic-bg {
+      transform: scale(1.05);
+    }
+    .scenic-1 { background-image: url('assets/images/yuanjiajie.jpg'); }
+    .scenic-2 { background-image: url('assets/images/jinbianxi.jpg'); }
+    .scenic-3 { background-image: url('assets/images/tianzishan.jpg'); }
+    .scenic-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      color: var(--white);
+    }
+    .scenic-tag {
+      font-size: 11px;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .scenic-name {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .scenic-desc {
+      font-size: 13px;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+    .scenic-link {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ========== EXPERIENCE ========== */
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .exp-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .exp-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+    .exp-img {
+      height: 160px;
+      overflow: hidden;
+    }
+    .exp-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .exp-card:hover .exp-img img {
+      transform: scale(1.1);
+    }
+    .exp-body {
+      padding: 16px 18px 20px;
+    }
+    .exp-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .exp-desc {
+      font-size: 12px;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ========== GALLERY ========== */
+    #gallery {
+      background: var(--cream);
+      padding: 80px 24px;
+    }
+    .gallery-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .gallery-filter button {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--text-mid);
+      background: var(--white);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .gallery-filter button.active,
+    .gallery-filter button:hover {
+      background: var(--green-accent);
+      color: var(--white);
+    }
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 16px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 60%);
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-title {
+      font-size: 13px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ========== TRANSPORT ========== */
+    .transport-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .transport-map {
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      height: 400px;
+      position: relative;
+    }
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: var(--green-mid);
+    }
+    .map-placeholder-icon {
+      font-size: 48px;
+      opacity: 0.4;
+    }
+    .map-placeholder-text {
+      font-size: 14px;
+      opacity: 0.6;
+    }
+    .transport-ways {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .transport-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 10px var(--shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .transport-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    }
+    .transport-icon {
+      width: 44px;
+      height: 44px;
+      background: #f0faf4;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .transport-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .transport-desc {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 60px 24px 30px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-desc {
+      font-size: 13px;
+      opacity: 0.7;
+      line-height: 1.8;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .footer-social a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+    .footer-col ul li a {
+      font-size: 13px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer-col ul li a:hover {
+      opacity: 1;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      opacity: 0.6;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-size: 12px;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover {
+      opacity: 1;
+    }
+
+    /* ========== LIGHTBOX ========== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .lightbox.open {
+      display: flex;
+      opacity: 1;
+    }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 8px;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lightbox-nav:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .news-grid { grid-template-columns: repeat(2, 1fr); }
+      .exp-grid { grid-template-columns: repeat(2, 1fr); }
+      .scenic-grid { grid-template-columns: 1fr; }
+      .scenic-card.large { grid-row: span 1; min-height: 400px; }
+      .gallery-masonry { columns: 2; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .news-grid { grid-template-columns: 1fr; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .transport-layout { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .info-inner { gap: 24px; }
+    }
   </style>
-
 </head>
 <body>
-  <!-- ANNOUNCEMENT MODAL -->
-  <div class="announce-overlay" id="announceModal">
-    <div class="announce-box">
-      <div class="announce-header">
-        <h3 data-i18n="announce_title">公园公告</h3>
-        <p data-i18n="announce_sub">ANNOUNCEMENT</p>
-        <button class="announce-close" onclick="closeAnnounce()">✕</button>
-      </div>
-      <div class="announce-body">
-        <span class="announce-tag" data-i18n="announce_tag">最新通知</span>
-        <p data-i18n="announce_p1">张家界国家森林公园2026年旺季运营时间调整为6:30-18:30，请游客合理安排行程。</p>
-        <p data-i18n="announce_p2">天子山索道、百龙天梯正常运营，建议提前预约。</p>
-      </div>
-      <div class="announce-footer">
-        <button class="announce-btn secondary" onclick="closeAnnounce()" data-i18n="announce_close">暂不查看</button>
-        <button class="announce-btn primary" onclick="closeAnnounce()" data-i18n="announce_ok">我知道了</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- HEADER -->
-  <header id="header" class="top">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">
+  <!-- ========== HEADER ========== -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="logo">
         <div class="logo-icon">🏔</div>
         <div class="logo-text">
-          <span class="logo-cn" data-i18n="brand_cn">张家界国家森林公园</span>
-          <span class="logo-en">Zhangjiajie National Forest Park</span>
+          <span class="logo-cn">张家界国家森林公园</span>
+          <span class="logo-en">ZHANGJIAJIE PARK</span>
         </div>
       </a>
-      <nav class="nav-links" id="navLinks">
-        <a href="#news" onclick="scrollToSection('news')" data-i18n="nav_about">关于公园</a>
-        <a href="#scenic" onclick="scrollToSection('scenic')" data-i18n="nav_plan">规划游览</a>
-        <a href="#experience" onclick="scrollToSection('exp')" data-i18n="nav_exp">体验活动</a>
-        <a href="#gallery" onclick="scrollToSection('gallery')" data-i18n="nav_explore">探索发现</a>
-        <a href="#virtual" onclick="scrollToSection('virtual')" data-i18n="nav_ticket">预订中心</a>
-        <a href="#news" onclick="scrollToSection('news')" data-i18n="nav_news">最新动态</a>
-        <div class="mobile-lang-switch">
-          <button onclick="switchLang('zh')">中文</button>
-          <button onclick="switchLang('en')">EN</button>
-        </div>
+      <nav class="nav" id="nav">
+        <a href="#news" data-i18n="nav_news">公园资讯</a>
+        <a href="#scenic" data-i18n="nav_scenic">核心景观</a>
+        <a href="#experience" data-i18n="nav_exp">体验活动</a>
+        <a href="#gallery" data-i18n="nav_gallery">精选图库</a>
+        <a href="#transport" data-i18n="nav_transport">交通指南</a>
       </nav>
-      <div class="nav-right">
-        <div class="lang-switch">
-          <button class="active" onclick="switchLang('zh')">中文</button>
-          <button onclick="switchLang('en')">EN</button>
-        </div>
-        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-          <span></span><span></span><span></span>
-        </div>
+      <div class="lang-switch">
+        <button onclick="switchLang('zh')">中文</button>
+        <button onclick="switchLang('en')" class="active">EN</button>
       </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-slide slide1 active" id="heroSlide0" onclick="openLightbox(0)">
-      <div class="slide-bg">
-        <div class="pillars">
-          <div class="pillar p1"></div>
-          <div class="pillar p2"></div>
-          <div class="pillar p3"></div>
-          <div class="pillar p4"></div>
-          <div class="pillar p5"></div>
-          <div class="pillar p6"></div>
-          <div class="pillar p7"></div>
-        </div>
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-slides" id="heroSlides">
+      <div class="hero-slide slide-1 active">
+        <div class="hero-slide-bg"></div>
       </div>
-      <div class="slide-overlay"></div>
-    </div>
-    <div class="hero-slide slide2" id="heroSlide1" onclick="openLightbox(1)">
-      <div class="slide-bg">
-        <div class="pillars">
-          <div class="pillar p3"></div>
-          <div class="pillar p1"></div>
-          <div class="pillar p5"></div>
-          <div class="pillar p2"></div>
-        </div>
+      <div class="hero-slide slide-2">
+        <div class="hero-slide-bg"></div>
       </div>
-      <div class="slide-overlay"></div>
-    </div>
-    <div class="hero-slide slide3" id="heroSlide2" onclick="openLightbox(2)">
-      <div class="slide-bg">
-        <div class="pillars">
-          <div class="pillar p7"></div>
-          <div class="pillar p4"></div>
-          <div class="pillar p6"></div>
-          <div class="pillar p3"></div>
-          <div class="pillar p1"></div>
-        </div>
+      <div class="hero-slide slide-3">
+        <div class="hero-slide-bg"></div>
       </div>
-      <div class="slide-overlay"></div>
     </div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-badge">
-        <span class="badge-dot"></span>
+        <span class="hero-badge-dot"></span>
         <span data-i18n="hero_badge">世界自然遗产 · UNESCO World Heritage</span>
       </div>
-      <h1>
-        <span data-i18n="hero_title">张家界国家森林公园</span>
-        <span class="en-title">Zhangjiajie National Forest Park</span>
+      <h1 class="hero-title">
+        张家界国家森林公园
+        <span class="hero-title-en">ZHANGJIAJIE NATIONAL FOREST PARK</span>
       </h1>
-      <p data-i18n="hero_desc">探索云端石柱，感受自然奇观。中国第一个国家森林公园，世界自然遗产，阿凡达取景地。</p>
-      <div class="hero-actions">
-        <button class="hero-btn primary" onclick="scrollToSection('scenic')" data-i18n="hero_btn1">规划我的行程</button>
-        <button class="hero-btn outline" onclick="openVideoModal()" data-i18n="hero_btn2">观看宣传片</button>
+      <p class="hero-desc" data-i18n="hero_desc">探索云端石柱，感受自然奇观。中国第一个国家森林公园，阿凡达取景地。</p>
+      <div class="hero-btns">
+        <a href="#scenic" class="btn btn-primary" data-i18n="btn_plan">规划行程</a>
+        <button class="btn btn-outline" onclick="openVideo()" data-i18n="btn_video">观看宣传片</button>
       </div>
     </div>
-    <div class="hero-dots">
-      <div class="dot active" onclick="goSlide(0)"></div>
-      <div class="dot" onclick="goSlide(1)"></div>
-      <div class="dot" onclick="goSlide(2)"></div>
-    </div>
-    <div class="scroll-hint">
-      <span data-i18n="scroll_hint">向下滚动</span>
-      <div class="mouse"></div>
+    <div class="hero-dots" id="heroDots">
+      <button class="hero-dot active" data-slide="0"></button>
+      <button class="hero-dot" data-slide="1"></button>
+      <button class="hero-dot" data-slide="2"></button>
     </div>
   </section>
 
-  <!-- INFO BAR -->
-  <div id="info-bar">
+  <!-- ========== INFO BAR ========== -->
+  <section class="info-bar">
     <div class="info-inner">
       <div class="info-item">
         <div class="info-icon">🎫</div>
-        <div class="info-text">
-          <div class="info-label" data-i18n="info_price">门票价格</div>
-          <div class="info-value" data-i18n="info_price_v">¥225 / 4天</div>
+        <div>
+          <div class="info-label" data-i18n="info_ticket">门票价格</div>
+          <div class="info-value">¥225 / <span data-i18n="info_days">4天</span></div>
         </div>
       </div>
       <div class="info-item">
         <div class="info-icon">🕐</div>
-        <div class="info-text">
+        <div>
           <div class="info-label" data-i18n="info_hours">开放时间</div>
-          <div class="info-value" data-i18n="info_hours_v">06:30 - 18:30</div>
+          <div class="info-value">06:30 - 18:30</div>
         </div>
       </div>
       <div class="info-item">
-        <div class="info-icon">🌤</div>
-        <div class="info-text">
-          <div class="info-label" data-i18n="info_weather">今日天气</div>
-          <div class="info-value" data-i18n="info_weather_v">晴 18-26°C</div>
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label" data-i18n="info_location">所在地</div>
+          <div class="info-value">湖南省张家界市</div>
         </div>
       </div>
-
     </div>
-  </div>
+  </section>
 
-  <!-- NEWS -->
+  <!-- ========== NEWS ========== -->
   <section class="section" id="news">
-    <div class="section-header fade-up">
-      <span class="sec-tag" data-i18n="news_tag">PARK NEWS</span>
-      <h2 data-i18n="news_title">公园资讯</h2>
-      <p data-i18n="news_desc">了解张家界最新动态、活动公告与游客须知</p>
+    <div class="section-header">
+      <div class="section-tag" data-i18n="news_tag">PARK NEWS</div>
+      <h2 class="section-title" data-i18n="news_title">公园资讯</h2>
+      <p class="section-desc" data-i18n="news_desc">了解张家界最新动态、活动公告与游客须知</p>
     </div>
-    <div class="news-grid">
-      <div class="news-card fade-up" onclick="window.open('http://www.hnzjj.com/', '_blank')">
-        <div class="news-img" style="background-image:url('assets/images/news-park.jpg');background-size:cover;background-position:center">
-          <div class="news-date"><div class="d-day">15</div><div class="d-month" data-i18n="month_may">五月</div></div>
-          <span class="news-tag" data-i18n="news_tag1">公告</span>
-        </div>
-        <div class="news-body">
-          <h3 data-i18n="news1_title">2026年旺季运营时间调整通知</h3>
-          <p data-i18n="news1_desc">自5月1日起，公园运营时间调整为6:30-18:30，请游客合理安排游览时间。</p>
-          <div class="news-meta"><span data-i18n="news_source">公园管理处</span></div>
-        </div>
-      </div>
-      <div class="news-card fade-up" onclick="window.open('http://www.hnzjj.com/', '_blank')">
-        <div class="news-img" style="background-image:url('assets/images/news-festival.jpg');background-size:cover;background-position:center">
-          <div class="news-date"><div class="d-day">08</div><div class="d-month" data-i18n="month_may">五月</div></div>
-          <span class="news-tag" data-i18n="news_tag2">活动</span>
-        </div>
-        <div class="news-body">
-          <h3 data-i18n="news2_title">第十届张家界国际森林文化节开幕</h3>
-          <p data-i18n="news2_desc">本次文化节将持续一个月，包含摄影大赛、民俗表演、生态科普等系列活动。</p>
-          <div class="news-meta"><span data-i18n="news_source">公园管理处</span></div>
-        </div>
-      </div>
-      <div class="news-card fade-up" onclick="window.open('http://www.hnzjj.com/', '_blank')">
-        <div class="news-img" style="background-image:url('assets/images/news-cableway.jpg');background-size:cover;background-position:center">
-          <div class="news-date"><div class="d-day">01</div><div class="d-month" data-i18n="month_may">五月</div></div>
-          <span class="news-tag" data-i18n="news_tag3">提示</span>
-        </div>
-        <div class="news-body">
-          <h3 data-i18n="news3_title">天子山索道维护完工，恢复正常运营</h3>
-          <p data-i18n="news3_desc">经过一周的检修维护，天子山索道已于5月1日正式恢复运营，欢迎游客乘坐。</p>
-          <div class="news-meta"><span data-i18n="news_source">公园管理处</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="section-more">
-      <a href="#" data-i18n="news_more">查看全部资讯 →</a>
+    <div class="news-grid" id="newsGrid">
+      <!-- News cards will be rendered by JS -->
     </div>
   </section>
 
-  <!-- SCENIC -->
-  <section class="section" id="scenic">
-    <div class="section-header fade-up">
-      <span class="sec-tag" data-i18n="scenic_tag">CORE SCENIC</span>
-      <h2 data-i18n="scenic_title">核心景观</h2>
-      <p data-i18n="scenic_desc">鬼斧神工的自然奇观，每一处都令人叹为观止</p>
-    </div>
-    <div class="scenic-grid">
-      <a href="yuanjiajie.html" class="scenic-card large sc-card1 fade-left">
-        <div class="scenic-overlay">
-          <div class="scenic-tag" data-i18n="sc_card1_tag">UNESCO 世界遗产</div>
-          <h3 data-i18n="sc_card1_title">袁家界 · 阿凡达取景地</h3>
-          <p data-i18n="sc_card1_desc">电影《阿凡达》中潘多拉星球悬浮山的原型——南天一柱所在地，云雾缭绕，宛如仙境。</p>
-          <div class="scenic-more" data-i18n="sc_more">探索更多 →</div>
-        </div>
-      </a>
-      <a href="jinbianxi.html" class="scenic-card sc-card2 fade-right">
-        <div class="scenic-overlay">
-          <div class="scenic-tag" data-i18n="sc_card2_tag">天然氧吧</div>
-          <h3 data-i18n="sc_card2_title">金鞭溪</h3>
-          <p data-i18n="sc_card2_desc">全长7.5公里，溪水清澈，两岸奇峰耸立，是公园内最经典的徒步路线。</p>
-          <div class="scenic-more" data-i18n="sc_more">探索更多 →</div>
-        </div>
-      </a>
-      <a href="tianzishan.html" class="scenic-card sc-card3 fade-right">
-        <div class="scenic-overlay">
-          <div class="scenic-tag" data-i18n="sc_card3_tag">观日圣地</div>
-          <h3 data-i18n="sc_card3_title">天子山</h3>
-          <p data-i18n="sc_card3_desc">海拔1262米，是观赏日出、云海的绝佳地点，有"扩大的盆景，缩小的仙境"之美誉。</p>
-          <div class="scenic-more" data-i18n="sc_more">探索更多 →</div>
-        </div>
-      </a>
+  <!-- ========== SCENIC ========== -->
+  <section id="scenic">
+    <div class="scenic-inner">
+      <div class="section-header">
+        <div class="section-tag" data-i18n="scenic_tag">CORE SCENIC</div>
+        <h2 class="section-title" data-i18n="scenic_title">核心景观</h2>
+        <p class="section-desc" data-i18n="scenic_desc">鬼斧神工的自然奇观，每一处都令人叹为观止</p>
+      </div>
+      <div class="scenic-grid">
+        <a href="yuanjiajie.html" class="scenic-card large fade-up">
+          <div class="scenic-bg scenic-1"></div>
+          <div class="scenic-overlay">
+            <div class="scenic-tag">UNESCO 世界遗产</div>
+            <h3 class="scenic-name">袁家界 · 阿凡达取景地</h3>
+            <p class="scenic-desc">电影《阿凡达》中潘多拉星球悬浮山的原型——南天一柱所在地，云雾缭绕，宛如仙境。</p>
+            <span class="scenic-link">探索更多 →</span>
+          </div>
+        </a>
+        <a href="jinbianxi.html" class="scenic-card fade-up">
+          <div class="scenic-bg scenic-2"></div>
+          <div class="scenic-overlay">
+            <div class="scenic-tag">天然氧吧</div>
+            <h3 class="scenic-name">金鞭溪</h3>
+            <p class="scenic-desc">全长7.5公里，溪水清澈，两岸奇峰耸立，是公园内最经典的徒步路线。</p>
+            <span class="scenic-link">探索更多 →</span>
+          </div>
+        </a>
+        <a href="tianzishan.html" class="scenic-card fade-up">
+          <div class="scenic-bg scenic-3"></div>
+          <div class="scenic-overlay">
+            <div class="scenic-tag">天子御笔</div>
+            <h3 class="scenic-name">天子山</h3>
+            <p class="scenic-desc">因《阿凡达》电影名声大噪，被誉为"缩小的仙境"，日出云海蔚为壮观。</p>
+            <span class="scenic-link">探索更多 →</span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- ========== EXPERIENCE ========== -->
   <section class="section" id="experience">
-    <div class="section-header fade-up">
-      <span class="sec-tag" data-i18n="exp_tag">EXPERIENCE</span>
-      <h2 data-i18n="exp_title">体验活动</h2>
-      <p data-i18n="exp_desc">丰富多彩的户外体验，让每一次游览都独特难忘</p>
+    <div class="section-header">
+      <div class="section-tag" data-i18n="exp_tag">EXPERIENCES</div>
+      <h2 class="section-title" data-i18n="exp_title">体验活动</h2>
+      <p class="section-desc" data-i18n="exp_desc">多种方式感受张家界的独特魅力</p>
     </div>
-    <div class="exp-grid">
-      <div class="exp-card fade-up" onclick="showExpDetail('hiking')">
-        <div class="exp-img"><img src="assets/images/exp-hiking.jpg" alt="徒步探险"></div>
-        <div class="exp-body">
-          <h3 data-i18n="exp1_title">徒步探险</h3>
-          <p data-i18n="exp1_desc">沿金鞭溪、袁家界等多条经典步道，深入探索原始森林的奥秘。</p>
-          <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
-        </div>
+    <div class="exp-grid" id="expGrid">
+      <!-- Experience cards will be rendered by JS -->
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section id="gallery">
+    <div class="gallery-inner">
+      <div class="section-header">
+        <div class="section-tag" data-i18n="gallery_tag">GALLERY</div>
+        <h2 class="section-title" data-i18n="gallery_title">精选图库</h2>
+        <p class="section-desc" data-i18n="gallery_desc">用镜头记录张家界的每一帧绝美瞬间</p>
       </div>
-      <div class="exp-card fade-up" onclick="showExpDetail('photo')">
-        <div class="exp-img"><img src="assets/images/exp-photo.jpg" alt="摄影之旅"></div>
-        <div class="exp-body">
-          <h3 data-i18n="exp2_title">摄影之旅</h3>
-          <p data-i18n="exp2_desc">专业摄影向导带队，捕捉云海、日出、星空等绝美瞬间。</p>
-          <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
-        </div>
+      <div class="gallery-filter">
+        <button class="active" onclick="filterGallery('all', this)" data-i18n="gallery_all">全部</button>
+        <button onclick="filterGallery('scenic', this)" data-i18n="gallery_scenic">风景</button>
+        <button onclick="filterGallery('culture', this)" data-i18n="gallery_culture">人文</button>
+        <button onclick="filterGallery('season', this)" data-i18n="gallery_season">四季</button>
       </div>
-      <div class="exp-card fade-up" onclick="showExpDetail('eco')">
-        <div class="exp-img"><img src="assets/images/exp-eco.jpg" alt="生态研学"></div>
-        <div class="exp-body">
-          <h3 data-i18n="exp3_title">生态研学</h3>
-          <p data-i18n="exp3_desc">针对中小学团体，设计自然科普课程，在游玩中学习生态知识。</p>
-          <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
-        </div>
-      </div>
-      <div class="exp-card fade-up" onclick="showExpDetail('stargaze')">
-        <div class="exp-img"><img src="assets/images/exp-stargaze.jpg" alt="云海星空"></div>
-        <div class="exp-body">
-          <h3 data-i18n="exp4_title">云海星空</h3>
-          <p data-i18n="exp4_desc">入住山顶民宿，夜晚观星，清晨赏云海，感受天人合一的意境。</p>
-          <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
-        </div>
+      <div class="gallery-masonry" id="galleryMasonry">
+        <!-- Gallery items will be rendered by JS -->
       </div>
     </div>
   </section>
 
-  <!-- VIRTUAL TOUR -->
-  <section class="section" id="virtual">
-    <div class="virtual-layout">
-      <div class="virtual-preview fade-left" onclick="openVideoModal()">
-        <div class="mountain-icon">🏔</div>
-        <div class="virtual-play">
-          <div class="virtual-play-btn">▶</div>
-        </div>
-      </div>
-      <div class="virtual-info fade-right">
-        <h3 data-i18n="virtual_title">虚拟游览</h3>
-        <p data-i18n="virtual_desc">足不出户，360° 全景探索张家界壮美风光。支持 VR 设备，身临其境感受石柱云海。</p>
-        <div class="virtual-features">
-          <div class="virtual-feat">
-            <div class="feat-icon">📱</div>
-            <span data-i18n="virtual_f1">手机/平板/电脑全端支持</span>
-          </div>
-          <div class="virtual-feat">
-            <div class="feat-icon">🥽</div>
-            <span data-i18n="virtual_f2">VR 头盔沉浸式体验</span>
-          </div>
-          <div class="virtual-feat">
-            <div class="feat-icon">🗺</div>
-            <span data-i18n="virtual_f3">交互式地图导览</span>
-          </div>
-          <div class="virtual-feat">
-            <div class="feat-icon">🔊</div>
-            <span data-i18n="virtual_f4">专业配音讲解</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="section" id="gallery">
-    <div class="section-header fade-up">
-      <span class="sec-tag" data-i18n="gallery_tag">GALLERY</span>
-      <h2 data-i18n="gallery_title">精选图库</h2>
-      <p data-i18n="gallery_desc">用镜头记录张家界的每一帧绝美瞬间</p>
-    </div>
-    <div class="gallery-filter">
-      <button class="active" onclick="filterGallery('all',this)" data-i18n="gal_all">全部</button>
-      <button onclick="filterGallery('scenic',this)" data-i18n="gal_scenic">风景</button>
-      <button onclick="filterGallery('culture',this)" data-i18n="gal_culture">人文</button>
-      <button onclick="filterGallery('season',this)" data-i18n="gal_season">四季</button>
-    </div>
-    <div class="gallery-masonry" id="galleryMasonry">
-      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(0)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-yuanjiajie.jpg" alt="袁家界晨曦" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal1">袁家界晨曦</span></div>
-      </div>
-      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(1)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-clouds.jpg" alt="云海翻涌" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal2">云海翻涌</span></div>
-      </div>
-      <div class="gallery-item" data-category="season" onclick="openLightboxFromGallery(2)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-autumn.jpg" alt="秋染森林" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal3">秋染森林</span></div>
-      </div>
-      <div class="gallery-item" data-category="culture" onclick="openLightboxFromGallery(3)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-culture.jpg" alt="土家风情" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal4">土家风情</span></div>
-      </div>
-      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(4)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-sunrise.jpg" alt="天子山日出" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal5">天子山日出</span></div>
-      </div>
-      <div class="gallery-item" data-category="season" onclick="openLightboxFromGallery(5)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-winter.jpg" alt="冬雪覆盖" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal6">冬雪覆盖</span></div>
-      </div>
-      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(6)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-stream.jpg" alt="金鞭溪畔" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal7">金鞭溪畔</span></div>
-      </div>
-      <div class="gallery-item" data-category="culture" onclick="openLightboxFromGallery(7)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-village.jpg" alt="山村民宿" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal8">山村民宿</span></div>
-      </div>
-      <div class="gallery-item" data-category="season" onclick="openLightboxFromGallery(8)">
-        <div class="g-img-wrapper"><img src="assets/images/gal-spring.jpg" alt="春花烂漫" class="g-img"></div>
-        <div class="g-overlay"><span class="g-title" data-i18n="gal9">春花烂漫</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TRANSPORT -->
+  <!-- ========== TRANSPORT ========== -->
   <section class="section" id="transport">
-    <div class="section-header fade-up">
-      <span class="sec-tag" data-i18n="trans_tag">GETTING THERE</span>
-      <h2 data-i18n="trans_title">到达方式</h2>
-      <p data-i18n="trans_desc">多种交通方式，轻松抵达张家界国家森林公园</p>
+    <div class="section-header">
+      <div class="section-tag" data-i18n="transport_tag">TRANSPORT</div>
+      <h2 class="section-title" data-i18n="transport_title">交通指南</h2>
+      <p class="section-desc" data-i18n="transport_desc">多种方式轻松抵达张家界国家森林公园</p>
     </div>
     <div class="transport-layout">
       <div class="transport-map">
-        <!-- Google Maps (English) -->
-        <iframe 
-          id="google-map-frame"
-          src="https://www.google.com/maps?q=29.1170,110.4462&hl=en&z=12&output=embed"
-          width="100%" 
-          height="420" 
-          style="border:0;border-radius:16px;display:block;" 
-          allowfullscreen="" 
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        <!-- AMap (Chinese) -->
-        <iframe 
-          id="amap-frame"
-          src="https://uri.amap.com/search?query=张家界国家森林公园&center=110.4462,29.1170&zoom=12&view=map"
-          width="100%" 
-          height="420" 
-          style="border:0;border-radius:16px;display:none;" 
-          loading="lazy">
-        </iframe>
+        <div class="map-placeholder">
+          <div class="map-placeholder-icon">🗺️</div>
+          <div class="map-placeholder-text" data-i18n="map_loading">加载地图中...</div>
+        </div>
       </div>
       <div class="transport-ways">
-        <div class="transport-card fade-up" onclick="showTransportDetail('air')">
+        <div class="transport-card">
           <div class="transport-icon">✈️</div>
-          <div class="transport-info">
-            <h4 data-i18n="trans1_title">飞机</h4>
-            <p data-i18n="trans1_desc">张家界荷花国际机场，已开通国内主要城市航线，机场至公园约40分钟车程。</p>
-            <span class="transport-tag" data-i18n="trans1_tag">推荐 · 最快捷</span>
+          <div>
+            <h4 class="transport-title" data-i18n="transport_plane">飞机</h4>
+            <p class="transport-desc" data-i18n="transport_plane_desc">张家界荷花国际机场，距景区约35公里，有航班往返全国主要城市。</p>
           </div>
         </div>
-        <div class="transport-card fade-up" onclick="showTransportDetail('train')">
-          <div class="transport-icon">🚆</div>
-          <div class="transport-info">
-            <h4 data-i18n="trans2_title">火车/高铁</h4>
-            <p data-i18n="trans2_desc">张家界西站（高铁）已接入全国高铁网，出站后可乘公交或出租车前往公园。</p>
-            <span class="transport-tag" data-i18n="trans2_tag">经济实惠</span>
+        <div class="transport-card">
+          <div class="transport-icon">🚄</div>
+          <div>
+            <h4 class="transport-title" data-i18n="transport_train">火车/高铁</h4>
+            <p class="transport-desc" data-i18n="transport_train_desc">张家界站和张家界西站（高铁）均有到达，高铁站距景区约20公里。</p>
           </div>
         </div>
-        <div class="transport-card fade-up" onclick="showTransportDetail('bus')">
+        <div class="transport-card">
           <div class="transport-icon">🚌</div>
-          <div class="transport-info">
-            <h4 data-i18n="trans3_title">旅游巴士</h4>
-            <p data-i18n="trans3_desc">张家界市中心有直达公园的旅游专线巴士，约30分钟一班，票价15元。</p>
-            <span class="transport-tag" data-i18n="trans3_tag">性价比高</span>
+          <div>
+            <h4 class="transport-title" data-i18n="transport_bus">旅游巴士</h4>
+            <p class="transport-desc" data-i18n="transport_bus_desc">张家界汽车站有直达景区的大巴，车程约40分钟，票价约15元。</p>
           </div>
         </div>
-        <div class="transport-card fade-up" onclick="showTransportDetail('car')">
+        <div class="transport-card">
           <div class="transport-icon">🚗</div>
-          <div class="transport-info">
-            <h4 data-i18n="trans4_title">自驾</h4>
-            <p data-i18n="trans4_desc">公园设有东门、南门两大停车场，合计车位2000+，旺季建议提前到达。</p>
-            <span class="transport-tag" data-i18n="trans4_tag">自由灵活</span>
+          <div>
+            <h4 class="transport-title" data-i18n="transport_car">自驾</h4>
+            <p class="transport-desc" data-i18n="transport_car_desc">导航至张家界国家森林公园门票站，景区设有多处停车场。</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
-    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
-    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
-    <div class="lightbox-title" id="lightboxTitle"></div>
-  </div>
-
-  <!-- VIDEO MODAL -->
-  <div class="video-modal" id="videoModal">
-    <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
-    <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
-      <source src="assets/videos/promotional.mp4" type="video/mp4">
-      <!-- 视频加载失败时显示占位符 -->
-      您的浏览器不支持视频播放
-    </video>
-    <!-- 视频加载失败时的备用显示 -->
-    <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
-      <div style="font-size:48px;opacity:0.6;">🎬</div>
-      <div style="text-align:center;color:#fff;">
-        <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 宣传片</p>
-        <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">请将宣传视频命名为 promotional.mp4 放入 assets/videos/ 目录</p>
-        <p style="font-size:11px;opacity:0.4;">推荐尺寸: 1920×1080, 格式: MP4 (H.264)</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN PANEL (hidden, accessible via keyboard shortcut) -->
-  <div class="admin-overlay" id="adminOverlay">
-    <div class="admin-panel">
-      <div class="admin-header">
-        <h3>📸 内容管理后台</h3>
-        <button class="admin-close" onclick="closeAdmin()">✕</button>
-      </div>
-      <div class="admin-body">
-        <div class="admin-tip">
-          <strong>💡 使用提示</strong>
-          输入 GitHub PAT Token 上传图片到仓库。请确保 Token 有 <code>repo</code> 权限。
-        </div>
-
-        <div class="admin-stat">
-          <div class="admin-stat-item">
-            <div class="stat-num" id="statHero">0</div>
-            <div class="stat-label">Hero 幻灯片</div>
-          </div>
-          <div class="admin-stat-item">
-            <div class="stat-num" id="statGallery">0</div>
-            <div class="stat-label">图库图片</div>
-          </div>
-        </div>
-
-        <!-- Admin Tabs -->
-        <div class="admin-tabs">
-          <button class="admin-tab active" onclick="switchAdminTab('auth')">🔐 授权</button>
-          <button class="admin-tab" onclick="switchAdminTab('hero')">🖼 Hero</button>
-          <button class="admin-tab" onclick="switchAdminTab('gallery')">🎨 图库</button>
-          <button class="admin-tab" onclick="switchAdminTab('video')">🎬 视频</button>
-          <button class="admin-tab" onclick="switchAdminTab('text')">📝 文案</button>
-        </div>
-
-        <!-- Tab: 授权 -->
-        <div class="admin-tab-content active" id="tab-auth">
-          <div class="admin-section">
-            <div class="admin-field">
-              <label>PAT Token（仅上传用）</label>
-              <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
-            </div>
-            <div class="admin-field">
-              <label>仓库分支</label>
-              <input type="text" id="ghBranch" value="main" placeholder="main" />
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="logo-icon">🏔</div>
+            <div class="logo-text">
+              <span class="logo-cn">张家界国家森林公园</span>
+              <span class="logo-en">ZHANGJIAJIE PARK</span>
             </div>
           </div>
-        </div>
-
-        <!-- Tab: Hero -->
-        <div class="admin-tab-content" id="tab-hero">
-          <div class="admin-section">
-            <div class="admin-upload" id="heroUpload" onclick="document.getElementById('heroInput').click()">
-              <input type="file" id="heroInput" accept="image/*" multiple onchange="handleHeroUpload(this)" />
-              <div class="admin-upload-icon">📷</div>
-              <div class="admin-upload-text">点击上传 Hero 图片<br/><span>支持 JPG/PNG/WebP</span></div>
-            </div>
-            <div class="admin-preview" id="heroPreview"></div>
+          <p class="footer-desc" data-i18n="footer_desc">世界自然遗产、世界地质公园、国家AAAAA级旅游景区。电影《阿凡达》取景地，中国第一个国家森林公园。</p>
+          <div class="footer-social">
+            <a href="#" aria-label="微信">💬</a>
+            <a href="#" aria-label="微博">📱</a>
+            <a href="#" aria-label="抖音">🎵</a>
           </div>
         </div>
-
-        <!-- Tab: 图库 -->
-        <div class="admin-tab-content" id="tab-gallery">
-          <div class="admin-section">
-            <div class="admin-upload" id="galleryUpload" onclick="document.getElementById('galleryInput').click()">
-              <input type="file" id="galleryInput" accept="image/*" multiple onchange="handleGalleryUpload(this)" />
-              <div class="admin-upload-icon">🖼</div>
-              <div class="admin-upload-text">点击上传图库图片<br/><span>支持 JPG/PNG/WebP</span></div>
-            </div>
-            <div class="admin-preview" id="galleryPreview"></div>
-          </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_quick">快速链接</h4>
+          <ul>
+            <li><a href="#news" data-i18n="nav_news">公园资讯</a></li>
+            <li><a href="#scenic" data-i18n="nav_scenic">核心景观</a></li>
+            <li><a href="#experience" data-i18n="nav_exp">体验活动</a></li>
+            <li><a href="#gallery" data-i18n="nav_gallery">精选图库</a></li>
+          </ul>
         </div>
-
-        <!-- Tab: 视频 -->
-        <div class="admin-tab-content" id="tab-video">
-          <div class="admin-section">
-            <div class="admin-tip" style="background:#fffbeb;border-color:#fbbf24;">
-              <strong>💡 视频要求</strong>
-              <p style="margin-top:6px;font-size:12px;">推荐规格：MP4 格式、H.264 编码、1920×1080 分辨率<br/>推荐时长：30秒-3分钟<br/>视频文件请命名为 <code>promotional.mp4</code> 放入 <code>assets/videos/</code> 目录</p>
-            </div>
-            <div class="admin-field" style="margin-top:16px;">
-              <label>视频标题</label>
-              <input type="text" id="videoTitle" placeholder="如：张家界宣传片" />
-            </div>
-            <div class="admin-upload" onclick="document.getElementById('videoInput').click()">
-              <input type="file" id="videoInput" accept="video/*" onchange="handleVideoUpload(this)" />
-              <div class="admin-upload-icon">🎬</div>
-              <div class="admin-upload-text">点击上传视频<br/><span>支持 MP4/WebM，推荐 1080p</span></div>
-            </div>
-            <div id="videoUploadStatus" class="admin-msg"></div>
-          </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_service">服务支持</h4>
+          <ul>
+            <li><a href="#transport" data-i18n="nav_transport">交通指南</a></li>
+            <li><a href="#" data-i18n="footer_faq">常见问题</a></li>
+            <li><a href="#" data-i18n="footer_contact">联系我们</a></li>
+            <li><a href="#" data-i18n="footer_feedback">意见反馈</a></li>
+          </ul>
         </div>
-
-        <!-- Tab: 文案 -->
-        <div class="admin-tab-content" id="tab-text">
-          <div class="admin-section">
-            <div class="admin-field">
-              <label>公告内容（第一段）</label>
-              <textarea id="cfgAnnounce1" placeholder="公告内容第一段..."></textarea>
-            </div>
-            <div class="admin-field">
-              <label>公告内容（第二段）</label>
-              <textarea id="cfgAnnounce2" placeholder="公告内容第二段..."></textarea>
-            </div>
-            <button class="admin-btn primary" onclick="savePageText()">保存文案</button>
-          </div>
-        </div>
-
-        <div id="adminMsg" class="admin-msg"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer id="footer">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="brand-name" data-i18n="brand_cn">张家界国家森林公园</div>
-        <p class="brand-desc" data-i18n="footer_desc">世界自然遗产、世界地质公园、中国第一个国家森林公园。总面积4810公顷，以独特的石英砂岩峰林地貌著称。</p>
-        <div class="footer-social">
-          <a href="#" title="微信">💬</a>
-          <a href="#" title="微博">📱</a>
-          <a href="#" title="抖音">🎵</a>
-          <a href="#" title="小红书">📕</a>
+        <div class="footer-col">
+          <h4 data-i18n="footer_info">景区信息</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer_ticket">门票预约</a></li>
+            <li><a href="#" data-i18n="footer_notice">游览须知</a></li>
+            <li><a href="#" data-i18n="footer_guide">导游服务</a></li>
+            <li><a href="#" data-i18n="footer_shop">官方商城</a></li>
+          </ul>
         </div>
       </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer_col1">快速导航</h4>
-        <ul>
-          <li><a href="#" data-i18n="nav_about">关于公园</a></li>
-          <li><a href="#" data-i18n="nav_plan">规划游览</a></li>
-          <li><a href="#" data-i18n="nav_exp">体验活动</a></li>
-          <li><a href="#" data-i18n="nav_explore">探索发现</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer_col2">服务支持</h4>
-        <ul>
-          <li><a href="#" data-i18n="footer_faq">常见问题</a></li>
-          <li><a href="#" data-i18n="footer_contact">联系我们</a></li>
-          <li><a href="#" data-i18n="footer_safety">安全须知</a></li>
-          <li><a href="#" data-i18n="footer_sitemap">网站地图</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 data-i18n="footer_col3">订阅资讯</h4>
-        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px" data-i18n="footer_subscribe">订阅获取最新活动与优惠信息</p>
-        <div class="footer-subscribe">
-          <input type="email" id="subscribeEmail" placeholder="your@email.com" data-i18n-placeholder="footer_email_placeholder" />
-          <button onclick="handleSubscribe()" data-i18n="footer_subscribe_btn">订阅</button>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2024 张家界国家森林公园 版权所有</p>
+        <div class="footer-links">
+          <a href="#" data-i18n="footer_privacy">隐私政策</a>
+          <a href="#" data-i18n="footer_terms">使用条款</a>
+          <a href="#" data-i18n="footer_icp">湘ICP备XXXXXXXX号</a>
         </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 张家界国家森林公园 &nbsp;|&nbsp; <span data-i18n="footer_icp">湘ICP备XXXXXXXX号</span></span>
-      <div>
-        <a href="#" data-i18n="footer_privacy">隐私政策</a>
-        <a href="#" data-i18n="footer_terms">使用条款</a>
       </div>
     </div>
   </footer>
 
-  <!-- JAVASCRIPT -->
+  <!-- ========== LIGHTBOX ========== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="lightboxPrev()">‹</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="lightboxNext()">›</button>
+  </div>
+
   <script>
-    // ===== i18n 双语字典 =====
-    const i18n = {
-      zh: {
-        announce_title:'公园公告', announce_sub:'ANNOUNCEMENT', announce_tag:'最新通知',
-        announce_p1:'张家界国家森林公园2026年旺季运营时间调整为6:30-18:30，请游客合理安排行程。',
-        announce_p2:'天子山索道、百龙天梯正常运营，建议提前预约。',
-        announce_close:'暂不查看', announce_ok:'我知道了',
-        brand_cn:'张家界国家森林公园', hero_badge:'世界自然遗产 · UNESCO World Heritage',
-        hero_title:'张家界国家森林公园', hero_desc:'探索云端石柱，感受自然奇观。中国第一个国家森林公园，世界自然遗产，阿凡达取景地。',
-        hero_btn1:'规划我的行程', hero_btn2:'观看宣传片', scroll_hint:'向下滚动',
-        info_price:'门票价格', info_price_v:'¥225 / 4天', info_hours:'开放时间',
-        info_hours_v:'06:30 - 18:30', info_weather:'今日天气', info_weather_v:'晴 18-26°C',
-        news_tag:'PARK NEWS', news_title:'公园资讯', news_desc:'了解张家界最新动态、活动公告与游客须知',
-        news_tag1:'公告', news1_title:'2026年旺季运营时间调整通知', news1_desc:'自5月1日起，公园运营时间调整为6:30-18:30，请游客合理安排游览时间。',
-        news_tag2:'活动', news2_title:'第十届张家界国际森林文化节开幕', news2_desc:'本次文化节将持续一个月，包含摄影大赛、民俗表演、生态科普等系列活动。',
-        news_tag3:'提示', news3_title:'天子山索道维护完工，恢复正常运营', news3_desc:'经过一周的检修维护，天子山索道已于5月1日正式恢复运营，欢迎游客乘坐。',
-        news_source:'公园管理处', news_more:'查看全部资讯 →', month_may:'五月',
-        scenic_tag:'CORE SCENIC', scenic_title:'核心景观', scenic_desc:'鬼斧神工的自然奇观，每一处都令人叹为观止',
-        sc_card1_tag:'UNESCO 世界遗产', sc_card1_title:'袁家界 · 阿凡达取景地', sc_card1_desc:'电影《阿凡达》中潘多拉星球悬浮山的原型——南天一柱所在地，云雾缭绕，宛如仙境。',
-        sc_card2_tag:'天然氧吧', sc_card2_title:'金鞭溪', sc_card2_desc:'全长7.5公里，溪水清澈，两岸奇峰耸立，是公园内最经典的徒步路线。',
-        sc_card3_tag:'观日圣地', sc_card3_title:'天子山', sc_card3_desc:'海拔1262米，是观赏日出、云海的绝佳地点，有"扩大的盆景，缩小的仙境"之美誉。',
-        sc_more:'探索更多 →', exp_tag:'EXPERIENCE', exp_title:'体验活动', exp_desc:'丰富多彩的户外体验，让每一次游览都独特难忘',
-        exp1_title:'徒步探险', exp1_desc:'沿金鞭溪、袁家界等多条经典步道，深入探索原始森林的奥秘。',
-        exp2_title:'摄影之旅', exp2_desc:'专业摄影向导带队，捕捉云海、日出、星空等绝美瞬间。',
-        exp3_title:'生态研学', exp3_desc:'针对中小学团体，设计自然科普课程，在游玩中学习生态知识。',
-        exp4_title:'云海星空', exp4_desc:'入住山顶民宿，夜晚观星，清晨赏云海，感受天人合一的意境。',
-        exp_more:'了解详情 →', virtual_title:'虚拟游览', virtual_desc:'足不出户，360° 全景探索张家界壮美风光。支持 VR 设备，身临其境感受石柱云海。',
-        virtual_f1:'手机/平板/电脑全端支持', virtual_f2:'VR 头盔沉浸式体验', virtual_f3:'交互式地图导览', virtual_f4:'专业配音讲解',
-        gallery_tag:'GALLERY', gallery_title:'精选图库', gallery_desc:'用镜头记录张家界的每一帧绝美瞬间',
-        gal_all:'全部', gal_scenic:'风景', gal_culture:'人文', gal_season:'四季',
-        gal1:'袁家界晨曦', gal2:'云海翻涌', gal3:'秋染森林', gal4:'土家风情', gal5:'天子山日出', gal6:'冬雪覆盖', gal7:'金鞭溪畔', gal8:'山村民宿', gal9:'春花烂漫',
-        trans_tag:'GETTING THERE', trans_title:'到达方式', trans_desc:'多种交通方式，轻松抵达张家界国家森林公园',
-        trans1_title:'飞机', trans1_desc:'张家界荷花国际机场，已开通国内主要城市航线，机场至公园约40分钟车程。', trans1_tag:'推荐 · 最快捷',
-        trans2_title:'火车/高铁', trans2_desc:'张家界西站（高铁）已接入全国高铁网，出站后可乘公交或出租车前往公园。', trans2_tag:'经济实惠',
-        trans3_title:'旅游巴士', trans3_desc:'张家界市中心有直达公园的旅游专线巴士，约30分钟一班，票价15元。', trans3_tag:'性价比高',
-        trans4_title:'自驾', trans4_desc:'公园设有东门、南门两大停车场，合计车位2000+，旺季建议提前到达。', trans4_tag:'自由灵活',
-        footer_desc:'世界自然遗产、世界地质公园、中国第一个国家森林公园。总面积4810公顷，以独特的石英砂岩峰林地貌著称。',
-        footer_col1:'快速导航', footer_col2:'服务支持', footer_col3:'订阅资讯',
-        footer_faq:'常见问题', footer_contact:'联系我们', footer_safety:'安全须知', footer_sitemap:'网站地图',
-        footer_subscribe:'订阅获取最新活动与优惠信息', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'订阅',
-        footer_icp:'湘ICP备XXXXXXXX号', footer_privacy:'隐私政策', footer_terms:'使用条款',
-        nav_about:'关于公园', nav_plan:'规划游览', nav_exp:'体验活动', nav_explore:'探索发现', nav_ticket:'预订中心', nav_news:'最新动态',
-        map_label:'📍 张家界国家森林公园区位图',
-        admin_title:'内容管理后台', admin_tip:'💡 使用提示：输入 GitHub PAT Token 上传图片到仓库。', admin_gh_auth:'🔐 GitHub 授权',
-        admin_hero:'🖼 Hero 幻灯片管理', admin_gallery:'🎨 图库管理', admin_video:'🎬 视频管理',
-        admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传'
-      },
+    /* ========== APP STATE ========== */
+    var AppState = {
+      currentLang: 'en',
+      heroSlider: null,
+      currentSlide: 0
+    };
+
+    /* ========== I18N DATA ========== */
+    var i18n = {
       en: {
-        announce_title:'Park Announcement', announce_sub:'ANNOUNCEMENT', announce_tag:'Latest Notice',
-        announce_p1:'Zhangjiajie National Forest Park 2026 peak season hours: 6:30-18:30. Please plan your visit accordingly.',
-        announce_p2:'Tianzi Mountain Cableway and Bailong Elevator are operating normally. Advance booking recommended.',
-        announce_close:'Close', announce_ok:'Got it',
-        brand_cn:'Zhangjiajie National Forest Park', hero_badge:'UNESCO World Heritage Site',
-        hero_title:'Zhangjiajie National Forest Park', hero_desc:'Explore cloud-piercing pillars and experience natural wonders. China first national forest park, a UNESCO World Heritage Site and the filming location of Avatar.',
-        hero_btn1:'Plan My Trip', hero_btn2:'Watch Promo', scroll_hint:'Scroll Down',
-        info_price:'Ticket Price', info_price_v:'¥225 / 4 Days', info_hours:'Opening Hours',
-        info_hours_v:'06:30 - 18:30', info_weather:'Weather Today', info_weather_v:'Sunny 18-26C',
-        news_tag:'PARK NEWS', news_title:'Park News', news_desc:'Stay updated with the latest news, events and notices',
-        news_tag1:'Notice', news1_title:'2026 Peak Season Hours Adjustment', news1_desc:'From May 1, park hours are adjusted to 6:30-18:30. Please plan your visit accordingly.',
-        news_tag2:'Event', news2_title:'10th Zhangjiajie Intl Forest Culture Festival', news2_desc:'Month-long festival featuring photo contest, folk performances, and eco-education events.',
-        news_tag3:'Tip', news3_title:'Tianzi Cableway Resumes Operation', news3_desc:'After one week of maintenance, Tianzi Mountain Cableway resumed full operation on May 1.',
-        news_source:'Park Management', news_more:'View All News →', month_may:'May',
-        scenic_tag:'CORE SCENIC', scenic_title:'Core Scenic Areas', scenic_desc:'Breathtaking natural wonders that leave every visitor in awe',
-        sc_card1_tag:'UNESCO World Heritage', sc_card1_title:'Yuanjiajie · Avatar Hallelujah Mountain', sc_card1_desc:'The real-world prototype of Pandora floating mountains from Avatar. Misty and otherworldly.',
-        sc_card2_tag:'Natural Oxygen Bar', sc_card2_title:'Golden Whip Stream', sc_card2_desc:'7.5km of crystal-clear stream winding through towering quartz sandstone pillars. A classic hike.',
-        sc_card3_tag:'Sunrise Viewpoint', sc_card3_title:'Tianzi Mountain', sc_card3_desc:'At 1,262m, the premier spot for sunrise and sea-of-clouds views. Known as "expanded bonsai, miniature fairyland".',
-        sc_more:'Explore More →', exp_tag:'EXPERIENCE', exp_title:'Experiences', exp_desc:'Diverse outdoor activities for an unforgettable visit',
-        exp1_title:'Hiking Adventure', exp1_desc:'Explore primitive forests along classic trails including Golden Whip Stream and Yuanjiajie.',
-        exp2_title:'Photography Tour', exp2_desc:'Pro photographer guides help you capture sea-of-clouds, sunrise, and starry skies.',
-        exp3_title:'Eco-Education', exp3_desc:'Designed for school groups, with nature courses that teach ecology through play.',
-        exp4_title:'Cloud Sea & Stars', exp4_desc:'Stay at a mountaintop guesthouse, stargaze at night, and watch the cloud sea at dawn.',
-        exp_more:'Learn More →', virtual_title:'Virtual Tour', virtual_desc:'Explore Zhangjiajie majestic scenery in 360° panorama from home. VR headset supported.',
-        virtual_f1:'Mobile / Tablet / Desktop', virtual_f2:'VR Headset Immersive', virtual_f3:'Interactive Map Tour', virtual_f4:'Professional Audio Guide',
-        gallery_tag:'GALLERY', gallery_title:'Photo Gallery', gallery_desc:'Capturing every breathtaking moment of Zhangjiajie',
-        gal_all:'All', gal_scenic:'Scenery', gal_culture:'Culture', gal_season:'Seasons',
-        gal1:'Yuanjiajie Dawn', gal2:'Sea of Clouds', gal3:'Autumn Forest', gal4:'Tujia Culture', gal5:'Tianzi Sunrise', gal6:'Winter Snow', gal7:'Golden Whip Stream', gal8:'Mountain Lodge', gal9:'Spring Blossoms',
-        trans_tag:'GETTING THERE', trans_title:'How to Get Here', trans_desc:'Multiple transportation options to reach Zhangjiajie National Forest Park',
-        trans1_title:'By Air', trans1_desc:'Zhangjiajie Hehua International Airport serves major Chinese cities. ~40min drive to the park.', trans1_tag:'Recommended · Fastest',
-        trans2_title:'By Train / HSR', trans2_desc:'Zhangjiajie West Station (HSR) connects to China high-speed rail network. Take a bus or taxi to the park.', trans2_tag:'Budget Friendly',
-        trans3_title:'Tour Bus', trans3_desc:'Direct tourist buses run from downtown Zhangjiajie to the park, every ~30 min. Fare: ¥15.', trans3_tag:'Great Value',
-        trans4_title:'Self-Driving', trans4_desc:'East Gate and South Gate parking lots offer 2000+ spaces. Arrive early during peak season.', trans4_tag:'Flexible & Free',
-        footer_desc:'UNESCO World Heritage Site, UNESCO Global Geopark, China first national forest park. 4,810 hectares of quartz sandstone pillar landscapes.',
-        footer_col1:'Quick Links', footer_col2:'Support', footer_col3:'Subscribe',
-        footer_faq:'FAQ', footer_contact:'Contact Us', footer_safety:'Safety Info', footer_sitemap:'Sitemap',
-        footer_subscribe:'Subscribe for latest events and offers', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'Subscribe',
-        footer_icp:'Xiang ICP XXXXXXXX', footer_privacy:'Privacy Policy', footer_terms:'Terms of Use',
-        nav_about:'About', nav_plan:'Plan Visit', nav_exp:'Experiences', nav_explore:'Explore', nav_ticket:'Book Now', nav_news:'News',
-        map_label:'📍 Zhangjiajie National Forest Park Location',
-        admin_title:'Content Management', admin_tip:'💡 Enter your GitHub PAT Token to upload images to the repository.',
-        admin_gh_auth:'🔐 GitHub Authorization',
-        admin_hero:'🖼 Hero Slides Management', admin_gallery:'🎨 Gallery Management', admin_video:'🎬 Video Management',
-        admin_text:'📝 Page Text', admin_save:'Save Text', admin_upload:'Click to upload'
+        nav_news: 'Park News',
+        nav_scenic: 'Core Scenic',
+        nav_exp: 'Experiences',
+        nav_gallery: 'Gallery',
+        nav_transport: 'Transport',
+        hero_badge: 'World Natural Heritage · UNESCO',
+        hero_desc: 'Explore the pillar-like peaks and experience natural wonders. China\'s first national forest park, filming location of Avatar.',
+        btn_plan: 'Plan Your Trip',
+        btn_video: 'Watch Video',
+        info_ticket: 'Ticket Price',
+        info_days: '4 Days',
+        info_hours: 'Opening Hours',
+        info_location: 'Location',
+        news_tag: 'PARK NEWS',
+        news_title: 'Park News',
+        news_desc: 'Stay updated with the latest news, events and visitor information',
+        scenic_tag: 'CORE SCENIC',
+        scenic_title: 'Core Scenic Spots',
+        scenic_desc: 'Mother Nature\'s masterpieces that will leave you in awe',
+        exp_tag: 'EXPERIENCES',
+        exp_title: 'Experiences',
+        exp_desc: 'Explore Zhangjiajie in many unique ways',
+        gallery_tag: 'GALLERY',
+        gallery_title: 'Photo Gallery',
+        gallery_desc: 'Capturing the stunning beauty of Zhangjiajie',
+        gallery_all: 'All',
+        gallery_scenic: 'Scenic',
+        gallery_culture: 'Culture',
+        gallery_season: 'Season',
+        transport_tag: 'TRANSPORT',
+        transport_title: 'Getting Here',
+        transport_desc: 'Multiple ways to reach Zhangjiajie National Forest Park',
+        transport_plane: 'By Plane',
+        transport_plane_desc: 'Zhangjiajie Hehua International Airport, about 35km from the park, with flights to major Chinese cities.',
+        transport_train: 'By Train',
+        transport_train_desc: 'Zhangjiajie Station and Zhangjiajie West Station (high-speed) are available, about 20km from the park.',
+        transport_bus: 'By Bus',
+        transport_bus_desc: 'Direct buses from Zhangjiajie Bus Station, about 40 minutes, approximately ¥15.',
+        transport_car: 'By Car',
+        transport_car_desc: 'Navigate to Zhangjiajie National Forest Park Ticket Station, parking available.',
+        map_loading: 'Loading map...',
+        footer_desc: 'World Natural Heritage, World Geopark, National AAAAA Tourist Attraction. Filming location of Avatar, China\'s first national forest park.',
+        footer_quick: 'Quick Links',
+        footer_service: 'Support',
+        footer_contact: 'Contact Us',
+        footer_feedback: 'Feedback',
+        footer_faq: 'FAQ',
+        footer_info: 'Park Info',
+        footer_ticket: 'Book Tickets',
+        footer_notice: 'Visitor Guide',
+        footer_guide: 'Guided Tours',
+        footer_shop: 'Official Shop',
+        footer_privacy: 'Privacy Policy',
+        footer_terms: 'Terms of Use',
+        footer_icp: 'ICP 00000000-X'
+      },
+      zh: {
+        nav_news: '公园资讯',
+        nav_scenic: '核心景观',
+        nav_exp: '体验活动',
+        nav_gallery: '精选图库',
+        nav_transport: '交通指南',
+        hero_badge: '世界自然遗产 · UNESCO 世界遗产',
+        hero_desc: '探索云端石柱，感受自然奇观。中国第一个国家森林公园，阿凡达取景地。',
+        btn_plan: '规划行程',
+        btn_video: '观看宣传片',
+        info_ticket: '门票价格',
+        info_days: '4天',
+        info_hours: '开放时间',
+        info_location: '所在地',
+        news_tag: '公园资讯',
+        news_title: '公园资讯',
+        news_desc: '了解张家界最新动态、活动公告与游客须知',
+        scenic_tag: '核心景观',
+        scenic_title: '核心景观',
+        scenic_desc: '鬼斧神工的自然奇观，每一处都令人叹为观止',
+        exp_tag: '体验活动',
+        exp_title: '体验活动',
+        exp_desc: '多种方式感受张家界的独特魅力',
+        gallery_tag: '精选图库',
+        gallery_title: '精选图库',
+        gallery_desc: '用镜头记录张家界的每一帧绝美瞬间',
+        gallery_all: '全部',
+        gallery_scenic: '风景',
+        gallery_culture: '人文',
+        gallery_season: '四季',
+        transport_tag: '交通指南',
+        transport_title: '交通指南',
+        transport_desc: '多种方式轻松抵达张家界国家森林公园',
+        transport_plane: '飞机',
+        transport_plane_desc: '张家界荷花国际机场，距景区约35公里，有航班往返全国主要城市。',
+        transport_train: '火车/高铁',
+        transport_train_desc: '张家界站和张家界西站（高铁）均有到达，高铁站距景区约20公里。',
+        transport_bus: '旅游巴士',
+        transport_bus_desc: '张家界汽车站有直达景区的大巴，车程约40分钟，票价约15元。',
+        transport_car: '自驾',
+        transport_car_desc: '导航至张家界国家森林公园门票站，景区设有多处停车场。',
+        map_loading: '加载地图中...',
+        footer_desc: '世界自然遗产、世界地质公园、国家AAAAA级旅游景区。电影《阿凡达》取景地，中国第一个国家森林公园。',
+        footer_quick: '快速链接',
+        footer_service: '服务支持',
+        footer_contact: '联系我们',
+        footer_feedback: '意见反馈',
+        footer_faq: '常见问题',
+        footer_info: '景区信息',
+        footer_ticket: '门票预约',
+        footer_notice: '游览须知',
+        footer_guide: '导游服务',
+        footer_shop: '官方商城',
+        footer_privacy: '隐私政策',
+        footer_terms: '使用条款',
+        footer_icp: '湘ICP备XXXXXXXX号'
       }
     };
 
-    let currentLang = 'en';
-
-    function switchLang(lang) {
-      currentLang = lang;
-      document.querySelectorAll('.lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
-      document.querySelectorAll('.mobile-lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
-      if(lang === 'zh') {
-        document.querySelector('.lang-switch button:first-child').classList.add('active');
-        document.querySelector('.mobile-lang-switch button:first-child').classList.add('active');
-      } else {
-        document.querySelector('.lang-switch button:last-child').classList.add('active');
-        document.querySelector('.mobile-lang-switch button:last-child').classList.add('active');
+    /* ========== DATA ========== */
+    var newsData = [
+      {
+        date: { day: '15', month: 'MAY' },
+        tag: 'announce',
+        tagText: '公告',
+        title: '2026年旺季运营时间调整通知',
+        titleEn: '2026 Peak Season Hours Adjustment',
+        desc: '自5月1日起，公园运营时间调整为6:30-18:30，请游客合理安排游览时间。',
+        descEn: 'From May 1st, park hours adjust to 6:30-18:30. Please plan your visit accordingly.',
+        img: 'assets/images/news-park.jpg'
+      },
+      {
+        date: { day: '08', month: 'MAY' },
+        tag: 'event',
+        tagText: '活动',
+        title: '第十届张家界国际森林文化节开幕',
+        titleEn: '10th Zhangjiajie International Forest Cultural Festival',
+        desc: '本次文化节将持续一个月，包含摄影大赛、民俗表演、生态科普等系列活动。',
+        descEn: 'The festival runs for one month, featuring photo contests, folk performances, and eco-education.',
+        img: 'assets/images/news-festival.jpg'
+      },
+      {
+        date: { day: '01', month: 'MAY' },
+        tag: 'notice',
+        tagText: '提示',
+        title: '天子山索道维护完工，恢复正常运营',
+        titleEn: 'Tianzishan Cableway Resumes Operations',
+        desc: '经过一周的检修维护，天子山索道已于5月1日正式恢复运营，欢迎游客乘坐。',
+        descEn: 'After a week of maintenance, the Tianzishan Cableway officially resumed operations on May 1st.',
+        img: 'assets/images/news-cableway.jpg'
       }
-      document.querySelectorAll('[data-i18n]').forEach(function(el){
-        var key = el.getAttribute('data-i18n');
-        if(i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
-      });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
-        var key = el.getAttribute('data-i18n-placeholder');
-        if(i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
-      });
-      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-      // Switch map based on language
-      document.getElementById('google-map-frame').style.display = lang === 'en' ? 'block' : 'none';
-      document.getElementById('amap-frame').style.display = lang === 'zh' ? 'block' : 'none';
-    }
-
-    // ===== HERO SLIDER =====
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.hero-dots .dot');
-    function goSlide(n) {
-      slides[currentSlide].classList.remove('active');
-      dots[currentSlide].classList.remove('active');
-      currentSlide = (n + slides.length) % slides.length;
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
-    }
-    setInterval(function(){ goSlide(currentSlide + 1); }, 5000);
-
-    // ===== HEADER SCROLL =====
-    window.addEventListener('scroll', function(){
-      var header = document.getElementById('header');
-      if(window.scrollY > 80) header.classList.add('scrolled');
-      else { header.classList.remove('scrolled'); header.classList.add('top'); }
-    });
-
-    // ===== MOBILE MENU =====
-    function toggleMenu(){
-      document.getElementById('navLinks').classList.toggle('open');
-    }
-
-    // ===== ANNOUNCEMENT MODAL =====
-    function closeAnnounce(){
-      document.getElementById('announceModal').classList.remove('open');
-    }
-    window.addEventListener('load', function(){
-      setTimeout(function(){ document.getElementById('announceModal').classList.add('open'); }, 1500);
-    });
-
-    // ===== SCROLL FADE-UP ANIMATION =====
-    var fadeEls = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
-    if('IntersectionObserver' in window){
-      var observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){ entry.target.classList.add('visible'); }
-        });
-      }, { threshold:0.12 });
-      fadeEls.forEach(function(el){ observer.observe(el); });
-    } else {
-      fadeEls.forEach(function(el){ el.classList.add('visible'); });
-    }
-
-    // ===== GALLERY FILTER =====
-    function filterGallery(cat, btn){
-      document.querySelectorAll('.gallery-filter button').forEach(function(b){ b.classList.remove('active'); });
-      if(btn) btn.classList.add('active');
-      document.querySelectorAll('.gallery-item').forEach(function(item){
-        if(cat === 'all' || item.dataset.category === cat){ item.style.display = ''; }
-        else { item.style.display = 'none'; }
-      });
-    }
-
-    // ===== COUNTER ANIMATION =====
-    function animateCounters(){
-      document.querySelectorAll('.counter').forEach(function(el){
-        var target = parseInt(el.dataset.target);
-        var current = 0;
-        var step = Math.ceil(target / 60);
-        var timer = setInterval(function(){
-          current += step;
-          if(current >= target){ current = target; clearInterval(timer); }
-          el.textContent = current.toLocaleString();
-        }, 16);
-      });
-    }
-
-    // 初始化语言
-    switchLang("zh");
-
-    // ===== SCROLL TO SECTION =====
-    function scrollToSection(id){
-      var el = document.getElementById(id);
-      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-      document.getElementById('navLinks').classList.remove('open');
-    }
-
-    // ===== LIGHTBOX =====
-    var lightboxIndex = 0;
-    var heroImages = ['','','']; // 可从管理后台设置
-    var galleryImages = [
-      {src:'', title:{zh:'袁家界晨曦',en:'Yuanjiajie Dawn'}},
-      {src:'', title:{zh:'云海翻涌',en:'Sea of Clouds'}},
-      {src:'', title:{zh:'秋染森林',en:'Autumn Forest'}},
-      {src:'', title:{zh:'土家风情',en:'Tujia Culture'}},
-      {src:'', title:{zh:'天子山日出',en:'Tianzi Sunrise'}},
-      {src:'', title:{zh:'冬雪覆盖',en:'Winter Snow'}},
-      {src:'', title:{zh:'金鞭溪畔',en:'Golden Whip Stream'}},
-      {src:'', title:{zh:'山村民宿',en:'Mountain Lodge'}},
-      {src:'', title:{zh:'春花烂漫',en:'Spring Blossoms'}}
     ];
 
-    function openLightbox(idx){
-      lightboxIndex = idx;
-      var img = heroImages[idx] || '';
-      document.getElementById('lightboxImg').src = img;
-      document.getElementById('lightboxTitle').textContent = 'Hero 幻灯片 ' + (idx + 1);
-      document.getElementById('lightbox').classList.add('open');
-    }
-
-    function openLightboxFromGallery(idx){
-      lightboxIndex = 100 + idx; // gallery images start at 100
-      var img = galleryImages[idx];
-      document.getElementById('lightboxImg').src = img ? img.src : '';
-      document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
-      document.getElementById('lightbox').classList.add('open');
-    }
-
-    function closeLightbox(){
-      document.getElementById('lightbox').classList.remove('open');
-    }
-
-    function lightboxNav(dir){
-      var total = 3 + galleryImages.length;
-      lightboxIndex = (lightboxIndex + dir + total) % total;
-      if(lightboxIndex < 3){
-        document.getElementById('lightboxImg').src = heroImages[lightboxIndex] || '';
-        document.getElementById('lightboxTitle').textContent = 'Hero 幻灯片 ' + (lightboxIndex + 1);
-      } else {
-        var gi = lightboxIndex - 3;
-        var img = galleryImages[gi];
-        document.getElementById('lightboxImg').src = img ? img.src : '';
-        document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
+    var expData = [
+      {
+        title: '徒步探险',
+        titleEn: 'Hiking Adventure',
+        desc: '穿越金鞭溪，探秘原始森林',
+        descEn: 'Trek through Jinbian Stream and explore primeval forests',
+        img: 'assets/images/exp-hiking.jpg'
+      },
+      {
+        title: '摄影之旅',
+        titleEn: 'Photography Tour',
+        desc: '用镜头捕捉大自然的鬼斧神工',
+        descEn: 'Capture nature\'s masterpieces through your lens',
+        img: 'assets/images/exp-photo.jpg'
+      },
+      {
+        title: '生态研学',
+        titleEn: 'Eco Education',
+        desc: '了解地质奇观与生态系统',
+        descEn: 'Learn about geological wonders and ecosystems',
+        img: 'assets/images/exp-eco.jpg'
+      },
+      {
+        title: '云海星空',
+        titleEn: 'Sea of Clouds & Stargazing',
+        desc: '观赏日出云海与满天繁星',
+        descEn: 'Witness sunrise, sea of clouds, and starry skies',
+        img: 'assets/images/exp-stargaze.jpg'
       }
-    }
+    ];
 
-    document.addEventListener('keydown',function(e){
-      if(document.getElementById('lightbox').classList.contains('open')){
-        if(e.key==='Escape') closeLightbox();
-        if(e.key==='ArrowLeft') lightboxNav(-1);
-        if(e.key==='ArrowRight') lightboxNav(1);
-      }
-      if(document.getElementById('videoModal').classList.contains('open')){
-        if(e.key==='Escape') closeVideoModal();
-      }
-    });
+    var galleryData = [
+      { img: 'assets/images/gal-yuanjiajie.jpg', title: '袁家界晨曦', titleEn: 'Yuanjiajie Sunrise', cat: 'scenic' },
+      { img: 'assets/images/gal-clouds.jpg', title: '云海翻涌', titleEn: 'Sea of Clouds', cat: 'scenic' },
+      { img: 'assets/images/gal-autumn.jpg', title: '秋染森林', titleEn: 'Autumn Colors', cat: 'season' },
+      { img: 'assets/images/gal-culture.jpg', title: '土家风情', titleEn: 'Tujia Culture', cat: 'culture' },
+      { img: 'assets/images/gal-sunrise.jpg', title: '天子山日出', titleEn: 'Tianzishan Sunrise', cat: 'scenic' },
+      { img: 'assets/images/gal-winter.jpg', title: '冬雪覆盖', titleEn: 'Winter Snow', cat: 'season' },
+      { img: 'assets/images/gal-stream.jpg', title: '金鞭溪畔', titleEn: 'Jinbian Stream', cat: 'scenic' },
+      { img: 'assets/images/gal-village.jpg', title: '山村民宿', titleEn: 'Mountain Village', cat: 'culture' },
+      { img: 'assets/images/gal-spring.jpg', title: '春花烂漫', titleEn: 'Spring Flowers', cat: 'season' }
+    ];
 
-    document.getElementById('lightbox').addEventListener('click',function(e){
-      if(e.target===this) closeLightbox();
-    });
-
-    // ===== VIDEO MODAL =====
-    var currentVideoUrl = '';
-    var demoVideoUrl = ''; // 可从管理后台设置
-
-    function openVideoModal(){
-      var modal = document.getElementById('videoModal');
-      var video = document.getElementById('mainVideo');
-      var placeholder = document.getElementById('videoPlaceholder');
+    /* ========== SWITCH LANGUAGE ========== */
+    function switchLang(lang) {
+      AppState.currentLang = lang;
       
-      // 先隐藏占位符，显示视频元素
-      if(placeholder) placeholder.style.display = 'none';
-      video.style.display = 'block';
+      // Update lang switch buttons
+      document.querySelectorAll('.lang-switch button').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      document.querySelector('.lang-switch button[onclick="switchLang(\\'' + lang + '\\')"]').classList.add('active');
       
-      if(demoVideoUrl){
-        video.src = demoVideoUrl;
-      } else {
-        video.src = 'assets/videos/promotional.mp4';
-      }
-      
-      modal.classList.add('open');
-      
-      // 监听视频加载错误，显示占位符
-      video.onerror = function() {
-        video.style.display = 'none';
-        if(placeholder) {
-          placeholder.style.display = 'flex';
-        }
-      };
-      
-      video.play().catch(function() {
-        // 自动播放被阻止，静默处理
-        video.style.display = 'none';
-        if(placeholder) {
-          placeholder.style.display = 'flex';
+      // Update all i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (i18n[lang] && i18n[lang][key]) {
+          el.textContent = i18n[lang][key];
         }
       });
+      
+      // Re-render dynamic content
+      renderNews();
+      renderExperience();
+      renderGallery();
     }
 
-    function closeVideoModal(){
-      var video = document.getElementById('mainVideo');
-      video.pause();
-      video.src = '';
-      document.getElementById('videoModal').classList.remove('open');
-    }
-
-    document.getElementById('videoModal').addEventListener('click',function(e){
-      if(e.target===this) closeVideoModal();
-    });
-
-    // ===== EXP DETAIL MODAL =====
-    const expDetails = {
-      hiking: {zh:'徒步探险路线：\n\n• 金鞭溪全程7.5公里，约3小时\n• 袁家界精华段，约4小时\n• 天子山步道，约2小时\n\n建议装备：登山鞋、防晒霜、足够饮用水。\n\n提前查看天气，雨天部分路段湿滑。',en:'Hiking Routes:\n\n• Golden Whip Stream: 7.5km, ~3hrs\n• Yuanjiajie Highlights: ~4hrs\n• Tianzi Mountain Trail: ~2hrs\n\nRecommended: hiking boots, sunscreen, water.'},
-      photo: {zh:'摄影之旅特色：\n\n• 专业摄影师向导\n• 最佳拍摄时间：日出/日落\n• 云海季节：春秋季\n• 提供后期处理指导\n\n推荐装备：单反/微单、三脚架、渐变灰滤镜。',en:'Photography Tour:\n\n• Pro photographer guide\n• Best time: sunrise/sunset\n• Sea of clouds: spring/autumn\n• Post-processing guidance included.'},
-      eco: {zh:'生态研学课程：\n\n• 地质地貌科普\n• 植物多样性认知\n• 野生动物观察\n• 环保意识培养\n\n适合年龄：6-18岁团体\n课程时长：2-4小时',en:'Eco-Education Program:\n\n• Geology & landforms\n• Plant biodiversity\n• Wildlife observation\n• Environmental awareness\n\nAges: 6-18 years\nDuration: 2-4 hours'},
-      stargaze: {zh:'云海星空体验：\n\n• 山顶精品民宿\n• 专业天文望远镜观星\n• 日出云海观赏\n• 土家文化体验\n\n最佳季节：夏秋季\n建议提前一周预订。',en:'Stargazing Experience:\n\n• Mountain-top boutique lodging\n• Telescope stargazing sessions\n• Sunrise & sea-of-clouds viewing\n• Tujia culture experience\n\nBest season: summer/autumn'}
-    };
-
-    function showExpDetail(type){
-      var info = expDetails[type] || {zh:'暂无详情',en:'No details available'};
-      alert(currentLang === 'zh' ? info.zh : info.en);
-    }
-
-    // ===== TRANSPORT DETAIL MODAL =====
-    const transportDetails = {
-      air: {zh:'✈️ 飞机出行指南\n\n机场：张家界荷花国际机场 (DYG)\n\n📍 距离公园：约40公里，车程40-60分钟\n\n🚌 机场大巴：20元/人，直达市区\n🚕 出租车：约100-120元\n\n📞 机场客服：0744-1234567',en:'✈️ By Air\n\nAirport: Zhangjiajie Hehua (DYG)\n\n📍 Distance to Park: ~40km, 40-60min\n\n🚌 Airport Bus: ¥20/person\n🚕 Taxi: ~¥100-120'},
-      train: {zh:'🚆 火车/高铁出行指南\n\n站名：张家界西站（高铁站）\n\n📍 距离公园：约35公里\n\n🚌 公交：4路/5路直达汽车站，换乘景区巴士\n🚕 出租车：约80-100元\n\n📞 车站客服：0744-8888888',en:'🚆 By Train/HSR\n\nStation: Zhangjiajie West (HSR)\n\n📍 Distance to Park: ~35km\n\n🚌 Bus: Lines 4/5 to bus station\n🚕 Taxi: ~¥80-100'},
-      bus: {zh:'🚌 旅游巴士指南\n\n📍 起点：张家界中心汽车站\n\n🕐 发车间隔：约30分钟一班\n💰 票价：15元/人\n\n🕐 首班：06:30\n🕐 末班：18:00\n\n📍 终点：森林公园门票站',en:'🚌 Tour Bus Guide\n\n📍 From: Downtown Bus Station\n\n🕐 Interval: ~30min\n💰 Fare: ¥15/person\n\n🕐 First: 06:30\n🕐 Last: 18:00'},
-      car: {zh:'🚗 自驾出行指南\n\n📍 东门（吴家峪）门票站\n• 导航：张家界国家森林公园-东门\n• 停车：2000+车位，20元/次\n\n📍 南门（森林公园门票站）\n• 导航：张家界国家森林公园-南门\n• 停车：500+车位\n\n💡 旺季建议早8点前到达',en:'🚗 Self-Driving Guide\n\n📍 East Gate: 2000+ spaces, ¥20/entry\n📍 South Gate: 500+ spaces\n\n💡 Arrive before 8am in peak season'}
-    };
-
-    function showTransportDetail(type){
-      var info = transportDetails[type] || {zh:'暂无详情',en:'No details available'};
-      alert(currentLang === 'zh' ? info.zh : info.en);
-    }
-
-    // ===== SUBSCRIBE =====
-    function handleSubscribe(){
-      var email = document.getElementById('subscribeEmail').value;
-      if(!email || !email.includes('@')){
-        alert(currentLang === 'zh' ? '请输入有效的邮箱地址' : 'Please enter a valid email address');
-        return;
-      }
-      // 保存到本地存储（演示用）
-      var subs = JSON.parse(localStorage.getItem('subscribers') || '[]');
-      if(!subs.includes(email)) subs.push(email);
-      localStorage.setItem('subscribers', JSON.stringify(subs));
-      document.getElementById('subscribeEmail').value = '';
-      alert(currentLang === 'zh' ? '订阅成功！感谢您的关注。' : 'Subscribed successfully! Thank you.');
-    }
-
-    // ===== ADMIN PANEL =====
-    function openAdmin(){
-      document.getElementById('adminOverlay').classList.add('open');
-      updateAdminStats();
-    }
-
-    function closeAdmin(){
-      document.getElementById('adminOverlay').classList.remove('open');
-    }
-
-    function switchAdminTab(tabId){
-      document.querySelectorAll('.admin-tab').forEach(function(t){ t.classList.remove('active'); });
-      document.querySelectorAll('.admin-tab-content').forEach(function(c){ c.classList.remove('active'); });
-      document.getElementById('tab-'+tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
-
-    document.getElementById('adminOverlay').addEventListener('click',function(e){
-      if(e.target===this) closeAdmin();
-    });
-
-    // 键盘快捷键：Ctrl+Shift+A 打开管理后台
-    document.addEventListener('keydown',function(e){
-      if(e.ctrlKey && e.shiftKey && e.key==='A'){
-        e.preventDefault();
-        openAdmin();
-      }
-    });
-
-    function updateAdminStats(){
-      document.getElementById('statHero').textContent = heroImages.filter(function(i){return i;}).length + '/3';
-      document.getElementById('statGallery').textContent = galleryImages.filter(function(i){return i.src;}).length + '/9';
-    }
-
-    // 上传到 GitHub
-    var ghData = {
-      token: '',
-      branch: 'main',
-      repo: 'WillyYe/zhangjiajie-park-website',
-      heroImages: [],
-      galleryImages: [],
-      videoUrl: ''
-    };
-
-    function handleHeroUpload(input){
-      if(!input.files.length) return;
-      var token = document.getElementById('ghToken').value;
-      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
-      ghData.token = token;
-      ghData.branch = document.getElementById('ghBranch').value || 'main';
-
-      var preview = document.getElementById('heroPreview');
-      Array.from(input.files).slice(0,3).forEach(function(file, idx){
-        var reader = new FileReader();
-        reader.onload = function(e){
-          var item = document.createElement('div');
-          item.className = 'admin-preview-item';
-          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
-          preview.appendChild(item);
-
-          // 上传到 GitHub
-          uploadToGitHub(e.target.result, 'hero-'+Date.now()+'-'+file.name.replace(/\s/g,'_'), 'images/hero/', function(err, url){
-            if(err){ showAdminMsg('error','上传失败: '+err); return; }
-            // 更新 hero 幻灯片
-            if(ghData.heroImages.length < 3) ghData.heroImages.push(url);
-            updateHeroSlides();
-            showAdminMsg('success','Hero 图片 #'+(ghData.heroImages.length)+' 上传成功！');
-            updateAdminStats();
-          });
-        };
-        reader.readAsDataURL(file);
+    /* ========== RENDER FUNCTIONS ========== */
+    function renderNews() {
+      var grid = document.getElementById('newsGrid');
+      var lang = AppState.currentLang;
+      var html = '';
+      
+      newsData.forEach(function(item) {
+        html += '<div class="news-card" onclick="window.open(\'http://www.hnzjj.com/\', \'_blank\')">';
+        html += '<div class="news-img" style="background-image: url(\'' + item.img + '\')">';
+        html += '<div class="news-date">';
+        html += '<div class="news-date-day">' + item.date.day + '</div>';
+        html += '<div>' + item.date.month + '</div>';
+        html += '</div>';
+        html += '<div class="news-tag">' + (lang === 'zh' ? item.tagText : item.tag.toUpperCase()) + '</div>';
+        html += '</div>';
+        html += '<div class="news-body">';
+        html += '<h3 class="news-title">' + (lang === 'zh' ? item.title : item.titleEn) + '</h3>';
+        html += '<p class="news-text">' + (lang === 'zh' ? item.desc : item.descEn) + '</p>';
+        html += '</div></div>';
       });
-      input.value = '';
+      
+      grid.innerHTML = html;
     }
 
-    function handleGalleryUpload(input){
-      if(!input.files.length) return;
-      var token = document.getElementById('ghToken').value;
-      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
-      ghData.token = token;
-
-      var preview = document.getElementById('galleryPreview');
-      Array.from(input.files).forEach(function(file){
-        var reader = new FileReader();
-        reader.onload = function(e){
-          var item = document.createElement('div');
-          item.className = 'admin-preview-item';
-          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
-          preview.appendChild(item);
-
-          uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'images/gallery/', function(err, url){
-            if(err){ showAdminMsg('error','上传失败: '+err); return; }
-            // 找到第一个空位
-            var emptyIdx = galleryImages.findIndex(function(g){return !g.src;});
-            if(emptyIdx >= 0){
-              galleryImages[emptyIdx].src = url;
-            }
-            showAdminMsg('success','图库图片上传成功！');
-            updateAdminStats();
-          });
-        };
-        reader.readAsDataURL(file);
+    function renderExperience() {
+      var grid = document.getElementById('expGrid');
+      var lang = AppState.currentLang;
+      var html = '';
+      
+      expData.forEach(function(item) {
+        html += '<div class="exp-card">';
+        html += '<div class="exp-img"><img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '"></div>';
+        html += '<div class="exp-body">';
+        html += '<h4 class="exp-title">' + (lang === 'zh' ? item.title : item.titleEn) + '</h4>';
+        html += '<p class="exp-desc">' + (lang === 'zh' ? item.desc : item.descEn) + '</p>';
+        html += '</div></div>';
       });
-      input.value = '';
+      
+      grid.innerHTML = html;
     }
 
-    function handleVideoUpload(input){
-      if(!input.files.length) return;
-      var token = document.getElementById('ghToken').value;
-      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
-
-      var file = input.files[0];
-      var status = document.getElementById('videoUploadStatus');
-      status.className = 'admin-msg';
-      status.textContent = '正在上传视频...';
-      status.style.display = 'block';
-
-      var reader = new FileReader();
-      reader.onload = function(e){
-        uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'videos/', function(err, url){
-          if(err){
-            status.className = 'admin-msg error';
-            status.textContent = '上传失败: '+err;
-            return;
-          }
-          demoVideoUrl = url;
-          status.className = 'admin-msg success';
-          status.textContent = '视频上传成功！URL: '+url;
-        });
-      };
-      reader.readAsDataURL(file);
-      input.value = '';
+    function renderGallery() {
+      var masonry = document.getElementById('galleryMasonry');
+      var lang = AppState.currentLang;
+      var html = '';
+      
+      galleryData.forEach(function(item, index) {
+        html += '<div class="gallery-item" data-category="' + item.cat + '" onclick="openLightbox(' + index + ')">';
+        html += '<img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '">';
+        html += '<div class="gallery-overlay">';
+        html += '<span class="gallery-title">' + (lang === 'zh' ? item.title : item.titleEn) + '</span>';
+        html += '</div></div>';
+      });
+      
+      masonry.innerHTML = html;
     }
 
-    function uploadToGitHub(base64Data, filename, folder, callback){
-      var parts = base64Data.split(',');
-      var content = parts[1] || parts[0];
-      var token = ghData.token;
-      var repo = ghData.repo;
-      var branch = ghData.branch;
-      var path = folder + filename;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('PUT', 'https://api.github.com/repos/'+repo+'/contents/'+path, true);
-      xhr.setRequestHeader('Authorization','token '+token);
-      xhr.setRequestHeader('Accept','application/vnd.github.v3+json');
-      xhr.setRequestHeader('Content-Type','application/json');
-
-      xhr.onload = function(){
-        if(xhr.status === 200 || xhr.status === 201){
-          var res = JSON.parse(xhr.responseText);
-          callback(null, res.content.download_url);
-        } else if(xhr.status === 401){
-          callback('Token 无效，请检查权限');
-        } else if(xhr.status === 403){
-          callback('权限不足，请确认 Token 有 repo 权限');
+    /* ========== GALLERY FILTER ========== */
+    function filterGallery(cat, btn) {
+      document.querySelectorAll('.gallery-filter button').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      
+      document.querySelectorAll('.gallery-item').forEach(function(item) {
+        if (cat === 'all' || item.dataset.category === cat) {
+          item.style.display = '';
         } else {
-          callback('上传失败: '+xhr.status);
+          item.style.display = 'none';
         }
-      };
-      xhr.onerror = function(){ callback('网络错误'); };
-      xhr.send(JSON.stringify({
-        message: 'Upload '+filename,
-        content: content,
-        branch: branch
-      }));
+      });
     }
 
-    function updateHeroSlides(){
-      heroImages = ghData.heroImages.slice(0,3);
-      for(var i=0;i<3;i++){
-        var slide = document.getElementById('heroSlide'+i);
-        if(slide && heroImages[i]){
-          var bg = slide.querySelector('.slide-bg') || slide;
-          bg.style.backgroundImage = 'url('+heroImages[i]+')';
-          bg.style.backgroundSize = 'cover';
-          bg.style.backgroundPosition = 'center';
-        }
+    /* ========== HERO SLIDER ========== */
+    function startHeroSlider() {
+      var slides = document.querySelectorAll('.hero-slide');
+      var dots = document.querySelectorAll('.hero-dot');
+      
+      if (AppState.heroSlider) {
+        clearInterval(AppState.heroSlider);
       }
+      
+      AppState.heroSlider = setInterval(function() {
+        slides[AppState.currentSlide].classList.remove('active');
+        dots[AppState.currentSlide].classList.remove('active');
+        
+        AppState.currentSlide = (AppState.currentSlide + 1) % slides.length;
+        
+        slides[AppState.currentSlide].classList.add('active');
+        dots[AppState.currentSlide].classList.add('active');
+      }, 5000);
+      
+      // Click to change slide
+      dots.forEach(function(dot, index) {
+        dot.addEventListener('click', function() {
+          slides[AppState.currentSlide].classList.remove('active');
+          dots[AppState.currentSlide].classList.remove('active');
+          
+          AppState.currentSlide = index;
+          
+          slides[AppState.currentSlide].classList.add('active');
+          dots[AppState.currentSlide].classList.add('active');
+          
+          clearInterval(AppState.heroSlider);
+          startHeroSlider();
+        });
+      });
     }
 
-    function showAdminMsg(type, text){
-      var msg = document.getElementById('adminMsg');
-      msg.className = 'admin-msg '+type;
-      msg.textContent = text;
-      setTimeout(function(){ msg.textContent=''; msg.className='admin-msg'; }, 5000);
+    /* ========== LIGHTBOX ========== */
+    var lightboxIndex = 0;
+
+    function openLightbox(index) {
+      lightboxIndex = index;
+      var img = document.getElementById('lightboxImg');
+      img.src = galleryData[index].img;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
 
-    function savePageText(){
-      var announce1 = document.getElementById('cfgAnnounce1').value;
-      var announce2 = document.getElementById('cfgAnnounce2').value;
-      if(announce1) i18n.zh.announce_p1 = announce1;
-      if(announce2) i18n.zh.announce_p2 = announce2;
-      if(announce1) i18n.en.announce_p1 = announce1;
-      if(announce2) i18n.en.announce_p2 = announce2;
-      switchLang(currentLang);
-      showAdminMsg('success','文案已保存（仅本次会话有效）');
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
     }
 
-    // 从 localStorage 恢复设置
-    window.addEventListener('load', function(){
-      try {
-        var saved = JSON.parse(localStorage.getItem('siteConfig') || '{}');
-        if(saved.heroImages) ghData.heroImages = saved.heroImages;
-        if(saved.videoUrl) demoVideoUrl = saved.videoUrl;
-        heroImages = ghData.heroImages;
-        updateHeroSlides();
-      } catch(e){}
-    });
-    
-    // Initialize language and map on page load
-    // Call immediately with 'en' as default (bypass any caching issues)
-    (function(){
-      var initialLang = 'en';
-      // Small delay to ensure DOM is ready
-      if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function(){ switchLang(initialLang); });
+    function lightboxPrev() {
+      lightboxIndex = (lightboxIndex - 1 + galleryData.length) % galleryData.length;
+      document.getElementById('lightboxImg').src = galleryData[lightboxIndex].img;
+    }
+
+    function lightboxNext() {
+      lightboxIndex = (lightboxIndex + 1) % galleryData.length;
+      document.getElementById('lightboxImg').src = galleryData[lightboxIndex].img;
+    }
+
+    /* ========== HEADER SCROLL ========== */
+    function handleHeaderScroll() {
+      var header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
       } else {
-        switchLang(initialLang);
+        header.classList.remove('scrolled');
       }
-    })();
+    }
+
+    /* ========== FADE ANIMATION ========== */
+    function initFadeAnimation() {
+      var fadeEls = document.querySelectorAll('.fade-up');
+      
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        fadeEls.forEach(function(el) {
+          observer.observe(el);
+        });
+      } else {
+        fadeEls.forEach(function(el) {
+          el.classList.add('visible');
+        });
+      }
+    }
+
+    /* ========== VIDEO ========== */
+    function openVideo() {
+      alert(AppState.currentLang === 'zh' ? '视频功能即将上线' : 'Video coming soon');
+    }
+
+    /* ========== INIT ========== */
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set initial language
+      switchLang('en');
+      
+      // Start hero slider
+      startHeroSlider();
+      
+      // Header scroll
+      window.addEventListener('scroll', handleHeaderScroll);
+      handleHeaderScroll();
+      
+      // Fade animation
+      initFadeAnimation();
+      
+      // Lightbox keyboard
+      document.addEventListener('keydown', function(e) {
+        if (document.getElementById('lightbox').classList.contains('open')) {
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') lightboxPrev();
+          if (e.key === 'ArrowRight') lightboxNext();
+        }
+      });
+      
+      // Lightbox click to close
+      document.getElementById('lightbox').addEventListener('click', function(e) {
+        if (e.target === this) closeLightbox();
+      });
+    });
   </script>
-  
-  <!-- 管理后台快捷入口按钮 - 始终显示 -->
-  <button id="adminQuickBtn" onclick="openAdmin()" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:#b5882a;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:none;box-shadow:0 4px 12px rgba(0,0,0,0.2);">📸 管理后台</button>
+
 </body>
 </html>
