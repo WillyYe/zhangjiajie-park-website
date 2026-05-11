@@ -767,14 +767,18 @@
   <!-- VIDEO MODAL -->
   <div class="video-modal" id="videoModal">
     <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
-    <!-- Video source: Replace with actual promotional video -->
-    <!-- <video id="mainVideo" controls poster="assets/images/hero-pillars.jpg">
+    <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
       <source src="assets/videos/promotional.mp4" type="video/mp4">
-    </video> -->
-    <div style="width:80vw;max-width:900px;aspect-ratio:16/9;background:url('assets/images/hero-pillars.jpg') center/cover;border-radius:12px;display:flex;align-items:center;justify-content:center;">
+      <!-- 视频加载失败时显示占位符 -->
+      您的浏览器不支持视频播放
+    </video>
+    <!-- 视频加载失败时的备用显示 -->
+    <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+      <div style="font-size:48px;opacity:0.6;">🎬</div>
       <div style="text-align:center;color:#fff;">
-        <p style="font-size:14px;opacity:0.7;margin-bottom:8px;">📹 宣传片</p>
-        <p style="font-size:12px;opacity:0.5;">请替换为实际视频文件</p>
+        <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 宣传片</p>
+        <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">请将宣传视频命名为 promotional.mp4 放入 assets/videos/ 目录</p>
+        <p style="font-size:11px;opacity:0.4;">推荐尺寸: 1920×1080, 格式: MP4 (H.264)</p>
       </div>
     </div>
   </div>
@@ -853,14 +857,18 @@
         <!-- Tab: 视频 -->
         <div class="admin-tab-content" id="tab-video">
           <div class="admin-section">
-            <div class="admin-field">
+            <div class="admin-tip" style="background:#fffbeb;border-color:#fbbf24;">
+              <strong>💡 视频要求</strong>
+              <p style="margin-top:6px;font-size:12px;">推荐规格：MP4 格式、H.264 编码、1920×1080 分辨率<br/>推荐时长：30秒-3分钟<br/>视频文件请命名为 <code>promotional.mp4</code> 放入 <code>assets/videos/</code> 目录</p>
+            </div>
+            <div class="admin-field" style="margin-top:16px;">
               <label>视频标题</label>
               <input type="text" id="videoTitle" placeholder="如：张家界宣传片" />
             </div>
             <div class="admin-upload" onclick="document.getElementById('videoInput').click()">
               <input type="file" id="videoInput" accept="video/*" onchange="handleVideoUpload(this)" />
               <div class="admin-upload-icon">🎬</div>
-              <div class="admin-upload-text">点击上传视频<br/><span>支持 MP4/WebM</span></div>
+              <div class="admin-upload-text">点击上传视频<br/><span>支持 MP4/WebM，推荐 1080p</span></div>
             </div>
             <div id="videoUploadStatus" class="admin-msg"></div>
           </div>
@@ -1210,13 +1218,35 @@
     function openVideoModal(){
       var modal = document.getElementById('videoModal');
       var video = document.getElementById('mainVideo');
+      var placeholder = document.getElementById('videoPlaceholder');
+      
+      // 先隐藏占位符，显示视频元素
+      if(placeholder) placeholder.style.display = 'none';
+      video.style.display = 'block';
+      
       if(demoVideoUrl){
         video.src = demoVideoUrl;
       } else {
-        video.src = '';
+        video.src = 'assets/videos/promotional.mp4';
       }
+      
       modal.classList.add('open');
-      video.play();
+      
+      // 监听视频加载错误，显示占位符
+      video.onerror = function() {
+        video.style.display = 'none';
+        if(placeholder) {
+          placeholder.style.display = 'flex';
+        }
+      };
+      
+      video.play().catch(function() {
+        // 自动播放被阻止，静默处理
+        video.style.display = 'none';
+        if(placeholder) {
+          placeholder.style.display = 'flex';
+        }
+      });
     }
 
     function closeVideoModal(){
