@@ -1179,6 +1179,7 @@
     /* ========== APP STATE ========== */
     var AppState = {
       currentLang: 'en',
+      scenicPage: 1,
       heroSlider: null,
       currentSlide: 0
     };
@@ -1588,90 +1589,81 @@
     }
 
     function renderScenic() {
-      var container = document.getElementById('scenicGrid');
-      var pagination = document.getElementById('scenicPagination');
-      var lang = AppState.currentLang;
-      var isZh = lang === 'zh';
-      var itemsPerPage = 3;
-      var totalPages = Math.ceil(scenicData.length / itemsPerPage);
-      var currentPage = AppState.scenicPage || 1;
-      
-      // Calculate start and end indices
-      var startIdx = (currentPage - 1) * itemsPerPage;
-      var endIdx = Math.min(startIdx + itemsPerPage, scenicData.length);
-      var pageItems = scenicData.slice(startIdx, endIdx);
-      
-      // Render current page items
-      var html = '';
-      pageItems.forEach(function(item) {
-        html += '<a href="' + item.href + '" class="scenic-card fade-up">';
-        html += '<div class="scenic-bg" style="background-image: url(\'' + item.img + '\')"></div>';
-        html += '<div class="scenic-overlay">';
-        html += '<div class="scenic-tag">' + (isZh ? item.tag : item.tagEn) + '</div>';
-        html += '<h3 class="scenic-name">' + (isZh ? item.name : item.nameEn) + '</h3>';
-        html += '<p class="scenic-sub">' + (isZh ? item.subTitle : item.subTitleEn) + '</p>';
-        html += '<p class="scenic-desc">' + (isZh ? item.desc : item.descEn) + '</p>';
-        html += '<span class="scenic-link">' + (isZh ? '探索更多 →' : 'Explore More →') + '</span>';
-        html += '</div></a>';
-      });
-      
-      container.innerHTML = html;
-      
-      // Wait for all background images to load before showing cards
-      var bgElements = container.querySelectorAll('.scenic-bg');
-      var totalImages = bgElements.length;
-      var loadedImages = 0;
-      
-      function checkAllLoaded() {
-        loadedImages++;
-        if (loadedImages >= totalImages) {
-          // All images loaded (or failed), show cards
-          container.querySelectorAll('.fade-up').forEach(function(el) {
-            el.classList.add('visible');
-          });
-        }
-      }
-      
-      if (totalImages === 0) {
-        // No images, show immediately
-        container.querySelectorAll('.fade-up').forEach(function(el) {
+      try {
+        console.log('[renderScenic] START, AppState.scenicPage =', AppState.scenicPage);
+        var container = document.getElementById('scenicGrid');
+        var pagination = document.getElementById('scenicPagination');
+        if (!container) { console.error('[renderScenic] ERROR: scenicGrid not found'); return; }
+        if (!pagination) { console.error('[renderScenic] ERROR: scenicPagination not found'); return; }
+        
+        var lang = AppState.currentLang || 'en';
+        var isZh = lang === 'zh';
+        var itemsPerPage = 3;
+        var totalPages = Math.ceil(scenicData.length / itemsPerPage);
+        var currentPage = AppState.scenicPage || 1;
+        
+        console.log('[renderScenic] currentPage =', currentPage, ', totalPages =', totalPages, ', lang =', lang);
+        
+        // Calculate start and end indices
+        var startIdx = (currentPage - 1) * itemsPerPage;
+        var endIdx = Math.min(startIdx + itemsPerPage, scenicData.length);
+        var pageItems = scenicData.slice(startIdx, endIdx);
+        
+        console.log('[renderScenic] Rendering items', startIdx, 'to', (endIdx-1), '(', pageItems.length, 'items)');
+        
+        // Render current page items
+        var html = '';
+        pageItems.forEach(function(item, idx) {
+          console.log('[renderScenic] Item', idx, ':', item.id, ', img:', item.img);
+          html += '<a href="' + item.href + '" class="scenic-card fade-up">';
+          html += '<div class="scenic-bg" style="background-image: url('' + item.img + '')"></div>';
+          html += '<div class="scenic-overlay">';
+          html += '<div class="scenic-tag">' + (isZh ? item.tag : item.tagEn) + '</div>';
+          html += '<h3 class="scenic-name">' + (isZh ? item.name : item.nameEn) + '</h3>';
+          html += '<p class="scenic-sub">' + (isZh ? item.subTitle : item.subTitleEn) + '</p>';
+          html += '<p class="scenic-desc">' + (isZh ? item.desc : item.descEn) + '</p>';
+          html += '<span class="scenic-link">' + (isZh ? '探索更多 →' : 'Explore More →') + '</span>';
+          html += '</div></a>';
+        });
+        
+        console.log('[renderScenic] Setting innerHTML, length =', html.length);
+        container.innerHTML = html;
+        
+        // IMPORTANT: Show cards IMMEDIATELY (don't wait for images)
+        var cards = container.querySelectorAll('.fade-up');
+        console.log('[renderScenic] Found', cards.length, 'cards, adding .visible');
+        cards.forEach(function(el) {
           el.classList.add('visible');
         });
-      } else {
-        // Preload each background image
-        bgElements.forEach(function(bg) {
-          var img = new Image();
-          img.onload = checkAllLoaded;
-          img.onerror = checkAllLoaded; // Still count as "loaded" even if error
-          // Extract URL from background-image
+        
+        // Preload background images (non-blocking, for debugging only)
+        var bgElements = container.querySelectorAll('.scenic-bg');
+        console.log('[renderScenic] Preloading', bgElements.length, 'background images');
+        bgElements.forEach(function(bg, idx) {
           var style = bg.style.backgroundImage;
           var urlMatch = style.match(/url\(['"]?([^'"]+)['"]?\)/);
           if (urlMatch && urlMatch[1]) {
+            var img = new Image();
+            img.onload = function() { console.log('[renderScenic] Image', idx, 'loaded:', urlMatch[1]); };
+            img.onerror = function() { console.error('[renderScenic] Image', idx, 'FAILED:', urlMatch[1]); };
             img.src = urlMatch[1];
-          } else {
-            // No URL found, count as loaded
-            checkAllLoaded();
           }
         });
         
-        // Fallback: show after 2 seconds even if images haven't loaded
-        setTimeout(function() {
-          container.querySelectorAll('.fade-up').forEach(function(el) {
-            if (!el.classList.contains('visible')) {
-              el.classList.add('visible');
-            }
-          });
-        }, 2000);
+        // Render pagination dots
+        var dotsHtml = '';
+        for (var i = 1; i <= totalPages; i++) {
+          dotsHtml += '<button class="pagination-dot' + (i === currentPage ? ' active' : '') + '" onclick="goToScenicPage(' + i + ')"></button>';
+        }
+        console.log('[renderScenic] Rendering', totalPages, 'pagination dots');
+        pagination.innerHTML = dotsHtml;
+        
+        console.log('[renderScenic] COMPLETED successfully');
+      } catch(e) {
+        console.error('[renderScenic] ERROR:', e.message, e.stack);
       }
-      
-      // Render pagination dots
-      var dotsHtml = '';
-      for (var i = 1; i <= totalPages; i++) {
-        dotsHtml += '<button class="pagination-dot' + (i === currentPage ? ' active' : '') + '" onclick="goToScenicPage(' + i + ')"></button>';
-      }
-      pagination.innerHTML = dotsHtml;
     }
-    
+
     function goToScenicPage(page) {
       AppState.scenicPage = page;
       renderScenic();
