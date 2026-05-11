@@ -69,9 +69,9 @@
     .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}
     .hero-slide.active{opacity:1}
     .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center}
-    .slide1 .slide-bg{background:linear-gradient(135deg,#1a3a2a 0%,#2d5a3f 30%,#4a8a9a 60%,#1a4a30 100%)}
-    .slide2 .slide-bg{background:linear-gradient(135deg,#0d1a2a 0%,#1a3a6a 30%,#2d6a9a 60%,#0d2b1e 100%)}
-    .slide3 .slide-bg{background:linear-gradient(135deg,#2a1a0d 0%,#5a3a2a 30%,#8a6a3d 60%,#1a2b0d 100%)}
+    .slide1 .slide-bg{background-image:url('assets/images/hero-pillars.jpg')}
+    .slide2 .slide-bg{background-image:url('assets/images/hero-clouds.jpg')}
+    .slide3 .slide-bg{background-image:url('assets/images/hero-stream.jpg')}
     .slide-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.15)}
     .pillars{position:absolute;bottom:0;left:0;right:0;height:55%;display:flex;align-items:flex-end;justify-content:center;gap:6%;opacity:0.18}
     .pillar{width:60px;border-radius:8px 8px 0 0;background:linear-gradient(to top,#fff,rgba(255,255,255,0.6))}
@@ -135,9 +135,10 @@
     .scenic-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:transform .25s;min-height:280px}
     .scenic-card:hover{transform: scale(1.01)}
     .scenic-card.large{grid-row:span 2;min-height:580px}
-    .scenic-card.sc-card1{background:linear-gradient(135deg,#2d4a3a,#4a7a5a,#1a3a2a)}
-    .scenic-card.sc-card2{background:linear-gradient(135deg,#1a2a4a,#3a5a8a,#0d1a3a)}
-    .scenic-card.sc-card3{background:linear-gradient(135deg,#4a3a1a,#8a6a3a,#2a1a0d)}
+    .scenic-card.sc-card1{background-image:url('assets/images/yuanjiajie.jpg')}
+    .scenic-card.sc-card2{background-image:url('assets/images/jinbianxi.jpg')}
+    .scenic-card.sc-card3{background-image:url('assets/images/tianzishan.jpg')}
+    .scenic-card{background-size:cover;background-position:center;background-repeat:no-repeat}
     .scenic-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:#fff}
     .scenic-overlay .scenic-tag{font-size:11px;color:var(--gold-light);letter-spacing:2px;margin-bottom:6px}
     .scenic-overlay h3{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:600;margin-bottom:6px}
@@ -147,12 +148,8 @@
     .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
     .exp-card{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.05);transition:transform .25s,box-shadow .25s;cursor:pointer}
     .exp-card:hover{transform: translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,0.1)}
-    .exp-img{height:180px;position:relative;overflow:hidden}
-    .exp-icon-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;opacity:0.25}
-    .exp-card:nth-child(1) .exp-img{background:linear-gradient(135deg,#e8f5e9,#c8e6c9)}
-    .exp-card:nth-child(2) .exp-img{background:linear-gradient(135deg,#e3f2fd,#bbdefb)}
-    .exp-card:nth-child(3) .exp-img{background:linear-gradient(135deg,#fff3e0,#ffe0b2)}
-    .exp-card:nth-child(4) .exp-img{background:linear-gradient(135deg,#f3e5f5,#e1bee7)}
+    .exp-img{height:180px;position:relative;overflow:hidden;background-size:cover;background-position:center}
+    .exp-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
     .exp-body{padding:18px 20px 22px}
     .exp-body h3{font-size:16px;font-weight:600;color:var(--text-dark);margin-bottom:6px}
     .exp-body p{font-size:13px;color:var(--text-mid);line-height:1.6}
@@ -160,7 +157,7 @@
     /* VIRTUAL TOUR */
     #virtual{scroll-margin-top:var(--nav-height)}
     .virtual-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
-    .virtual-preview{border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#0d2b1e,#1a3c38,#2d8aa5);height:400px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .virtual-preview{border-radius:16px;overflow:hidden;background:url('assets/images/hero-pillars.jpg') center/cover no-repeat;height:400px;position:relative;cursor:pointer;display:flex;align-items:center;justify-content:center}
     .virtual-preview::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,0.03) 40px,rgba(255,255,255,0.03) 41px)}
     .virtual-preview .mountain-icon{font-size:100px;opacity:0.2;position:absolute}
     .virtual-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
@@ -180,20 +177,12 @@
     .gallery-masonry{columns:3;column-gap:16px}
     .gallery-item{break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer;transition:transform .25s}
     .gallery-item:hover{transform: translateY(-3px)}
-    .g-img{width:100%;display:block;border-radius:12px}
+    .g-img{width:100%;display:block;border-radius:12px;object-fit:cover}
+    .g-img-wrapper{width:100%;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .g-img-wrapper img{width:100%;height:100%;object-fit:cover}
     .g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent 60%);border-radius:12px;display:flex;align-items:flex-end;padding:16px;opacity:0;transition:opacity .25s}
     .gallery-item:hover .g-overlay{opacity:1}
     .g-title{font-size:13px;color:#fff;font-weight:500}
-    .g-img-placeholder{width:100%;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;color:rgba(255,255,255,0.3)}
-    .g1{height:240px;background:linear-gradient(135deg,#2d5a3f,#4a8a6a)}
-    .g2{height:180px;background:linear-gradient(135deg,#1a3a5a,#3a6a8a)}
-    .g3{height:280px;background:linear-gradient(135deg,#5a3a1a,#8a6a3d)}
-    .g4{height:200px;background:linear-gradient(135deg,#1a4a3a,#3a8a6a)}
-    .g5{height:260px;background:linear-gradient(135deg,#3a1a4a,#6a3a8a)}
-    .g6{height:190px;background:linear-gradient(135deg,#4a3a1a,#8a5a2d)}
-    .g7{height:230px;background:linear-gradient(135deg,#1a2a4a,#3a5a8a)}
-    .g8{height:210px;background:linear-gradient(135deg,#2a4a1a,#5a8a3a)}
-    .g9{height:250px;background:linear-gradient(135deg,#4a1a2a,#8a3a5a)}
     /* TRANSPORT */
     #transport{scroll-margin-top:var(--nav-height)}
     .transport-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
@@ -496,7 +485,7 @@
     </div>
     <div class="news-grid">
       <div class="news-card fade-up" onclick="window.open('http://www.hnzjj.com/', '_blank')">
-        <div class="news-img" style="background:linear-gradient(135deg,#2d5a3f,#4a8a6a)">
+        <div class="news-img" style="background-image:url('assets/images/news-park.jpg');background-size:cover;background-position:center">
           <div class="news-date"><div class="d-day">15</div><div class="d-month" data-i18n="month_may">五月</div></div>
           <span class="news-tag" data-i18n="news_tag1">公告</span>
         </div>
@@ -507,7 +496,7 @@
         </div>
       </div>
       <div class="news-card fade-up" onclick="window.open('http://www.hnzjj.com/', '_blank')">
-        <div class="news-img" style="background:linear-gradient(135deg,#1a3a6a,#3a6a9a)">
+        <div class="news-img" style="background-image:url('assets/images/news-festival.jpg');background-size:cover;background-position:center">
           <div class="news-date"><div class="d-day">08</div><div class="d-month" data-i18n="month_may">五月</div></div>
           <span class="news-tag" data-i18n="news_tag2">活动</span>
         </div>
@@ -518,7 +507,7 @@
         </div>
       </div>
       <div class="news-card fade-up" onclick="window.open('http://www.hnzjj.com/', '_blank')">
-        <div class="news-img" style="background:linear-gradient(135deg,#5a3a1a,#8a6a3d)">
+        <div class="news-img" style="background-image:url('assets/images/news-cableway.jpg');background-size:cover;background-position:center">
           <div class="news-date"><div class="d-day">01</div><div class="d-month" data-i18n="month_may">五月</div></div>
           <span class="news-tag" data-i18n="news_tag3">提示</span>
         </div>
@@ -578,9 +567,7 @@
     </div>
     <div class="exp-grid">
       <div class="exp-card fade-up" onclick="showExpDetail('hiking')">
-        <div class="exp-img">
-          <div class="exp-icon-bg">🥾</div>
-        </div>
+        <div class="exp-img"><img src="assets/images/exp-hiking.jpg" alt="徒步探险"></div>
         <div class="exp-body">
           <h3 data-i18n="exp1_title">徒步探险</h3>
           <p data-i18n="exp1_desc">沿金鞭溪、袁家界等多条经典步道，深入探索原始森林的奥秘。</p>
@@ -588,9 +575,7 @@
         </div>
       </div>
       <div class="exp-card fade-up" onclick="showExpDetail('photo')">
-        <div class="exp-img">
-          <div class="exp-icon-bg">📸</div>
-        </div>
+        <div class="exp-img"><img src="assets/images/exp-photo.jpg" alt="摄影之旅"></div>
         <div class="exp-body">
           <h3 data-i18n="exp2_title">摄影之旅</h3>
           <p data-i18n="exp2_desc">专业摄影向导带队，捕捉云海、日出、星空等绝美瞬间。</p>
@@ -598,9 +583,7 @@
         </div>
       </div>
       <div class="exp-card fade-up" onclick="showExpDetail('eco')">
-        <div class="exp-img">
-          <div class="exp-icon-bg">🎓</div>
-        </div>
+        <div class="exp-img"><img src="assets/images/exp-eco.jpg" alt="生态研学"></div>
         <div class="exp-body">
           <h3 data-i18n="exp3_title">生态研学</h3>
           <p data-i18n="exp3_desc">针对中小学团体，设计自然科普课程，在游玩中学习生态知识。</p>
@@ -608,9 +591,7 @@
         </div>
       </div>
       <div class="exp-card fade-up" onclick="showExpDetail('stargaze')">
-        <div class="exp-img">
-          <div class="exp-icon-bg">🌉</div>
-        </div>
+        <div class="exp-img"><img src="assets/images/exp-stargaze.jpg" alt="云海星空"></div>
         <div class="exp-body">
           <h3 data-i18n="exp4_title">云海星空</h3>
           <p data-i18n="exp4_desc">入住山顶民宿，夜晚观星，清晨赏云海，感受天人合一的意境。</p>
@@ -623,7 +604,7 @@
   <!-- VIRTUAL TOUR -->
   <section class="section" id="virtual">
     <div class="virtual-layout">
-      <div class="virtual-preview fade-left" onclick="alert('虚拟游览功能演示中，实际项目中接入全景API')">
+      <div class="virtual-preview fade-left" onclick="openVideoModal()">
         <div class="mountain-icon">🏔</div>
         <div class="virtual-play">
           <div class="virtual-play-btn">▶</div>
@@ -668,40 +649,40 @@
       <button onclick="filterGallery('season',this)" data-i18n="gal_season">四季</button>
     </div>
     <div class="gallery-masonry" id="galleryMasonry">
-      <div class="gallery-item g1" data-category="scenic" onclick="openLightboxFromGallery(0)">
-        <div class="g-img-placeholder">🏔</div>
+      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(0)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-yuanjiajie.jpg" alt="袁家界晨曦" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal1">袁家界晨曦</span></div>
       </div>
-      <div class="gallery-item g2" data-category="scenic" onclick="openLightboxFromGallery(1)">
-        <div class="g-img-placeholder">🌊</div>
+      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(1)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-clouds.jpg" alt="云海翻涌" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal2">云海翻涌</span></div>
       </div>
-      <div class="gallery-item g3" data-category="season" onclick="openLightboxFromGallery(2)">
-        <div class="g-img-placeholder">🍂</div>
+      <div class="gallery-item" data-category="season" onclick="openLightboxFromGallery(2)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-autumn.jpg" alt="秋染森林" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal3">秋染森林</span></div>
       </div>
-      <div class="gallery-item g4" data-category="culture" onclick="openLightboxFromGallery(3)">
-        <div class="g-img-placeholder">🎭</div>
+      <div class="gallery-item" data-category="culture" onclick="openLightboxFromGallery(3)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-culture.jpg" alt="土家风情" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal4">土家风情</span></div>
       </div>
-      <div class="gallery-item g5" data-category="scenic" onclick="openLightboxFromGallery(4)">
-        <div class="g-img-placeholder">🌅</div>
+      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(4)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-sunrise.jpg" alt="天子山日出" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal5">天子山日出</span></div>
       </div>
-      <div class="gallery-item g6" data-category="season" onclick="openLightboxFromGallery(5)">
-        <div class="g-img-placeholder">❄</div>
+      <div class="gallery-item" data-category="season" onclick="openLightboxFromGallery(5)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-winter.jpg" alt="冬雪覆盖" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal6">冬雪覆盖</span></div>
       </div>
-      <div class="gallery-item g7" data-category="scenic" onclick="openLightboxFromGallery(6)">
-        <div class="g-img-placeholder">🌿</div>
+      <div class="gallery-item" data-category="scenic" onclick="openLightboxFromGallery(6)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-stream.jpg" alt="金鞭溪畔" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal7">金鞭溪畔</span></div>
       </div>
-      <div class="gallery-item g8" data-category="culture" onclick="openLightboxFromGallery(7)">
-        <div class="g-img-placeholder">🏡</div>
+      <div class="gallery-item" data-category="culture" onclick="openLightboxFromGallery(7)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-village.jpg" alt="山村民宿" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal8">山村民宿</span></div>
       </div>
-      <div class="gallery-item g9" data-category="season" onclick="openLightboxFromGallery(8)">
-        <div class="g-img-placeholder">🌸</div>
+      <div class="gallery-item" data-category="season" onclick="openLightboxFromGallery(8)">
+        <div class="g-img-wrapper"><img src="assets/images/gal-spring.jpg" alt="春花烂漫" class="g-img"></div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal9">春花烂漫</span></div>
       </div>
     </div>
@@ -786,7 +767,16 @@
   <!-- VIDEO MODAL -->
   <div class="video-modal" id="videoModal">
     <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
-    <video id="mainVideo" controls></video>
+    <!-- Video source: Replace with actual promotional video -->
+    <!-- <video id="mainVideo" controls poster="assets/images/hero-pillars.jpg">
+      <source src="assets/videos/promotional.mp4" type="video/mp4">
+    </video> -->
+    <div style="width:80vw;max-width:900px;aspect-ratio:16/9;background:url('assets/images/hero-pillars.jpg') center/cover;border-radius:12px;display:flex;align-items:center;justify-content:center;">
+      <div style="text-align:center;color:#fff;">
+        <p style="font-size:14px;opacity:0.7;margin-bottom:8px;">📹 宣传片</p>
+        <p style="font-size:12px;opacity:0.5;">请替换为实际视频文件</p>
+      </div>
+    </div>
   </div>
 
   <!-- ADMIN PANEL (hidden, accessible via keyboard shortcut) -->
