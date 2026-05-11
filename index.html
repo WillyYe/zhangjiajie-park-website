@@ -773,7 +773,7 @@
       您的浏览器不支持视频播放
     </video>
     <!-- 视频加载失败时的备用显示 -->
-    <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+    <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
       <div style="font-size:48px;opacity:0.6;">🎬</div>
       <div style="text-align:center;color:#fff;">
         <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 宣传片</p>
@@ -945,6 +945,29 @@
 
   <!-- JAVASCRIPT -->
   <script>
+    // ===== 全局状态管理（防止竞态条件） =====
+    const AppState = {
+      currentLang: 'en',
+      isInitializing: true,  // 初始化锁，防止竞态
+      isVideoModalOpen: false,
+      isLightboxOpen: false,
+      heroSliderInterval: null,
+      isScrollHandlerBound: false,
+      
+      // 原子化状态更新
+      setLanguage(lang) {
+        this.currentLang = lang;
+      },
+      
+      lock() {
+        this.isInitializing = true;
+      },
+      
+      unlock() {
+        this.isInitializing = false;
+      }
+    };
+
     // ===== i18n 双语字典 =====
     const i18n = {
       zh: {
@@ -1040,57 +1063,197 @@
       }
     };
 
-    let currentLang = 'en';
-
     function switchLang(lang) {
-      currentLang = lang;
-      document.querySelectorAll('.lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
-      document.querySelectorAll('.mobile-lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
-      if(lang === 'zh') {
-        document.querySelector('.lang-switch button:first-child').classList.add('active');
-        document.querySelector('.mobile-lang-switch button:first-child').classList.add('active');
-      } else {
-        document.querySelector('.lang-switch button:last-child').classList.add('active');
-        document.querySelector('.mobile-lang-switch button:last-child').classList.add('active');
+      // 防止初始化期间的状态冲突
+      if (AppState.isInitializing && lang !== 'en' && lang !== 'zh') {
+        return;
       }
-      document.querySelectorAll('[data-i18n]').forEach(function(el){
+      
+      AppState.setLanguage(lang);
+      AppState.unlock();  // 解锁，允许后续操作
+      
+      // 更新语言切换按钮状态（带防御性检查）
+      var langBtns = document.querySelectorAll('.lang-switch button');
+      var mobileLangBtns = document.querySelectorAll('.mobile-lang-switch button');
+      
+      if (langBtns.length >= 2) {
+        langBtns.forEach(function(btn){ btn.classList.remove('active'); });
+        mobileLangBtns.forEach(function(btn){ btn.classList.remove('active'); });
+        
+        if (lang === 'zh') {
+          langBtns[0].classList.add('active');
+          if (mobileLangBtns.length > 0) mobileLangBtns[0].classList.add('active');
+        } else {
+          langBtns[1].classList.add('active');
+          if (mobileLangBtns.length > 1) mobileLangBtns[1].classList.add('active');
+        }
+      }
+      
+      // 更新所有国际化文本（带防御性检查）
+      var i18nElements = document.querySelectorAll('[data-i18n]');
+      var i18nPlaceholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+      
+      i18nElements.forEach(function(el){
         var key = el.getAttribute('data-i18n');
-        if(i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
+        if (key && i18n[lang] && i18n[lang][key] !== undefined) {
+          el.textContent = i18n[lang][key];
+        }
       });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+      
+      i18nPlaceholderElements.forEach(function(el){
         var key = el.getAttribute('data-i18n-placeholder');
-        if(i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
+        if (key && i18n[lang] && i18n[lang][key] !== undefined) {
+          el.placeholder = i18n[lang][key];
+        }
       });
-      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-      // Switch map based on language
-      document.getElementById('google-map-frame').style.display = lang === 'en' ? 'block' : 'none';
-      document.getElementById('amap-frame').style.display = lang === 'zh' ? 'block' : 'none';
+      
+      // 更新 HTML lang 属性
+      if (document.documentElement) {
+        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      }
+      
+      // 切换地图（带防御性检查）
+      var googleMap = document.getElementById('google-map-frame');
+      var amap = document.getElementById('amap-frame');
+      if (googleMap) {
+        googleMap.style.display = lang === 'en' ? 'block' : 'none';
+      }
+      if (amap) {
+        amap.style.display = lang === 'zh' ? 'block' : 'none';
+      }
     }
 
     // ===== HERO SLIDER =====
     let currentSlide = 0;
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.hero-dots .dot');
+    
     function goSlide(n) {
-      slides[currentSlide].classList.remove('active');
-      dots[currentSlide].classList.remove('active');
-      currentSlide = (n + slides.length) % slides.length;
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
+      // 防御性检查：确保元素存在
+      if (!slides.length || !dots.length) return;
+      
+      var prevSlide = currentSlide;
+      
+      // 移除当前活动状态
+      if (slides[prevSlide]) {
+        slides[prevSlide].classList.remove('active');
+      }
+      if (dots[prevSlide]) {
+        dots[prevSlide].classList.remove('active');
+      }
+      
+      // 计算下一个幻灯片索引
+      currentSlide = ((n % slides.length) + slides.length) % slides.length;
+      
+      // 添加新活动状态
+      if (slides[currentSlide]) {
+        slides[currentSlide].classList.add('active');
+      }
+      if (dots[currentSlide]) {
+        dots[currentSlide].classList.add('active');
+      }
     }
-    setInterval(function(){ goSlide(currentSlide + 1); }, 5000);
-
-    // ===== HEADER SCROLL =====
-    window.addEventListener('scroll', function(){
-      var header = document.getElementById('header');
-      if(window.scrollY > 80) header.classList.add('scrolled');
-      else { header.classList.remove('scrolled'); header.classList.add('top'); }
+    
+    // 安全启动自动轮播（防止重复启动）
+    function startHeroSlider() {
+      if (AppState.heroSliderInterval) {
+        clearInterval(AppState.heroSliderInterval);
+      }
+      AppState.heroSliderInterval = setInterval(function(){ 
+        goSlide(currentSlide + 1); 
+      }, 5000);
+    }
+    
+    // 页面可见性变化时暂停/恢复轮播（节省资源）
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        if (AppState.heroSliderInterval) {
+          clearInterval(AppState.heroSliderInterval);
+          AppState.heroSliderInterval = null;
+        }
+      } else {
+        startHeroSlider();
+      }
     });
 
-    // ===== MOBILE MENU =====
-    function toggleMenu(){
-      document.getElementById('navLinks').classList.toggle('open');
+    // ===== HEADER SCROLL =====
+    // 使用节流优化滚动事件性能
+    var scrollThrottleTimer = null;
+    var lastScrollY = 0;
+    
+    function handleHeaderScroll() {
+      var header = document.getElementById('header');
+      if (!header) return;
+      
+      var currentScrollY = window.scrollY || document.documentElement.scrollTop;
+      
+      // 滚动方向检测
+      var isScrollingDown = currentScrollY > lastScrollY;
+      lastScrollY = currentScrollY;
+      
+      // 根据滚动位置更新样式
+      if (currentScrollY > 80) {
+        header.classList.add('scrolled');
+        header.classList.remove('top');
+      } else {
+        header.classList.remove('scrolled');
+        header.classList.add('top');
+      }
     }
+    
+    // 防抖滚动处理
+    function throttledScrollHandler() {
+      if (scrollThrottleTimer) return;
+      
+      scrollThrottleTimer = setTimeout(function() {
+        handleHeaderScroll();
+        scrollThrottleTimer = null;
+      }, 16);  // ~60fps
+    }
+    
+    // 一次性绑定滚动事件（防止重复绑定）
+    if (!AppState.isScrollHandlerBound) {
+      window.addEventListener('scroll', throttledScrollHandler, { passive: true });
+      AppState.isScrollHandlerBound = true;
+    }
+
+    // ===== MOBILE MENU =====
+    var isMobileMenuOpen = false;
+    
+    function toggleMenu() {
+      var navLinks = document.getElementById('navLinks');
+      if (!navLinks) return;
+      
+      isMobileMenuOpen = !isMobileMenuOpen;
+      navLinks.classList.toggle('open', isMobileMenuOpen);
+    }
+    
+    // 点击菜单外部关闭菜单（增强鲁棒性）
+    document.addEventListener('click', function(e) {
+      var navLinks = document.getElementById('navLinks');
+      var hamburger = document.getElementById('hamburger');
+      
+      if (isMobileMenuOpen && navLinks && hamburger) {
+        var isClickInsideNav = navLinks.contains(e.target);
+        var isClickOnHamburger = hamburger.contains(e.target);
+        
+        if (!isClickInsideNav && !isClickOnHamburger) {
+          navLinks.classList.remove('open');
+          isMobileMenuOpen = false;
+        }
+      }
+    });
+    
+    // ESC 键关闭移动端菜单
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        var navLinks = document.getElementById('navLinks');
+        if (navLinks) {
+          navLinks.classList.remove('open');
+          isMobileMenuOpen = false;
+        }
+      }
+    });
 
     // ===== ANNOUNCEMENT MODAL =====
     function closeAnnounce(){
@@ -1135,16 +1298,24 @@
           el.textContent = current.toLocaleString();
         }, 16);
       });
-    }
-
-    // 初始化语言
-    switchLang("zh");
+      }
+      
+      // 注意：语言初始化在页面底部 IIFE 中执行
+      // 移除此处的同步调用以避免竞态条件
 
     // ===== SCROLL TO SECTION =====
     function scrollToSection(id){
       var el = document.getElementById(id);
-      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-      document.getElementById('navLinks').classList.remove('open');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // 关闭移动端菜单
+      var navLinks = document.getElementById('navLinks');
+      if (navLinks) {
+        navLinks.classList.remove('open');
+        isMobileMenuOpen = false;
+      }
     }
 
     // ===== LIGHTBOX =====
@@ -1173,40 +1344,74 @@
     function openLightboxFromGallery(idx){
       lightboxIndex = 100 + idx; // gallery images start at 100
       var img = galleryImages[idx];
-      document.getElementById('lightboxImg').src = img ? img.src : '';
-      document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
+      var lightboxImg = document.getElementById('lightboxImg');
+      var lightboxTitle = document.getElementById('lightboxTitle');
+      
+      // 防御性检查
+      if (!lightboxImg || !lightboxTitle) return;
+      
+      // 检查图片是否有效
+      if (img && img.src) {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.title ? (AppState.currentLang === 'zh' ? img.title.zh : img.title.en) : '';
+      } else {
+        // 使用占位符图片或隐藏图片
+        lightboxImg.src = 'assets/images/gal-' + (idx + 1) + '.jpg';
+        lightboxImg.alt = img && img.title ? (AppState.currentLang === 'zh' ? img.title.zh : img.title.en) : 'Gallery image';
+      }
+      
+      // 设置标题
+      if (img && img.title) {
+        lightboxTitle.textContent = AppState.currentLang === 'zh' ? img.title.zh : img.title.en;
+      }
+      
       document.getElementById('lightbox').classList.add('open');
+      AppState.isLightboxOpen = true;
     }
-
+    
     function closeLightbox(){
-      document.getElementById('lightbox').classList.remove('open');
+      var lightbox = document.getElementById('lightbox');
+      if (lightbox) {
+        lightbox.classList.remove('open');
+      }
+      AppState.isLightboxOpen = false;
     }
-
+    
     function lightboxNav(dir){
       var total = 3 + galleryImages.length;
-      lightboxIndex = (lightboxIndex + dir + total) % total;
+      lightboxIndex = ((lightboxIndex + dir) % total + total) % total; // 安全取模
+      
+      var lightboxImg = document.getElementById('lightboxImg');
+      var lightboxTitle = document.getElementById('lightboxTitle');
+      
+      if (!lightboxImg || !lightboxTitle) return;
+      
       if(lightboxIndex < 3){
-        document.getElementById('lightboxImg').src = heroImages[lightboxIndex] || '';
-        document.getElementById('lightboxTitle').textContent = 'Hero 幻灯片 ' + (lightboxIndex + 1);
+        var heroImg = heroImages[lightboxIndex];
+        lightboxImg.src = heroImg || 'assets/images/hero-pillars.jpg';
+        lightboxTitle.textContent = 'Hero 幻灯片 ' + (lightboxIndex + 1);
       } else {
         var gi = lightboxIndex - 3;
         var img = galleryImages[gi];
-        document.getElementById('lightboxImg').src = img ? img.src : '';
-        document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
+        if (img) {
+          lightboxImg.src = img.src || 'assets/images/gal-' + (gi + 1) + '.jpg';
+          lightboxTitle.textContent = img.title ? (AppState.currentLang === 'zh' ? img.title.zh : img.title.en) : '';
+        }
       }
     }
-
+    
+    // 键盘导航（带状态检查）
     document.addEventListener('keydown',function(e){
-      if(document.getElementById('lightbox').classList.contains('open')){
+      if(AppState.isLightboxOpen){
         if(e.key==='Escape') closeLightbox();
         if(e.key==='ArrowLeft') lightboxNav(-1);
         if(e.key==='ArrowRight') lightboxNav(1);
       }
-      if(document.getElementById('videoModal').classList.contains('open')){
+      if(AppState.isVideoModalOpen){
         if(e.key==='Escape') closeVideoModal();
       }
     });
-
+    
     document.getElementById('lightbox').addEventListener('click',function(e){
       if(e.target===this) closeLightbox();
     });
@@ -1216,34 +1421,50 @@
     var demoVideoUrl = ''; // 可从管理后台设置
 
     function openVideoModal(){
+      // 防止重复打开
+      if (AppState.isVideoModalOpen) {
+        return;
+      }
+      
       var modal = document.getElementById('videoModal');
       var video = document.getElementById('mainVideo');
       var placeholder = document.getElementById('videoPlaceholder');
       
+      // 防御性检查
+      if (!modal || !video) {
+        console.warn('[VideoModal] Required elements not found');
+        return;
+      }
+      
       // 先隐藏占位符，显示视频元素
-      if(placeholder) placeholder.style.display = 'none';
+      if (placeholder) {
+        placeholder.style.display = 'none';
+      }
       video.style.display = 'block';
       
-      if(demoVideoUrl){
+      // 设置视频源
+      if (demoVideoUrl) {
         video.src = demoVideoUrl;
       } else {
         video.src = 'assets/videos/promotional.mp4';
       }
       
       modal.classList.add('open');
+      AppState.isVideoModalOpen = true;
       
       // 监听视频加载错误，显示占位符
       video.onerror = function() {
         video.style.display = 'none';
-        if(placeholder) {
+        if (placeholder) {
           placeholder.style.display = 'flex';
         }
       };
       
+      // 尝试播放视频，自动播放被阻止时显示占位符
       video.play().catch(function() {
         // 自动播放被阻止，静默处理
         video.style.display = 'none';
-        if(placeholder) {
+        if (placeholder) {
           placeholder.style.display = 'flex';
         }
       });
@@ -1251,14 +1472,27 @@
 
     function closeVideoModal(){
       var video = document.getElementById('mainVideo');
-      video.pause();
-      video.src = '';
-      document.getElementById('videoModal').classList.remove('open');
+      var modal = document.getElementById('videoModal');
+      
+      if (video) {
+        video.pause();
+        video.src = '';
+      }
+      
+      if (modal) {
+        modal.classList.remove('open');
+      }
+      
+      AppState.isVideoModalOpen = false;
     }
-
-    document.getElementById('videoModal').addEventListener('click',function(e){
-      if(e.target===this) closeVideoModal();
-    });
+    
+    // 点击遮罩关闭
+    var videoModal = document.getElementById('videoModal');
+    if (videoModal) {
+      videoModal.addEventListener('click', function(e) {
+        if (e.target === this) closeVideoModal();
+      });
+    }
 
     // ===== EXP DETAIL MODAL =====
     const expDetails = {
@@ -1270,7 +1504,10 @@
 
     function showExpDetail(type){
       var info = expDetails[type] || {zh:'暂无详情',en:'No details available'};
-      alert(currentLang === 'zh' ? info.zh : info.en);
+
+      // 使用 AppState 获取当前语言
+      var lang = AppState.currentLang || 'en';
+      alert(lang === 'zh' ? info.zh : info.en);
     }
 
     // ===== TRANSPORT DETAIL MODAL =====
@@ -1283,56 +1520,120 @@
 
     function showTransportDetail(type){
       var info = transportDetails[type] || {zh:'暂无详情',en:'No details available'};
-      alert(currentLang === 'zh' ? info.zh : info.en);
+
+      // 使用 AppState 获取当前语言
+      var lang = AppState.currentLang || 'en';
+      alert(lang === 'zh' ? info.zh : info.en);
     }
 
     // ===== SUBSCRIBE =====
     function handleSubscribe(){
-      var email = document.getElementById('subscribeEmail').value;
-      if(!email || !email.includes('@')){
-        alert(currentLang === 'zh' ? '请输入有效的邮箱地址' : 'Please enter a valid email address');
+      var emailInput = document.getElementById('subscribeEmail');
+      if (!emailInput) return;
+      
+      var email = emailInput.value;
+      var lang = AppState.currentLang || 'en';
+      
+      // 邮箱格式验证（更复杂的正则）
+      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if(!email || !emailRegex.test(email)){
+        alert(lang === 'zh' ? '请输入有效的邮箱地址（如：name@example.com）' : 'Please enter a valid email address (e.g. name@example.com)');
         return;
       }
-      // 保存到本地存储（演示用）
-      var subs = JSON.parse(localStorage.getItem('subscribers') || '[]');
-      if(!subs.includes(email)) subs.push(email);
-      localStorage.setItem('subscribers', JSON.stringify(subs));
-      document.getElementById('subscribeEmail').value = '';
-      alert(currentLang === 'zh' ? '订阅成功！感谢您的关注。' : 'Subscribed successfully! Thank you.');
+      
+      try {
+        // 保存到本地存储（演示用）
+        var subs = JSON.parse(localStorage.getItem('subscribers') || '[]');
+        if(!subs.includes(email)) {
+          subs.push(email);
+          localStorage.setItem('subscribers', JSON.stringify(subs));
+        }
+        
+        emailInput.value = '';
+        alert(lang === 'zh' ? '订阅成功！感谢您的关注。' : 'Subscribed successfully! Thank you.');
+      } catch(e) {
+        console.error('[Subscribe] Error:', e);
+        alert(lang === 'zh' ? '订阅失败，请重试。' : 'Subscription failed, please try again.');
+      }
     }
-
+    
     // ===== ADMIN PANEL =====
     function openAdmin(){
-      document.getElementById('adminOverlay').classList.add('open');
-      updateAdminStats();
+      var adminOverlay = document.getElementById('adminOverlay');
+      if (adminOverlay) {
+        adminOverlay.classList.add('open');
+        updateAdminStats();
+      }
     }
-
+    
     function closeAdmin(){
-      document.getElementById('adminOverlay').classList.remove('open');
+      var adminOverlay = document.getElementById('adminOverlay');
+      if (adminOverlay) {
+        adminOverlay.classList.remove('open');
+      }
     }
-
+    
     function switchAdminTab(tabId){
-      document.querySelectorAll('.admin-tab').forEach(function(t){ t.classList.remove('active'); });
-      document.querySelectorAll('.admin-tab-content').forEach(function(c){ c.classList.remove('active'); });
-      document.getElementById('tab-'+tabId).classList.add('active');
-      event.target.classList.add('active');
+      // 防御性检查
+      if (!tabId) return;
+      
+      // 移除所有活动状态
+      document.querySelectorAll('.admin-tab').forEach(function(t){ 
+        if (t) t.classList.remove('active'); 
+      });
+      document.querySelectorAll('.admin-tab-content').forEach(function(c){ 
+        if (c) c.classList.remove('active'); 
+      });
+      
+      // 设置新的活动状态
+      var targetTab = document.getElementById('tab-'+tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      
+      // 设置按钮活动状态
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
     }
-
-    document.getElementById('adminOverlay').addEventListener('click',function(e){
-      if(e.target===this) closeAdmin();
-    });
-
-    // 键盘快捷键：Ctrl+Shift+A 打开管理后台
+    
+    // 点击遮罩关闭管理面板
+    var adminOverlayEl = document.getElementById('adminOverlay');
+    if (adminOverlayEl) {
+      adminOverlayEl.addEventListener('click',function(e){
+        if(e.target===this) closeAdmin();
+      });
+    }
+    
+    // 键盘快捷键：Ctrl+Shift+A 打开管理后台（调整快捷键避免冲突）
     document.addEventListener('keydown',function(e){
-      if(e.ctrlKey && e.shiftKey && e.key==='A'){
+      // 使用 Ctrl+Alt+A 替代，避免与浏览器快捷键冲突
+      if(e.ctrlKey && e.altKey && e.key==='a'){
         e.preventDefault();
         openAdmin();
       }
+      
+      // ESC 在管理面板打开时关闭面板
+      if(e.key === 'Escape' && 
+         document.getElementById('adminOverlay') && 
+         document.getElementById('adminOverlay').classList.contains('open')) {
+        closeAdmin();
+      }
     });
-
+    
     function updateAdminStats(){
-      document.getElementById('statHero').textContent = heroImages.filter(function(i){return i;}).length + '/3';
-      document.getElementById('statGallery').textContent = galleryImages.filter(function(i){return i.src;}).length + '/9';
+      try {
+        var heroCount = ghData.heroImages ? ghData.heroImages.filter(function(i){return i;}).length : 0;
+        var galleryCount = galleryImages ? galleryImages.filter(function(i){return i && i.src;}).length : 0;
+        
+        var statHero = document.getElementById('statHero');
+        var statGallery = document.getElementById('statGallery');
+        
+        if (statHero) statHero.textContent = heroCount + '/3';
+        if (statGallery) statGallery.textContent = galleryCount + '/9';
+      } catch(e) {
+        console.error('[AdminStats] Error:', e);
+      }
     }
 
     // 上传到 GitHub
@@ -1344,32 +1645,49 @@
       galleryImages: [],
       videoUrl: ''
     };
-
+    
     function handleHeroUpload(input){
-      if(!input.files.length) return;
-      var token = document.getElementById('ghToken').value;
-      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
+      if(!input || !input.files || !input.files.length) return;
+      
+      var token = document.getElementById('ghToken') ? document.getElementById('ghToken').value : '';
+      if(!token){ showAdminMsg('error', AppState.currentLang === 'zh' ? '请先输入 GitHub PAT Token' : 'Please enter GitHub PAT Token first'); return; }
+      
       ghData.token = token;
-      ghData.branch = document.getElementById('ghBranch').value || 'main';
-
+      ghData.branch = (document.getElementById('ghBranch') ? document.getElementById('ghBranch').value : '') || 'main';
+      
       var preview = document.getElementById('heroPreview');
-      Array.from(input.files).slice(0,3).forEach(function(file, idx){
+      if (!preview) return;
+      
+      // 限制最多上传3个
+      var filesToUpload = Array.from(input.files).slice(0, 3 - ghData.heroImages.length);
+      
+      filesToUpload.forEach(function(file, idx){
         var reader = new FileReader();
         reader.onload = function(e){
-          var item = document.createElement('div');
-          item.className = 'admin-preview-item';
-          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
-          preview.appendChild(item);
+          try {
+            var item = document.createElement('div');
+            item.className = 'admin-preview-item';
+            item.innerHTML = '<img src="'+e.target.result+'" alt="preview" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
+            preview.appendChild(item);
 
-          // 上传到 GitHub
-          uploadToGitHub(e.target.result, 'hero-'+Date.now()+'-'+file.name.replace(/\s/g,'_'), 'images/hero/', function(err, url){
-            if(err){ showAdminMsg('error','上传失败: '+err); return; }
-            // 更新 hero 幻灯片
-            if(ghData.heroImages.length < 3) ghData.heroImages.push(url);
-            updateHeroSlides();
-            showAdminMsg('success','Hero 图片 #'+(ghData.heroImages.length)+' 上传成功！');
-            updateAdminStats();
-          });
+            // 上传到 GitHub
+            uploadToGitHub(e.target.result, 'hero-'+Date.now()+'-'+file.name.replace(/\s/g,'_'), 'images/hero/', function(err, url){
+              if(err){ showAdminMsg('error', (AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + err); return; }
+              // 更新 hero 幻灯片
+              if(ghData.heroImages.length < 3) {
+                ghData.heroImages.push(url);
+                updateHeroSlides();
+                showAdminMsg('success', (AppState.currentLang === 'zh' ? 'Hero 图片 #' : 'Hero Image #') + (ghData.heroImages.length) + (AppState.currentLang === 'zh' ? ' 上传成功！' : ' uploaded successfully!'));
+                updateAdminStats();
+              }
+            });
+          } catch(ex) {
+            console.error('[HeroUpload] Error:', ex);
+            showAdminMsg('error', 'Upload preparation failed');
+          }
+        };
+        reader.onerror = function() {
+          showAdminMsg('error', 'File reading failed');
         };
         reader.readAsDataURL(file);
       });
@@ -1377,103 +1695,161 @@
     }
 
     function handleGalleryUpload(input){
-      if(!input.files.length) return;
-      var token = document.getElementById('ghToken').value;
-      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
+      if(!input || !input.files || !input.files.length) return;
+      
+      var token = document.getElementById('ghToken') ? document.getElementById('ghToken').value : '';
+      if(!token){ showAdminMsg('error', AppState.currentLang === 'zh' ? '请先输入 GitHub PAT Token' : 'Please enter GitHub PAT Token first'); return; }
       ghData.token = token;
-
+      
       var preview = document.getElementById('galleryPreview');
+      if (!preview) return;
+      
       Array.from(input.files).forEach(function(file){
         var reader = new FileReader();
         reader.onload = function(e){
-          var item = document.createElement('div');
-          item.className = 'admin-preview-item';
-          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
-          preview.appendChild(item);
+          try {
+            var item = document.createElement('div');
+            item.className = 'admin-preview-item';
+            item.innerHTML = '<img src="'+e.target.result+'" alt="preview" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
+            preview.appendChild(item);
 
-          uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'images/gallery/', function(err, url){
-            if(err){ showAdminMsg('error','上传失败: '+err); return; }
-            // 找到第一个空位
-            var emptyIdx = galleryImages.findIndex(function(g){return !g.src;});
-            if(emptyIdx >= 0){
-              galleryImages[emptyIdx].src = url;
-            }
-            showAdminMsg('success','图库图片上传成功！');
-            updateAdminStats();
-          });
+            uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'images/gallery/', function(err, url){
+              if(err){ showAdminMsg('error', (AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + err); return; }
+              // 找到第一个空位
+              if (galleryImages) {
+                var emptyIdx = galleryImages.findIndex(function(g){return !g.src;});
+                if(emptyIdx >= 0){
+                  galleryImages[emptyIdx].src = url;
+                }
+              }
+              showAdminMsg('success', AppState.currentLang === 'zh' ? '图库图片上传成功！' : 'Gallery image uploaded!');
+              updateAdminStats();
+            });
+          } catch(ex) {
+            console.error('[GalleryUpload] Error:', ex);
+            showAdminMsg('error', 'Upload preparation failed');
+          }
+        };
+        reader.onerror = function() {
+          showAdminMsg('error', 'File reading failed');
         };
         reader.readAsDataURL(file);
       });
       input.value = '';
     }
-
+    
     function handleVideoUpload(input){
-      if(!input.files.length) return;
-      var token = document.getElementById('ghToken').value;
-      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
-
+      if(!input || !input.files || !input.files.length) return;
+      
+      var token = document.getElementById('ghToken') ? document.getElementById('ghToken').value : '';
+      if(!token){ showAdminMsg('error', AppState.currentLang === 'zh' ? '请先输入 GitHub PAT Token' : 'Please enter GitHub PAT Token first'); return; }
+      
       var file = input.files[0];
       var status = document.getElementById('videoUploadStatus');
+      if (!status) return;
+      
+      // 检查文件大小（限制100MB）
+      var maxSize = 100 * 1024 * 1024;
+      if (file.size > maxSize) {
+        status.className = 'admin-msg error';
+        status.textContent = AppState.currentLang === 'zh' ? '视频文件过大，请控制在100MB以内' : 'Video too large, max 100MB';
+        status.style.display = 'block';
+        return;
+      }
+      
       status.className = 'admin-msg';
-      status.textContent = '正在上传视频...';
+      status.textContent = AppState.currentLang === 'zh' ? '正在上传视频...' : 'Uploading video...';
       status.style.display = 'block';
-
+      
       var reader = new FileReader();
       reader.onload = function(e){
         uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'videos/', function(err, url){
           if(err){
             status.className = 'admin-msg error';
-            status.textContent = '上传失败: '+err;
+            status.textContent = (AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + err;
             return;
           }
           demoVideoUrl = url;
+          ghData.videoUrl = url;
           status.className = 'admin-msg success';
-          status.textContent = '视频上传成功！URL: '+url;
+          status.textContent = (AppState.currentLang === 'zh' ? '视频上传成功！URL: ' : 'Video uploaded! URL: ') + url;
         });
+      };
+      reader.onerror = function() {
+        status.className = 'admin-msg error';
+        status.textContent = 'File reading failed';
       };
       reader.readAsDataURL(file);
       input.value = '';
     }
-
+    
     function uploadToGitHub(base64Data, filename, folder, callback){
-      var parts = base64Data.split(',');
-      var content = parts[1] || parts[0];
-      var token = ghData.token;
-      var repo = ghData.repo;
-      var branch = ghData.branch;
-      var path = folder + filename;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('PUT', 'https://api.github.com/repos/'+repo+'/contents/'+path, true);
-      xhr.setRequestHeader('Authorization','token '+token);
-      xhr.setRequestHeader('Accept','application/vnd.github.v3+json');
-      xhr.setRequestHeader('Content-Type','application/json');
-
-      xhr.onload = function(){
-        if(xhr.status === 200 || xhr.status === 201){
-          var res = JSON.parse(xhr.responseText);
-          callback(null, res.content.download_url);
-        } else if(xhr.status === 401){
-          callback('Token 无效，请检查权限');
-        } else if(xhr.status === 403){
-          callback('权限不足，请确认 Token 有 repo 权限');
-        } else {
-          callback('上传失败: '+xhr.status);
+      if (!callback || typeof callback !== 'function') return;
+      
+      try {
+        var parts = base64Data.split(',');
+        var content = parts[1] || parts[0];
+        var token = ghData.token;
+        var repo = ghData.repo;
+        var branch = ghData.branch || 'main';
+        var path = folder + filename;
+        
+        if (!token) {
+          callback('No token available');
+          return;
         }
-      };
-      xhr.onerror = function(){ callback('网络错误'); };
-      xhr.send(JSON.stringify({
-        message: 'Upload '+filename,
-        content: content,
-        branch: branch
-      }));
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', 'https://api.github.com/repos/'+repo+'/contents/'+path, true);
+        xhr.setRequestHeader('Authorization','token '+token);
+        xhr.setRequestHeader('Accept','application/vnd.github.v3+json');
+        xhr.setRequestHeader('Content-Type','application/json');
+        
+        xhr.onload = function(){
+          if(xhr.status === 200 || xhr.status === 201){
+            try {
+              var res = JSON.parse(xhr.responseText);
+              callback(null, res.content.download_url);
+            } catch(e) {
+              callback('Parse response failed');
+            }
+          } else if(xhr.status === 401){
+            callback(AppState.currentLang === 'zh' ? 'Token 无效，请检查权限' : 'Invalid token, please check permissions');
+          } else if(xhr.status === 403){
+            callback(AppState.currentLang === 'zh' ? '权限不足，请确认 Token 有 repo 权限' : 'Insufficient permissions, ensure Token has repo scope');
+          } else if(xhr.status === 422){
+            callback(AppState.currentLang === 'zh' ? '文件路径无效或文件已存在' : 'Invalid path or file already exists');
+          } else {
+            callback((AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + xhr.status);
+          }
+        };
+        xhr.onerror = function(){ 
+          callback(AppState.currentLang === 'zh' ? '网络错误，请检查网络连接' : 'Network error, please check connection'); 
+        };
+        xhr.ontimeout = function() {
+          callback(AppState.currentLang === 'zh' ? '请求超时，请重试' : 'Request timeout, please retry');
+        };
+        xhr.timeout = 60000; // 60秒超时
+        xhr.send(JSON.stringify({
+          message: 'Upload '+filename,
+          content: content,
+          branch: branch
+        }));
+      } catch(e) {
+        console.error('[UploadToGitHub] Error:', e);
+        callback('Unexpected error: ' + e.message);
+      }
     }
-
+    
     function updateHeroSlides(){
-      heroImages = ghData.heroImages.slice(0,3);
+      // 确保 ghData.heroImages 存在
+      if (ghData && ghData.heroImages) {
+        heroImages = ghData.heroImages.slice(0, 3);
+      }
+      
       for(var i=0;i<3;i++){
         var slide = document.getElementById('heroSlide'+i);
-        if(slide && heroImages[i]){
+        if(slide && heroImages && heroImages[i]){
           var bg = slide.querySelector('.slide-bg') || slide;
           bg.style.backgroundImage = 'url('+heroImages[i]+')';
           bg.style.backgroundSize = 'cover';
@@ -1481,45 +1857,84 @@
         }
       }
     }
-
+    
     function showAdminMsg(type, text){
       var msg = document.getElementById('adminMsg');
-      msg.className = 'admin-msg '+type;
-      msg.textContent = text;
-      setTimeout(function(){ msg.textContent=''; msg.className='admin-msg'; }, 5000);
+      if (!msg) return;
+      
+      msg.className = 'admin-msg ' + (type || '');
+      msg.textContent = text || '';
+      msg.style.display = 'block';
+      
+      // 5秒后自动清除消息
+      if (msg._timeout) clearTimeout(msg._timeout);
+      msg._timeout = setTimeout(function(){ 
+        msg.textContent = ''; 
+        msg.className = 'admin-msg'; 
+        msg.style.display = 'none';
+      }, 5000);
     }
-
-    function savePageText(){
-      var announce1 = document.getElementById('cfgAnnounce1').value;
-      var announce2 = document.getElementById('cfgAnnounce2').value;
-      if(announce1) i18n.zh.announce_p1 = announce1;
-      if(announce2) i18n.zh.announce_p2 = announce2;
-      if(announce1) i18n.en.announce_p1 = announce1;
-      if(announce2) i18n.en.announce_p2 = announce2;
-      switchLang(currentLang);
-      showAdminMsg('success','文案已保存（仅本次会话有效）');
-    }
-
-    // 从 localStorage 恢复设置
-    window.addEventListener('load', function(){
-      try {
-        var saved = JSON.parse(localStorage.getItem('siteConfig') || '{}');
-        if(saved.heroImages) ghData.heroImages = saved.heroImages;
-        if(saved.videoUrl) demoVideoUrl = saved.videoUrl;
-        heroImages = ghData.heroImages;
-        updateHeroSlides();
-      } catch(e){}
-    });
     
-    // Initialize language and map on page load
-    // Call immediately with 'en' as default (bypass any caching issues)
+    function savePageText(){
+      var announce1El = document.getElementById('cfgAnnounce1');
+      var announce2El = document.getElementById('cfgAnnounce2');
+      
+      if (!announce1El || !announce2El) return;
+      
+      var announce1 = announce1El.value;
+      var announce2 = announce2El.value;
+      
+      if(announce1 && i18n.zh) i18n.zh.announce_p1 = announce1;
+      if(announce2 && i18n.zh) i18n.zh.announce_p2 = announce2;
+      if(announce1 && i18n.en) i18n.en.announce_p1 = announce1;
+      if(announce2 && i18n.en) i18n.en.announce_p2 = announce2;
+      
+      // 使用 AppState 获取当前语言
+      switchLang(AppState.currentLang);
+      showAdminMsg('success', AppState.currentLang === 'zh' ? '文案已保存（仅本次会话有效）' : 'Text saved (valid for this session only)');
+    }
+    }
+
+    // ===== 页面初始化 =====
+    // 安全初始化语言（带状态锁防止竞态）
     (function(){
-      var initialLang = 'en';
-      // Small delay to ensure DOM is ready
+      AppState.lock(); // 锁定防止中间状态冲突
+      
+      // 延迟执行确保 DOM 完全加载
+      function doInit() {
+        // 恢复保存的设置
+        try {
+          var saved = JSON.parse(localStorage.getItem('siteConfig') || '{}');
+          if(saved.heroImages && Array.isArray(saved.heroImages)) {
+            ghData.heroImages = saved.heroImages;
+            heroImages = ghData.heroImages.slice(0, 3);
+          }
+          if(saved.videoUrl) {
+            demoVideoUrl = saved.videoUrl;
+            ghData.videoUrl = saved.videoUrl;
+          }
+          updateHeroSlides();
+        } catch(e) {
+          console.warn('[Init] Failed to restore settings:', e);
+        }
+        
+        // 设置初始语言为英文（与 SEO 和默认体验一致）
+        AppState.setLanguage('en');
+        switchLang('en');
+        
+        // 启动 Hero 轮播
+        startHeroSlider();
+        
+        // 触发一次滚动检测（用于设置初始 header 状态）
+        handleHeaderScroll();
+      }
+      
+      // 根据文档状态决定何时初始化
       if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function(){ switchLang(initialLang); });
+        document.addEventListener('DOMContentLoaded', doInit);
       } else {
-        switchLang(initialLang);
+        // DOM 已就绪，延迟一小段时间确保所有脚本执行完成
+        setTimeout(doInit, 0);
       }
     })();
   </script>
