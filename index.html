@@ -8,9 +8,14 @@
   <meta property="og:title" content="张家界国家森林公园" />
   <meta property="og:description" content="探索云端石柱，感受自然奇观。" />
   <meta name="theme-color" content="#0d2b1e" />
+  <!-- Google Fonts: 异步加载，不阻塞页面渲染 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- 字体延迟加载策略 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth;font-size:16px}
@@ -697,24 +702,29 @@
     </div>
     <div class="transport-layout">
       <div class="transport-map">
-        <!-- Google Maps (English) -->
-        <iframe 
+        <!-- 地图占位符：延迟加载 iframe -->
+        <div id="mapPlaceholder" style="width:100%;height:420px;background:linear-gradient(135deg,var(--cream),#e8e4de);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
+          <div style="font-size:36px;opacity:0.4;">🗺️</div>
+          <div style="font-size:13px;color:var(--text-light);" data-i18n="map_loading">加载地图中...</div>
+        </div>
+        <!-- Google Maps (English) - 懒加载 -->
+        <iframe
           id="google-map-frame"
-          src="https://www.google.com/maps?q=29.1170,110.4462&hl=en&z=12&output=embed"
-          width="100%" 
-          height="420" 
-          style="border:0;border-radius:16px;display:block;" 
-          allowfullscreen="" 
+          data-src="https://www.google.com/maps?q=29.1170,110.4462&hl=en&z=12&output=embed"
+          width="100%"
+          height="420"
+          style="border:0;border-radius:16px;display:none;"
+          allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-        <!-- AMap (Chinese) -->
-        <iframe 
+        <!-- AMap (Chinese) - 懒加载 -->
+        <iframe
           id="amap-frame"
-          src="https://uri.amap.com/search?query=张家界国家森林公园&center=110.4462,29.1170&zoom=12&view=map"
-          width="100%" 
-          height="420" 
-          style="border:0;border-radius:16px;display:none;" 
+          data-src="https://uri.amap.com/search?query=张家界国家森林公园&center=110.4462,29.1170&zoom=12&view=map"
+          width="100%"
+          height="420"
+          style="border:0;border-radius:16px;display:none;"
           loading="lazy">
         </iframe>
       </div>
@@ -1110,7 +1120,7 @@
         footer_subscribe:'订阅获取最新活动与优惠信息', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'订阅',
         footer_icp:'湘ICP备XXXXXXXX号', footer_privacy:'隐私政策', footer_terms:'使用条款',
         nav_about:'关于公园', nav_plan:'规划游览', nav_exp:'体验活动', nav_explore:'探索发现', nav_ticket:'预订中心', nav_news:'最新动态',
-        map_label:'📍 张家界国家森林公园区位图',
+        map_label:'📍 张家界国家森林公园区位图', map_loading:'加载地图中...',
         admin_title:'内容管理后台', admin_tip:'💡 使用提示：输入 GitHub PAT Token 上传图片到仓库。', admin_gh_auth:'🔐 GitHub 授权',
         admin_hero:'🖼 Hero 幻灯片管理', admin_gallery:'🎨 图库管理', admin_video:'🎬 视频管理',
         admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传',
@@ -1156,7 +1166,7 @@
         footer_subscribe:'Subscribe for latest events and offers', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'Subscribe',
         footer_icp:'Xiang ICP XXXXXXXX', footer_privacy:'Privacy Policy', footer_terms:'Terms of Use',
         nav_about:'About', nav_plan:'Plan Visit', nav_exp:'Experiences', nav_explore:'Explore', nav_ticket:'Book Now', nav_news:'News',
-        map_label:'📍 Zhangjiajie National Forest Park Location',
+        map_label:'📍 Zhangjiajie National Forest Park Location', map_loading:'Loading map...',
         admin_title:'Content Management', admin_tip:'💡 Enter your GitHub PAT Token to upload images to the repository.',
         admin_gh_auth:'🔐 GitHub Authorization',
         admin_hero:'🖼 Hero Slides Management', admin_gallery:'🎨 Gallery Management', admin_video:'🎬 Video Management',
@@ -1214,14 +1224,30 @@
         document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
       }
       
-      // 切换地图（带防御性检查）
+      // 切换地图（支持懒加载）
       var googleMap = document.getElementById('google-map-frame');
       var amap = document.getElementById('amap-frame');
-      if (googleMap) {
-        googleMap.style.display = lang === 'en' ? 'block' : 'none';
-      }
-      if (amap) {
-        amap.style.display = lang === 'zh' ? 'block' : 'none';
+      var mapPlaceholder = document.getElementById('mapPlaceholder');
+
+      if (lang === 'zh') {
+        // 中文：优先使用高德地图
+        if (amap) {
+          // 如果地图还没加载（懒加载），设置 src
+          if (amap.dataset.src && !amap.src) {
+            amap.src = amap.dataset.src;
+          }
+          amap.style.display = 'block';
+        }
+        if (googleMap) googleMap.style.display = 'none';
+      } else {
+        // 英文：使用 Google 地图
+        if (googleMap) {
+          if (googleMap.dataset.src && !googleMap.src) {
+            googleMap.src = googleMap.dataset.src;
+          }
+          googleMap.style.display = 'block';
+        }
+        if (amap) amap.style.display = 'none';
       }
     }
 
@@ -1380,6 +1406,52 @@
       fadeEls.forEach(function(el){ observer.observe(el); });
     } else {
       fadeEls.forEach(function(el){ el.classList.add('visible'); });
+    }
+
+    // ===== 懒加载地图（Intersection Observer） =====
+    function lazyLoadMap() {
+      var mapPlaceholder = document.getElementById('mapPlaceholder');
+      var googleMap = document.getElementById('google-map-frame');
+      var amap = document.getElementById('amap-frame');
+
+      if (!mapPlaceholder) return;
+
+      var mapObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            // 地图进入视口，加载对应语言的地图
+            var lang = AppState.currentLang || 'en';
+
+            if (lang === 'zh' && amap) {
+              // 中文：加载高德地图
+              if (amap.dataset.src) amap.src = amap.dataset.src;
+              amap.style.display = 'block';
+            } else if (googleMap) {
+              // 英文：加载 Google 地图
+              if (googleMap.dataset.src) googleMap.src = googleMap.dataset.src;
+              googleMap.style.display = 'block';
+            }
+
+            // 隐藏占位符
+            mapPlaceholder.style.display = 'none';
+
+            // 停止观察
+            mapObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+
+      mapObserver.observe(mapPlaceholder);
+    }
+
+    // 页面加载后启动地图懒加载
+    if ('IntersectionObserver' in window) {
+      lazyLoadMap();
+    } else {
+      // 降级：直接显示地图
+      var googleMap = document.getElementById('google-map-frame');
+      if (googleMap && googleMap.dataset.src) googleMap.src = googleMap.dataset.src;
+      googleMap.style.display = 'block';
     }
 
     // ===== GALLERY FILTER =====
