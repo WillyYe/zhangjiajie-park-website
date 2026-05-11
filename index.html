@@ -1614,14 +1614,55 @@
         html += '<span class="scenic-link">' + (isZh ? '探索更多 →' : 'Explore More →') + '</span>';
         html += '</div></a>';
       });
-      console.log('[DEBUG] Generated HTML length:', html.length);
       
       container.innerHTML = html;
       
-      // Make scenic cards visible immediately (they're in viewport on load)
-      container.querySelectorAll('.fade-up').forEach(function(el) {
-        el.classList.add('visible');
-      });
+      // Wait for all background images to load before showing cards
+      var bgElements = container.querySelectorAll('.scenic-bg');
+      var totalImages = bgElements.length;
+      var loadedImages = 0;
+      
+      function checkAllLoaded() {
+        loadedImages++;
+        if (loadedImages >= totalImages) {
+          // All images loaded (or failed), show cards
+          container.querySelectorAll('.fade-up').forEach(function(el) {
+            el.classList.add('visible');
+          });
+        }
+      }
+      
+      if (totalImages === 0) {
+        // No images, show immediately
+        container.querySelectorAll('.fade-up').forEach(function(el) {
+          el.classList.add('visible');
+        });
+      } else {
+        // Preload each background image
+        bgElements.forEach(function(bg) {
+          var img = new Image();
+          img.onload = checkAllLoaded;
+          img.onerror = checkAllLoaded; // Still count as "loaded" even if error
+          // Extract URL from background-image
+          var style = bg.style.backgroundImage;
+          var urlMatch = style.match(/url\(['"]?([^'"]+)['"]?\)/);
+          if (urlMatch && urlMatch[1]) {
+            img.src = urlMatch[1];
+          } else {
+            // No URL found, count as loaded
+            checkAllLoaded();
+          }
+        });
+        
+        // Fallback: show after 2 seconds even if images haven't loaded
+        setTimeout(function() {
+          container.querySelectorAll('.fade-up').forEach(function(el) {
+            if (!el.classList.contains('visible')) {
+              el.classList.add('visible');
+            }
+          });
+        }, 2000);
+      }
       
       // Render pagination dots
       var dotsHtml = '';
