@@ -326,6 +326,12 @@
     .admin-stat-item{background:#f8f8f8;border-radius:10px;padding:14px;text-align:center}
     .admin-stat-item .stat-num{font-size:24px;font-weight:600;color:var(--green-dark)}
     .admin-stat-item .stat-label{font-size:11px;color:var(--text-light);margin-top:2px}
+    .admin-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+    .admin-tab{padding:8px 14px;background:#f0f0f0;border-radius:8px;font-size:12px;cursor:pointer;transition:all .2s;border:none}
+    .admin-tab:hover{background:#e0e0e0}
+    .admin-tab.active{background:var(--green-accent);color:#fff}
+    .admin-tab-content{display:none}
+    .admin-tab-content.active{display:block}
     .admin-danger{background:#fff5f5;border:1px solid #ffcdd2;border-radius:8px;padding:14px 16px;font-size:12px;color:#c62828;line-height:1.6;margin-bottom:16px}
     .admin-danger strong{display:block;margin-bottom:4px}
   </style>
@@ -788,63 +794,82 @@
           </div>
         </div>
 
-        <div class="admin-section">
-          <h4>🔐 GitHub 授权</h4>
-          <div class="admin-field">
-            <label>PAT Token（仅上传用）</label>
-            <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
-          </div>
-          <div class="admin-field">
-            <label>仓库分支</label>
-            <input type="text" id="ghBranch" value="main" placeholder="main" />
+        <!-- Admin Tabs -->
+        <div class="admin-tabs">
+          <button class="admin-tab active" onclick="switchAdminTab('auth')">🔐 授权</button>
+          <button class="admin-tab" onclick="switchAdminTab('hero')">🖼 Hero</button>
+          <button class="admin-tab" onclick="switchAdminTab('gallery')">🎨 图库</button>
+          <button class="admin-tab" onclick="switchAdminTab('video')">🎬 视频</button>
+          <button class="admin-tab" onclick="switchAdminTab('text')">📝 文案</button>
+        </div>
+
+        <!-- Tab: 授权 -->
+        <div class="admin-tab-content active" id="tab-auth">
+          <div class="admin-section">
+            <div class="admin-field">
+              <label>PAT Token（仅上传用）</label>
+              <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
+            </div>
+            <div class="admin-field">
+              <label>仓库分支</label>
+              <input type="text" id="ghBranch" value="main" placeholder="main" />
+            </div>
           </div>
         </div>
 
-        <div class="admin-section">
-          <h4>🖼 Hero 幻灯片管理</h4>
-          <div class="admin-upload" id="heroUpload" onclick="document.getElementById('heroInput').click()">
-            <input type="file" id="heroInput" accept="image/*" multiple onchange="handleHeroUpload(this)" />
-            <div class="admin-upload-icon">📷</div>
-            <div class="admin-upload-text">点击上传 Hero 图片<br/><span>支持 JPG/PNG/WebP</span></div>
+        <!-- Tab: Hero -->
+        <div class="admin-tab-content" id="tab-hero">
+          <div class="admin-section">
+            <div class="admin-upload" id="heroUpload" onclick="document.getElementById('heroInput').click()">
+              <input type="file" id="heroInput" accept="image/*" multiple onchange="handleHeroUpload(this)" />
+              <div class="admin-upload-icon">📷</div>
+              <div class="admin-upload-text">点击上传 Hero 图片<br/><span>支持 JPG/PNG/WebP</span></div>
+            </div>
+            <div class="admin-preview" id="heroPreview"></div>
           </div>
-          <div class="admin-preview" id="heroPreview"></div>
         </div>
 
-        <div class="admin-section">
-          <h4>🎨 图库管理</h4>
-          <div class="admin-upload" id="galleryUpload" onclick="document.getElementById('galleryInput').click()">
-            <input type="file" id="galleryInput" accept="image/*" multiple onchange="handleGalleryUpload(this)" />
-            <div class="admin-upload-icon">🖼</div>
-            <div class="admin-upload-text">点击上传图库图片<br/><span>支持 JPG/PNG/WebP</span></div>
+        <!-- Tab: 图库 -->
+        <div class="admin-tab-content" id="tab-gallery">
+          <div class="admin-section">
+            <div class="admin-upload" id="galleryUpload" onclick="document.getElementById('galleryInput').click()">
+              <input type="file" id="galleryInput" accept="image/*" multiple onchange="handleGalleryUpload(this)" />
+              <div class="admin-upload-icon">🖼</div>
+              <div class="admin-upload-text">点击上传图库图片<br/><span>支持 JPG/PNG/WebP</span></div>
+            </div>
+            <div class="admin-preview" id="galleryPreview"></div>
           </div>
-          <div class="admin-preview" id="galleryPreview"></div>
         </div>
 
-        <div class="admin-section">
-          <h4>🎬 视频管理</h4>
-          <div class="admin-field">
-            <label>视频标题</label>
-            <input type="text" id="videoTitle" placeholder="如：张家界宣传片" />
+        <!-- Tab: 视频 -->
+        <div class="admin-tab-content" id="tab-video">
+          <div class="admin-section">
+            <div class="admin-field">
+              <label>视频标题</label>
+              <input type="text" id="videoTitle" placeholder="如：张家界宣传片" />
+            </div>
+            <div class="admin-upload" onclick="document.getElementById('videoInput').click()">
+              <input type="file" id="videoInput" accept="video/*" onchange="handleVideoUpload(this)" />
+              <div class="admin-upload-icon">🎬</div>
+              <div class="admin-upload-text">点击上传视频<br/><span>支持 MP4/WebM</span></div>
+            </div>
+            <div id="videoUploadStatus" class="admin-msg"></div>
           </div>
-          <div class="admin-upload" onclick="document.getElementById('videoInput').click()">
-            <input type="file" id="videoInput" accept="video/*" onchange="handleVideoUpload(this)" />
-            <div class="admin-upload-icon">🎬</div>
-            <div class="admin-upload-text">点击上传视频<br/><span>支持 MP4/WebM</span></div>
-          </div>
-          <div id="videoUploadStatus" class="admin-msg"></div>
         </div>
 
-        <div class="admin-section">
-          <h4>📝 页面文案</h4>
-          <div class="admin-field">
-            <label>公告内容（第一段）</label>
-            <textarea id="cfgAnnounce1" placeholder="公告内容第一段..."></textarea>
+        <!-- Tab: 文案 -->
+        <div class="admin-tab-content" id="tab-text">
+          <div class="admin-section">
+            <div class="admin-field">
+              <label>公告内容（第一段）</label>
+              <textarea id="cfgAnnounce1" placeholder="公告内容第一段..."></textarea>
+            </div>
+            <div class="admin-field">
+              <label>公告内容（第二段）</label>
+              <textarea id="cfgAnnounce2" placeholder="公告内容第二段..."></textarea>
+            </div>
+            <button class="admin-btn primary" onclick="savePageText()">保存文案</button>
           </div>
-          <div class="admin-field">
-            <label>公告内容（第二段）</label>
-            <textarea id="cfgAnnounce2" placeholder="公告内容第二段..."></textarea>
-          </div>
-          <button class="admin-btn primary" onclick="savePageText()">保存文案</button>
         </div>
 
         <div id="adminMsg" class="admin-msg"></div>
@@ -1236,6 +1261,13 @@
 
     function closeAdmin(){
       document.getElementById('adminOverlay').classList.remove('open');
+    }
+
+    function switchAdminTab(tabId){
+      document.querySelectorAll('.admin-tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.admin-tab-content').forEach(function(c){ c.classList.remove('active'); });
+      document.getElementById('tab-'+tabId).classList.add('active');
+      event.target.classList.add('active');
     }
 
     document.getElementById('adminOverlay').addEventListener('click',function(e){
