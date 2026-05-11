@@ -1496,11 +1496,16 @@
     });
     
     // Initialize language and map on page load
-    document.addEventListener('DOMContentLoaded', function(){
-      switchLang(currentLang);
-    });
-    // Also run immediately in case DOM is already ready
-    switchLang(currentLang);
+    // Call immediately with 'en' as default (bypass any caching issues)
+    (function(){
+      var initialLang = 'en';
+      // Small delay to ensure DOM is ready
+      if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function(){ switchLang(initialLang); });
+      } else {
+        switchLang(initialLang);
+      }
+    })();
   </script>
   
   <!-- 管理后台快捷入口按钮 - 始终显示 -->
