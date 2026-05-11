@@ -8,10 +8,9 @@
   <meta property="og:title" content="张家界国家森林公园" />
   <meta property="og:description" content="探索云端石柱，感受自然奇观。" />
   <meta name="theme-color" content="#0d2b1e" />
-  <!-- Google Fonts: 预连接优化 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth;font-size:16px}
@@ -336,7 +335,7 @@
       <div class="announce-header">
         <h3 data-i18n="announce_title">公园公告</h3>
         <p data-i18n="announce_sub">ANNOUNCEMENT</p>
-        <button class="announce-close" onclick="closeAnnounce()" aria-label="关闭公告">✕</button>
+        <button class="announce-close" onclick="closeAnnounce()">✕</button>
       </div>
       <div class="announce-body">
         <span class="announce-tag" data-i18n="announce_tag">最新通知</span>
@@ -374,19 +373,19 @@
       </nav>
       <div class="nav-right">
         <div class="lang-switch">
-          <button class="active" onclick="switchLang('zh')" aria-label="切换到中文">中文</button>
-          <button onclick="switchLang('en')" aria-label="Switch to English">EN</button>
+          <button class="active" onclick="switchLang('zh')">中文</button>
+          <button onclick="switchLang('en')">EN</button>
         </div>
-        <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
           <span></span><span></span><span></span>
-        </button>
+        </div>
       </div>
     </div>
   </header>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-slide slide1 active" id="heroSlide0" role="button" tabindex="0" aria-label="查看幻灯片 1：石柱奇观" onclick="openLightbox(0)">
+    <div class="hero-slide slide1 active" id="heroSlide0" onclick="openLightbox(0)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p1"></div>
@@ -400,7 +399,7 @@
       </div>
       <div class="slide-overlay"></div>
     </div>
-    <div class="hero-slide slide2" id="heroSlide1" role="button" tabindex="0" aria-label="查看幻灯片 2：云海奇观" onclick="openLightbox(1)">
+    <div class="hero-slide slide2" id="heroSlide1" onclick="openLightbox(1)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p3"></div>
@@ -411,7 +410,7 @@
       </div>
       <div class="slide-overlay"></div>
     </div>
-    <div class="hero-slide slide3" id="heroSlide2" role="button" tabindex="0" aria-label="查看幻灯片 3：溪流秘境" onclick="openLightbox(2)">
+    <div class="hero-slide slide3" id="heroSlide2" onclick="openLightbox(2)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p7"></div>
@@ -438,10 +437,10 @@
         <button class="hero-btn outline" onclick="openVideoModal()" data-i18n="hero_btn2">观看宣传片</button>
       </div>
     </div>
-    <div class="hero-dots" role="tablist" aria-label="幻灯片导航">
-      <div class="dot active" onclick="goSlide(0)" role="tab" aria-selected="true" aria-label="幻灯片 1"></div>
-      <div class="dot" onclick="goSlide(1)" role="tab" aria-selected="false" aria-label="幻灯片 2"></div>
-      <div class="dot" onclick="goSlide(2)" role="tab" aria-selected="false" aria-label="幻灯片 3"></div>
+    <div class="hero-dots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
     </div>
     <div class="scroll-hint">
       <span data-i18n="scroll_hint">向下滚动</span>
@@ -698,29 +697,24 @@
     </div>
     <div class="transport-layout">
       <div class="transport-map">
-        <!-- 地图占位符：延迟加载 iframe -->
-        <div id="mapPlaceholder" style="width:100%;height:420px;background:linear-gradient(135deg,var(--cream),#e8e4de);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-          <div style="font-size:36px;opacity:0.4;">🗺️</div>
-          <div style="font-size:13px;color:var(--text-light);" data-i18n="map_loading">加载地图中...</div>
-        </div>
-        <!-- Google Maps (English) - 懒加载 -->
-        <iframe
+        <!-- Google Maps (English) -->
+        <iframe 
           id="google-map-frame"
-          data-src="https://www.google.com/maps?q=29.1170,110.4462&hl=en&z=12&output=embed"
-          width="100%"
-          height="420"
-          style="border:0;border-radius:16px;display:none;"
-          allowfullscreen=""
+          src="https://www.google.com/maps?q=29.1170,110.4462&hl=en&z=12&output=embed"
+          width="100%" 
+          height="420" 
+          style="border:0;border-radius:16px;display:block;" 
+          allowfullscreen="" 
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
-        <!-- AMap (Chinese) - 懒加载 -->
-        <iframe
+        <!-- AMap (Chinese) -->
+        <iframe 
           id="amap-frame"
-          data-src="https://uri.amap.com/search?query=张家界国家森林公园&center=110.4462,29.1170&zoom=12&view=map"
-          width="100%"
-          height="420"
-          style="border:0;border-radius:16px;display:none;"
+          src="https://uri.amap.com/search?query=张家界国家森林公园&center=110.4462,29.1170&zoom=12&view=map"
+          width="100%" 
+          height="420" 
+          style="border:0;border-radius:16px;display:none;" 
           loading="lazy">
         </iframe>
       </div>
@@ -763,31 +757,28 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" onclick="closeLightbox()" aria-label="关闭灯箱">✕</button>
-    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)" aria-label="上一张">‹</button>
-    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)" aria-label="下一张">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
     <img class="lightbox-img" id="lightboxImg" src="" alt="" />
     <div class="lightbox-title" id="lightboxTitle"></div>
   </div>
 
   <!-- VIDEO MODAL -->
   <div class="video-modal" id="videoModal">
-    <button class="video-modal-close" onclick="closeVideoModal()" aria-label="关闭视频">✕</button>
-    <!-- 视频嵌入容器（动态加载 YouTube/B站 嵌入或本地视频） -->
-    <div id="videoEmbedContainer">
-      <!-- 默认本地视频播放器 -->
-      <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
-        <source src="assets/videos/promotional.mp4" type="video/mp4">
-        您的浏览器不支持视频播放
-      </video>
-    </div>
+    <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
+    <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
+      <source src="assets/videos/promotional.mp4" type="video/mp4">
+      <!-- 视频加载失败时显示占位符 -->
+      您的浏览器不支持视频播放
+    </video>
     <!-- 视频加载失败时的备用显示 -->
-    <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
+    <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;display:none;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
       <div style="font-size:48px;opacity:0.6;">🎬</div>
       <div style="text-align:center;color:#fff;">
-        <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 <span data-i18n="video_placeholder_title">宣传片</span></p>
-        <p style="font-size:13px;opacity:0.6;margin-bottom:16px;" data-i18n="video_placeholder_hint">请在 VideoConfig 中配置 YouTube（英文）或 B站（中文）视频链接</p>
-        <p style="font-size:11px;opacity:0.4;" data-i18n="video_placeholder_tip">或本地视频放入 assets/videos/promotional.mp4</p>
+        <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 宣传片</p>
+        <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">请将宣传视频命名为 promotional.mp4 放入 assets/videos/ 目录</p>
+        <p style="font-size:11px;opacity:0.4;">推荐尺寸: 1920×1080, 格式: MP4 (H.264)</p>
       </div>
     </div>
   </div>
@@ -797,7 +788,7 @@
     <div class="admin-panel">
       <div class="admin-header">
         <h3>📸 内容管理后台</h3>
-        <button class="admin-close" onclick="closeAdmin()" aria-label="关闭管理面板">✕</button>
+        <button class="admin-close" onclick="closeAdmin()">✕</button>
       </div>
       <div class="admin-body">
         <div class="admin-tip">
@@ -939,7 +930,7 @@
         <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px" data-i18n="footer_subscribe">订阅获取最新活动与优惠信息</p>
         <div class="footer-subscribe">
           <input type="email" id="subscribeEmail" placeholder="your@email.com" data-i18n-placeholder="footer_email_placeholder" />
-          <button onclick="handleSubscribe()" data-i18n="footer_subscribe_btn" aria-label="订阅资讯">订阅</button>
+          <button onclick="handleSubscribe()" data-i18n="footer_subscribe_btn">订阅</button>
         </div>
       </div>
     </div>
@@ -954,126 +945,6 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    // ===== 全局状态管理（防止竞态条件） =====
-    const AppState = {
-      currentLang: 'en',
-      isInitializing: true,  // 初始化锁，防止竞态
-      isVideoModalOpen: false,
-      isLightboxOpen: false,
-      heroSliderInterval: null,
-      isScrollHandlerBound: false,
-
-      // 原子化状态更新
-      setLanguage(lang) {
-        this.currentLang = lang;
-      },
-
-      lock() {
-        this.isInitializing = true;
-      },
-
-      unlock() {
-        this.isInitializing = false;
-      }
-    };
-
-    // ===== 视频配置（YouTube/B站双语支持） =====
-    // 请将你的视频链接填入下方
-    const VideoConfig = {
-      // YouTube 英文视频（填写嵌入链接，如 https://www.youtube.com/embed/VIDEO_ID）
-      youtube: '',
-
-      // B站 中文视频（填写嵌入链接）
-      bilibili: '',
-
-      // 本地备用视频（当在线视频无法加载时）
-      local: 'assets/videos/promotional.mp4',
-
-      // 备用占位符消息（可从管理后台设置）
-      placeholderMsg: ''
-    };
-
-    // ===== 检测视频链接是否有效 =====
-    function hasVideoSource() {
-      return VideoConfig.youtube || VideoConfig.bilibili;
-    }
-
-    // ===== 获取当前语言对应的视频嵌入代码 =====
-    function getVideoEmbed() {
-      var lang = AppState.currentLang || 'en';
-      var videoId = '';
-      var platform = '';
-      var embedCode = '';
-
-      if (lang === 'zh' && VideoConfig.bilibili) {
-        // 中文：使用 B站 嵌入
-        videoId = extractBilibiliId(VideoConfig.bilibili);
-        platform = 'bilibili';
-      } else if (lang === 'en' && VideoConfig.youtube) {
-        // 英文：使用 YouTube 嵌入
-        videoId = extractYouTubeId(VideoConfig.youtube);
-        platform = 'youtube';
-      }
-
-      if (videoId && platform) {
-        embedCode = createVideoEmbed(videoId, platform);
-      }
-
-      return { videoId, platform, embedCode, hasEmbed: !!embedCode };
-    }
-
-    // ===== 提取 YouTube Video ID =====
-    function extractYouTubeId(url) {
-      if (!url) return '';
-      var patterns = [
-        /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
-        /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
-        /youtu\.be\/([a-zA-Z0-9_-]{11})/,
-        /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/
-      ];
-      for (var i = 0; i < patterns.length; i++) {
-        var match = url.match(patterns[i]);
-        if (match) return match[1];
-      }
-      return '';
-    }
-
-    // ===== 提取 B站 Video ID =====
-    function extractBilibiliId(url) {
-      if (!url) return '';
-      // B站支持 av号 或 BV号
-      var patterns = [
-        /bilibili\.com\/video\/(av\d+|BV[a-zA-Z0-9]+)/,
-        /b23\.tv\/([a-zA-Z0-9]+)/
-      ];
-      for (var i = 0; i < patterns.length; i++) {
-        var match = url.match(patterns[i]);
-        if (match) return match[1];
-      }
-      return '';
-    }
-
-    // ===== 创建视频嵌入代码 =====
-    function createVideoEmbed(videoId, platform) {
-      if (!videoId || !platform) return '';
-
-      if (platform === 'youtube') {
-        return '<iframe ' +
-          'src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0" ' +
-          'frameborder="0" ' +
-          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
-          'allowfullscreen ' +
-          'style="width:80vw;max-width:900px;aspect-ratio:16/9;border-radius:12px;background:#000;"></iframe>';
-      } else if (platform === 'bilibili') {
-        return '<iframe ' +
-          'src="https://player.bilibili.com/player.html?bvid=' + videoId + '&autoplay=1" ' +
-          'frameborder="0" ' +
-          'allowfullscreen ' +
-          'style="width:80vw;max-width:900px;aspect-ratio:16/9;border-radius:12px;background:#000;"></iframe>';
-      }
-      return '';
-    }
-
     // ===== i18n 双语字典 =====
     const i18n = {
       zh: {
@@ -1116,11 +987,10 @@
         footer_subscribe:'订阅获取最新活动与优惠信息', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'订阅',
         footer_icp:'湘ICP备XXXXXXXX号', footer_privacy:'隐私政策', footer_terms:'使用条款',
         nav_about:'关于公园', nav_plan:'规划游览', nav_exp:'体验活动', nav_explore:'探索发现', nav_ticket:'预订中心', nav_news:'最新动态',
-        map_label:'📍 张家界国家森林公园区位图', map_loading:'加载地图中...',
+        map_label:'📍 张家界国家森林公园区位图',
         admin_title:'内容管理后台', admin_tip:'💡 使用提示：输入 GitHub PAT Token 上传图片到仓库。', admin_gh_auth:'🔐 GitHub 授权',
         admin_hero:'🖼 Hero 幻灯片管理', admin_gallery:'🎨 图库管理', admin_video:'🎬 视频管理',
-        admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传',
-        video_placeholder_title:'宣传片', video_placeholder_hint:'请在 VideoConfig 中配置 YouTube（英文）或 B站（中文）视频链接', video_placeholder_tip:'或本地视频放入 assets/videos/promotional.mp4'
+        admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传'
       },
       en: {
         announce_title:'Park Announcement', announce_sub:'ANNOUNCEMENT', announce_tag:'Latest Notice',
@@ -1162,226 +1032,65 @@
         footer_subscribe:'Subscribe for latest events and offers', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'Subscribe',
         footer_icp:'Xiang ICP XXXXXXXX', footer_privacy:'Privacy Policy', footer_terms:'Terms of Use',
         nav_about:'About', nav_plan:'Plan Visit', nav_exp:'Experiences', nav_explore:'Explore', nav_ticket:'Book Now', nav_news:'News',
-        map_label:'📍 Zhangjiajie National Forest Park Location', map_loading:'Loading map...',
+        map_label:'📍 Zhangjiajie National Forest Park Location',
         admin_title:'Content Management', admin_tip:'💡 Enter your GitHub PAT Token to upload images to the repository.',
         admin_gh_auth:'🔐 GitHub Authorization',
         admin_hero:'🖼 Hero Slides Management', admin_gallery:'🎨 Gallery Management', admin_video:'🎬 Video Management',
-        admin_text:'📝 Page Text', admin_save:'Save Text', admin_upload:'Click to upload',
-        video_placeholder_title:'Promotional Video', video_placeholder_hint:'Configure YouTube (EN) or Bilibili (ZH) video link in VideoConfig', video_placeholder_tip:'Or place local video at assets/videos/promotional.mp4'
+        admin_text:'📝 Page Text', admin_save:'Save Text', admin_upload:'Click to upload'
       }
     };
 
-    function switchLang(lang) {
-      // 防止初始化期间的状态冲突
-      if (AppState.isInitializing && lang !== 'en' && lang !== 'zh') {
-        return;
-      }
-      
-      AppState.setLanguage(lang);
-      AppState.unlock();  // 解锁，允许后续操作
-      
-      // 更新语言切换按钮状态（带防御性检查）
-      var langBtns = document.querySelectorAll('.lang-switch button');
-      var mobileLangBtns = document.querySelectorAll('.mobile-lang-switch button');
-      
-      if (langBtns.length >= 2) {
-        langBtns.forEach(function(btn){ btn.classList.remove('active'); });
-        mobileLangBtns.forEach(function(btn){ btn.classList.remove('active'); });
-        
-        if (lang === 'zh') {
-          langBtns[0].classList.add('active');
-          if (mobileLangBtns.length > 0) mobileLangBtns[0].classList.add('active');
-        } else {
-          langBtns[1].classList.add('active');
-          if (mobileLangBtns.length > 1) mobileLangBtns[1].classList.add('active');
-        }
-      }
-      
-      // 更新所有国际化文本（带防御性检查）
-      var i18nElements = document.querySelectorAll('[data-i18n]');
-      var i18nPlaceholderElements = document.querySelectorAll('[data-i18n-placeholder]');
-      
-      i18nElements.forEach(function(el){
-        var key = el.getAttribute('data-i18n');
-        if (key && i18n[lang] && i18n[lang][key] !== undefined) {
-          el.textContent = i18n[lang][key];
-        }
-      });
-      
-      i18nPlaceholderElements.forEach(function(el){
-        var key = el.getAttribute('data-i18n-placeholder');
-        if (key && i18n[lang] && i18n[lang][key] !== undefined) {
-          el.placeholder = i18n[lang][key];
-        }
-      });
-      
-      // 更新 HTML lang 属性
-      if (document.documentElement) {
-        document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-      }
-      
-      // 切换地图（支持懒加载）
-      var googleMap = document.getElementById('google-map-frame');
-      var amap = document.getElementById('amap-frame');
-      var mapPlaceholder = document.getElementById('mapPlaceholder');
+    let currentLang = 'en';
 
-      if (lang === 'zh') {
-        // 中文：优先使用高德地图
-        if (amap) {
-          // 如果地图还没加载（懒加载），设置 src
-          if (amap.dataset.src && !amap.src) {
-            amap.src = amap.dataset.src;
-          }
-          amap.style.display = 'block';
-        }
-        if (googleMap) googleMap.style.display = 'none';
+    function switchLang(lang) {
+      currentLang = lang;
+      document.querySelectorAll('.lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
+      document.querySelectorAll('.mobile-lang-switch button').forEach(function(btn){ btn.classList.remove('active'); });
+      if(lang === 'zh') {
+        document.querySelector('.lang-switch button:first-child').classList.add('active');
+        document.querySelector('.mobile-lang-switch button:first-child').classList.add('active');
       } else {
-        // 英文：使用 Google 地图
-        if (googleMap) {
-          if (googleMap.dataset.src && !googleMap.src) {
-            googleMap.src = googleMap.dataset.src;
-          }
-          googleMap.style.display = 'block';
-        }
-        if (amap) amap.style.display = 'none';
+        document.querySelector('.lang-switch button:last-child').classList.add('active');
+        document.querySelector('.mobile-lang-switch button:last-child').classList.add('active');
       }
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+        var key = el.getAttribute('data-i18n-placeholder');
+        if(i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
+      });
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      // Switch map based on language
+      document.getElementById('google-map-frame').style.display = lang === 'en' ? 'block' : 'none';
+      document.getElementById('amap-frame').style.display = lang === 'zh' ? 'block' : 'none';
     }
 
     // ===== HERO SLIDER =====
     let currentSlide = 0;
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.hero-dots .dot');
-    
     function goSlide(n) {
-      // 防御性检查：确保元素存在
-      if (!slides.length || !dots.length) return;
-      
-      var prevSlide = currentSlide;
-      
-      // 移除当前活动状态
-      if (slides[prevSlide]) {
-        slides[prevSlide].classList.remove('active');
-        slides[prevSlide].setAttribute('aria-selected', 'false');
-      }
-      if (dots[prevSlide]) {
-        dots[prevSlide].classList.remove('active');
-        dots[prevSlide].setAttribute('aria-selected', 'false');
-      }
-      
-      // 计算下一个幻灯片索引
-      currentSlide = ((n % slides.length) + slides.length) % slides.length;
-      
-      // 添加新活动状态
-      if (slides[currentSlide]) {
-        slides[currentSlide].classList.add('active');
-        slides[currentSlide].setAttribute('aria-selected', 'true');
-      }
-      if (dots[currentSlide]) {
-        dots[currentSlide].classList.add('active');
-        dots[currentSlide].setAttribute('aria-selected', 'true');
-      }
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
     }
-    
-    // 安全启动自动轮播（防止重复启动）
-    function startHeroSlider() {
-      if (AppState.heroSliderInterval) {
-        clearInterval(AppState.heroSliderInterval);
-      }
-      AppState.heroSliderInterval = setInterval(function(){ 
-        goSlide(currentSlide + 1); 
-      }, 5000);
-    }
-    
-    // 页面可见性变化时暂停/恢复轮播（节省资源）
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        if (AppState.heroSliderInterval) {
-          clearInterval(AppState.heroSliderInterval);
-          AppState.heroSliderInterval = null;
-        }
-      } else {
-        startHeroSlider();
-      }
-    });
+    setInterval(function(){ goSlide(currentSlide + 1); }, 5000);
 
     // ===== HEADER SCROLL =====
-    // 使用节流优化滚动事件性能
-    var scrollThrottleTimer = null;
-    var lastScrollY = 0;
-    
-    function handleHeaderScroll() {
+    window.addEventListener('scroll', function(){
       var header = document.getElementById('header');
-      if (!header) return;
-      
-      var currentScrollY = window.scrollY || document.documentElement.scrollTop;
-      
-      // 滚动方向检测
-      var isScrollingDown = currentScrollY > lastScrollY;
-      lastScrollY = currentScrollY;
-      
-      // 根据滚动位置更新样式
-      if (currentScrollY > 80) {
-        header.classList.add('scrolled');
-        header.classList.remove('top');
-      } else {
-        header.classList.remove('scrolled');
-        header.classList.add('top');
-      }
-    }
-    
-    // 防抖滚动处理
-    function throttledScrollHandler() {
-      if (scrollThrottleTimer) return;
-      
-      scrollThrottleTimer = setTimeout(function() {
-        handleHeaderScroll();
-        scrollThrottleTimer = null;
-      }, 16);  // ~60fps
-    }
-    
-    // 一次性绑定滚动事件（防止重复绑定）
-    if (!AppState.isScrollHandlerBound) {
-      window.addEventListener('scroll', throttledScrollHandler, { passive: true });
-      AppState.isScrollHandlerBound = true;
-    }
+      if(window.scrollY > 80) header.classList.add('scrolled');
+      else { header.classList.remove('scrolled'); header.classList.add('top'); }
+    });
 
     // ===== MOBILE MENU =====
-    var isMobileMenuOpen = false;
-    
-    function toggleMenu() {
-      var navLinks = document.getElementById('navLinks');
-      if (!navLinks) return;
-      
-      isMobileMenuOpen = !isMobileMenuOpen;
-      navLinks.classList.toggle('open', isMobileMenuOpen);
+    function toggleMenu(){
+      document.getElementById('navLinks').classList.toggle('open');
     }
-    
-    // 点击菜单外部关闭菜单（增强鲁棒性）
-    document.addEventListener('click', function(e) {
-      var navLinks = document.getElementById('navLinks');
-      var hamburger = document.getElementById('hamburger');
-      
-      if (isMobileMenuOpen && navLinks && hamburger) {
-        var isClickInsideNav = navLinks.contains(e.target);
-        var isClickOnHamburger = hamburger.contains(e.target);
-        
-        if (!isClickInsideNav && !isClickOnHamburger) {
-          navLinks.classList.remove('open');
-          isMobileMenuOpen = false;
-        }
-      }
-    });
-    
-    // ESC 键关闭移动端菜单
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && isMobileMenuOpen) {
-        var navLinks = document.getElementById('navLinks');
-        if (navLinks) {
-          navLinks.classList.remove('open');
-          isMobileMenuOpen = false;
-        }
-      }
-    });
 
     // ===== ANNOUNCEMENT MODAL =====
     function closeAnnounce(){
@@ -1402,73 +1111,6 @@
       fadeEls.forEach(function(el){ observer.observe(el); });
     } else {
       fadeEls.forEach(function(el){ el.classList.add('visible'); });
-    }
-
-    // ===== 懒加载地图（Intersection Observer） =====
-    // 延迟加载地图，等待 DOM 完全构建
-    var _lazyMapInitialized = false;
-    function lazyLoadMap() {
-      // 防止重复初始化
-      if (_lazyMapInitialized) return;
-      
-      // 等待 DOM 完全加载
-      if (document.readyState !== 'complete') {
-        window.addEventListener('load', lazyLoadMap);
-        return;
-      }
-      
-      _lazyMapInitialized = true;
-      
-      var mapPlaceholder = document.getElementById('mapPlaceholder');
-      var googleMap = document.getElementById('google-map-frame');
-      var amap = document.getElementById('amap-frame');
-
-      if (!mapPlaceholder) {
-        console.warn('[lazyLoadMap] mapPlaceholder not found');
-        return;
-      }
-
-      var mapObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            // 地图进入视口，加载对应语言的地图
-            var lang = AppState.currentLang || 'en';
-
-            if (lang === 'zh' && amap) {
-              // 中文：加载高德地图
-              if (amap.dataset.src) amap.src = amap.dataset.src;
-              amap.style.display = 'block';
-            } else if (googleMap) {
-              // 英文：加载 Google 地图
-              if (googleMap.dataset.src) googleMap.src = googleMap.dataset.src;
-              googleMap.style.display = 'block';
-            }
-
-            // 隐藏占位符
-            if (mapPlaceholder) mapPlaceholder.style.display = 'none';
-
-            // 停止观察
-            mapObserver.disconnect();
-          }
-        });
-      }, { threshold: 0.1 });
-
-      mapObserver.observe(mapPlaceholder);
-    }
-
-    // 页面加载后启动地图懒加载（延迟执行确保 DOM 完全就绪）
-    if ('IntersectionObserver' in window) {
-      // 延迟 100ms 执行，确保 DOM 完全构建
-      setTimeout(lazyLoadMap, 100);
-    } else {
-      // 降级：直接显示地图
-      var googleMap = document.getElementById('google-map-frame');
-      if (googleMap) {
-        if (googleMap.dataset.src) googleMap.src = googleMap.dataset.src;
-        googleMap.style.display = 'block';
-      }
-      var mapPlaceholder = document.getElementById('mapPlaceholder');
-      if (mapPlaceholder) mapPlaceholder.style.display = 'none';
     }
 
     // ===== GALLERY FILTER =====
@@ -1493,24 +1135,16 @@
           el.textContent = current.toLocaleString();
         }, 16);
       });
-      }
-      
-      // 注意：语言初始化在页面底部 IIFE 中执行
-      // 移除此处的同步调用以避免竞态条件
+    }
+
+    // 初始化语言
+    switchLang("zh");
 
     // ===== SCROLL TO SECTION =====
     function scrollToSection(id){
       var el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      
-      // 关闭移动端菜单
-      var navLinks = document.getElementById('navLinks');
-      if (navLinks) {
-        navLinks.classList.remove('open');
-        isMobileMenuOpen = false;
-      }
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      document.getElementById('navLinks').classList.remove('open');
     }
 
     // ===== LIGHTBOX =====
@@ -1539,174 +1173,92 @@
     function openLightboxFromGallery(idx){
       lightboxIndex = 100 + idx; // gallery images start at 100
       var img = galleryImages[idx];
-      var lightboxImg = document.getElementById('lightboxImg');
-      var lightboxTitle = document.getElementById('lightboxTitle');
-      
-      // 防御性检查
-      if (!lightboxImg || !lightboxTitle) return;
-      
-      // 检查图片是否有效
-      if (img && img.src) {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.title ? (AppState.currentLang === 'zh' ? img.title.zh : img.title.en) : '';
-      } else {
-        // 使用占位符图片或隐藏图片
-        lightboxImg.src = 'assets/images/gal-' + (idx + 1) + '.jpg';
-        lightboxImg.alt = img && img.title ? (AppState.currentLang === 'zh' ? img.title.zh : img.title.en) : 'Gallery image';
-      }
-      
-      // 设置标题
-      if (img && img.title) {
-        lightboxTitle.textContent = AppState.currentLang === 'zh' ? img.title.zh : img.title.en;
-      }
-      
+      document.getElementById('lightboxImg').src = img ? img.src : '';
+      document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
       document.getElementById('lightbox').classList.add('open');
-      AppState.isLightboxOpen = true;
     }
-    
+
     function closeLightbox(){
-      var lightbox = document.getElementById('lightbox');
-      if (lightbox) {
-        lightbox.classList.remove('open');
-      }
-      AppState.isLightboxOpen = false;
+      document.getElementById('lightbox').classList.remove('open');
     }
-    
+
     function lightboxNav(dir){
       var total = 3 + galleryImages.length;
-      lightboxIndex = ((lightboxIndex + dir) % total + total) % total; // 安全取模
-      
-      var lightboxImg = document.getElementById('lightboxImg');
-      var lightboxTitle = document.getElementById('lightboxTitle');
-      
-      if (!lightboxImg || !lightboxTitle) return;
-      
+      lightboxIndex = (lightboxIndex + dir + total) % total;
       if(lightboxIndex < 3){
-        var heroImg = heroImages[lightboxIndex];
-        lightboxImg.src = heroImg || 'assets/images/hero-pillars.jpg';
-        lightboxTitle.textContent = 'Hero 幻灯片 ' + (lightboxIndex + 1);
+        document.getElementById('lightboxImg').src = heroImages[lightboxIndex] || '';
+        document.getElementById('lightboxTitle').textContent = 'Hero 幻灯片 ' + (lightboxIndex + 1);
       } else {
         var gi = lightboxIndex - 3;
         var img = galleryImages[gi];
-        if (img) {
-          lightboxImg.src = img.src || 'assets/images/gal-' + (gi + 1) + '.jpg';
-          lightboxTitle.textContent = img.title ? (AppState.currentLang === 'zh' ? img.title.zh : img.title.en) : '';
-        }
+        document.getElementById('lightboxImg').src = img ? img.src : '';
+        document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
       }
     }
-    
-    // 键盘导航（带状态检查）
+
     document.addEventListener('keydown',function(e){
-      if(AppState.isLightboxOpen){
+      if(document.getElementById('lightbox').classList.contains('open')){
         if(e.key==='Escape') closeLightbox();
         if(e.key==='ArrowLeft') lightboxNav(-1);
         if(e.key==='ArrowRight') lightboxNav(1);
       }
-      if(AppState.isVideoModalOpen){
+      if(document.getElementById('videoModal').classList.contains('open')){
         if(e.key==='Escape') closeVideoModal();
       }
     });
-    
+
     document.getElementById('lightbox').addEventListener('click',function(e){
       if(e.target===this) closeLightbox();
     });
 
-    // ===== VIDEO MODAL（支持 YouTube/B站 双语嵌入） =====
+    // ===== VIDEO MODAL =====
+    var currentVideoUrl = '';
+    var demoVideoUrl = ''; // 可从管理后台设置
 
     function openVideoModal(){
-      // 防止重复打开
-      if (AppState.isVideoModalOpen) {
-        return;
-      }
-
       var modal = document.getElementById('videoModal');
-      var embedContainer = document.getElementById('videoEmbedContainer');
       var video = document.getElementById('mainVideo');
       var placeholder = document.getElementById('videoPlaceholder');
-
-      // 防御性检查
-      if (!modal) {
-        console.warn('[VideoModal] Modal element not found');
-        return;
+      
+      // 先隐藏占位符，显示视频元素
+      if(placeholder) placeholder.style.display = 'none';
+      video.style.display = 'block';
+      
+      if(demoVideoUrl){
+        video.src = demoVideoUrl;
+      } else {
+        video.src = 'assets/videos/promotional.mp4';
       }
-
-      // 隐藏占位符和本地视频
-      if (placeholder) {
-        placeholder.style.display = 'none';
-      }
-      if (video) {
-        video.style.display = 'none';
-      }
-
-      // 获取当前语言的视频嵌入信息
-      var videoInfo = getVideoEmbed();
-
-      if (videoInfo.hasEmbed && embedContainer) {
-        // 使用在线嵌入视频（YouTube 或 B站）
-        embedContainer.innerHTML = videoInfo.embedCode;
-      } else if (embedContainer) {
-        // 回退到本地视频
-        embedContainer.innerHTML = '';
-        var localVideo = document.createElement('video');
-        localVideo.id = 'mainVideo';
-        localVideo.controls = true;
-        localVideo.playsInline = true;
-        localVideo.poster = 'assets/images/hero-pillars.jpg';
-        localVideo.style = 'width:80vw;max-width:900px;border-radius:12px;background:#000;';
-        localVideo.innerHTML = '<source src="' + (VideoConfig.local || 'assets/videos/promotional.mp4') + '" type="video/mp4">您的浏览器不支持视频播放';
-        embedContainer.appendChild(localVideo);
-
-        // 监听本地视频错误
-        localVideo.addEventListener('error', function() {
-          if (placeholder) {
-            embedContainer.innerHTML = '';
-            placeholder.style.display = 'flex';
-          }
-        });
-
-        // 尝试播放，失败时显示占位符
-        localVideo.play().catch(function() {
-          // 自动播放被阻止，静默处理
-        });
-      }
-
+      
       modal.classList.add('open');
-      AppState.isVideoModalOpen = true;
+      
+      // 监听视频加载错误，显示占位符
+      video.onerror = function() {
+        video.style.display = 'none';
+        if(placeholder) {
+          placeholder.style.display = 'flex';
+        }
+      };
+      
+      video.play().catch(function() {
+        // 自动播放被阻止，静默处理
+        video.style.display = 'none';
+        if(placeholder) {
+          placeholder.style.display = 'flex';
+        }
+      });
     }
 
     function closeVideoModal(){
-      var modal = document.getElementById('videoModal');
-      var embedContainer = document.getElementById('videoEmbedContainer');
-
-      // 停止并清空嵌入容器中的内容
-      if (embedContainer) {
-        var iframe = embedContainer.querySelector('iframe');
-        if (iframe) {
-          // 停止 iframe 视频播放
-          iframe.src = '';
-        }
-        var video = embedContainer.querySelector('video');
-        if (video) {
-          video.pause();
-        }
-        // 恢复默认的本地视频播放器
-        embedContainer.innerHTML = '<video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;"><source src="assets/videos/promotional.mp4" type="video/mp4">您的浏览器不支持视频播放</video>';
-      }
-
-      if (modal) {
-        modal.classList.remove('open');
-      }
-
-      AppState.isVideoModalOpen = false;
+      var video = document.getElementById('mainVideo');
+      video.pause();
+      video.src = '';
+      document.getElementById('videoModal').classList.remove('open');
     }
 
-    // 点击遮罩关闭
-    var videoModal = document.getElementById('videoModal');
-    if (videoModal) {
-      videoModal.addEventListener('click', function(e) {
-        if (e.target === this) closeVideoModal();
-      });
-    }
+    document.getElementById('videoModal').addEventListener('click',function(e){
+      if(e.target===this) closeVideoModal();
+    });
 
     // ===== EXP DETAIL MODAL =====
     const expDetails = {
@@ -1718,10 +1270,7 @@
 
     function showExpDetail(type){
       var info = expDetails[type] || {zh:'暂无详情',en:'No details available'};
-
-      // 使用 AppState 获取当前语言
-      var lang = AppState.currentLang || 'en';
-      alert(lang === 'zh' ? info.zh : info.en);
+      alert(currentLang === 'zh' ? info.zh : info.en);
     }
 
     // ===== TRANSPORT DETAIL MODAL =====
@@ -1734,120 +1283,56 @@
 
     function showTransportDetail(type){
       var info = transportDetails[type] || {zh:'暂无详情',en:'No details available'};
-
-      // 使用 AppState 获取当前语言
-      var lang = AppState.currentLang || 'en';
-      alert(lang === 'zh' ? info.zh : info.en);
+      alert(currentLang === 'zh' ? info.zh : info.en);
     }
 
     // ===== SUBSCRIBE =====
     function handleSubscribe(){
-      var emailInput = document.getElementById('subscribeEmail');
-      if (!emailInput) return;
-      
-      var email = emailInput.value;
-      var lang = AppState.currentLang || 'en';
-      
-      // 邮箱格式验证（更复杂的正则）
-      var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if(!email || !emailRegex.test(email)){
-        alert(lang === 'zh' ? '请输入有效的邮箱地址（如：name@example.com）' : 'Please enter a valid email address (e.g. name@example.com)');
+      var email = document.getElementById('subscribeEmail').value;
+      if(!email || !email.includes('@')){
+        alert(currentLang === 'zh' ? '请输入有效的邮箱地址' : 'Please enter a valid email address');
         return;
       }
-      
-      try {
-        // 保存到本地存储（演示用）
-        var subs = JSON.parse(localStorage.getItem('subscribers') || '[]');
-        if(!subs.includes(email)) {
-          subs.push(email);
-          localStorage.setItem('subscribers', JSON.stringify(subs));
-        }
-        
-        emailInput.value = '';
-        alert(lang === 'zh' ? '订阅成功！感谢您的关注。' : 'Subscribed successfully! Thank you.');
-      } catch(e) {
-        console.error('[Subscribe] Error:', e);
-        alert(lang === 'zh' ? '订阅失败，请重试。' : 'Subscription failed, please try again.');
-      }
+      // 保存到本地存储（演示用）
+      var subs = JSON.parse(localStorage.getItem('subscribers') || '[]');
+      if(!subs.includes(email)) subs.push(email);
+      localStorage.setItem('subscribers', JSON.stringify(subs));
+      document.getElementById('subscribeEmail').value = '';
+      alert(currentLang === 'zh' ? '订阅成功！感谢您的关注。' : 'Subscribed successfully! Thank you.');
     }
-    
+
     // ===== ADMIN PANEL =====
     function openAdmin(){
-      var adminOverlay = document.getElementById('adminOverlay');
-      if (adminOverlay) {
-        adminOverlay.classList.add('open');
-        updateAdminStats();
-      }
+      document.getElementById('adminOverlay').classList.add('open');
+      updateAdminStats();
     }
-    
+
     function closeAdmin(){
-      var adminOverlay = document.getElementById('adminOverlay');
-      if (adminOverlay) {
-        adminOverlay.classList.remove('open');
-      }
+      document.getElementById('adminOverlay').classList.remove('open');
     }
-    
+
     function switchAdminTab(tabId){
-      // 防御性检查
-      if (!tabId) return;
-      
-      // 移除所有活动状态
-      document.querySelectorAll('.admin-tab').forEach(function(t){ 
-        if (t) t.classList.remove('active'); 
-      });
-      document.querySelectorAll('.admin-tab-content').forEach(function(c){ 
-        if (c) c.classList.remove('active'); 
-      });
-      
-      // 设置新的活动状态
-      var targetTab = document.getElementById('tab-'+tabId);
-      if (targetTab) {
-        targetTab.classList.add('active');
-      }
-      
-      // 设置按钮活动状态
-      if (event && event.target) {
-        event.target.classList.add('active');
-      }
+      document.querySelectorAll('.admin-tab').forEach(function(t){ t.classList.remove('active'); });
+      document.querySelectorAll('.admin-tab-content').forEach(function(c){ c.classList.remove('active'); });
+      document.getElementById('tab-'+tabId).classList.add('active');
+      event.target.classList.add('active');
     }
-    
-    // 点击遮罩关闭管理面板
-    var adminOverlayEl = document.getElementById('adminOverlay');
-    if (adminOverlayEl) {
-      adminOverlayEl.addEventListener('click',function(e){
-        if(e.target===this) closeAdmin();
-      });
-    }
-    
-    // 键盘快捷键：Ctrl+Shift+A 打开管理后台（调整快捷键避免冲突）
+
+    document.getElementById('adminOverlay').addEventListener('click',function(e){
+      if(e.target===this) closeAdmin();
+    });
+
+    // 键盘快捷键：Ctrl+Shift+A 打开管理后台
     document.addEventListener('keydown',function(e){
-      // 使用 Ctrl+Alt+A 替代，避免与浏览器快捷键冲突
-      if(e.ctrlKey && e.altKey && e.key==='a'){
+      if(e.ctrlKey && e.shiftKey && e.key==='A'){
         e.preventDefault();
         openAdmin();
       }
-      
-      // ESC 在管理面板打开时关闭面板
-      if(e.key === 'Escape' && 
-         document.getElementById('adminOverlay') && 
-         document.getElementById('adminOverlay').classList.contains('open')) {
-        closeAdmin();
-      }
     });
-    
+
     function updateAdminStats(){
-      try {
-        var heroCount = ghData.heroImages ? ghData.heroImages.filter(function(i){return i;}).length : 0;
-        var galleryCount = galleryImages ? galleryImages.filter(function(i){return i && i.src;}).length : 0;
-        
-        var statHero = document.getElementById('statHero');
-        var statGallery = document.getElementById('statGallery');
-        
-        if (statHero) statHero.textContent = heroCount + '/3';
-        if (statGallery) statGallery.textContent = galleryCount + '/9';
-      } catch(e) {
-        console.error('[AdminStats] Error:', e);
-      }
+      document.getElementById('statHero').textContent = heroImages.filter(function(i){return i;}).length + '/3';
+      document.getElementById('statGallery').textContent = galleryImages.filter(function(i){return i.src;}).length + '/9';
     }
 
     // 上传到 GitHub
@@ -1859,49 +1344,32 @@
       galleryImages: [],
       videoUrl: ''
     };
-    
+
     function handleHeroUpload(input){
-      if(!input || !input.files || !input.files.length) return;
-      
-      var token = document.getElementById('ghToken') ? document.getElementById('ghToken').value : '';
-      if(!token){ showAdminMsg('error', AppState.currentLang === 'zh' ? '请先输入 GitHub PAT Token' : 'Please enter GitHub PAT Token first'); return; }
-      
+      if(!input.files.length) return;
+      var token = document.getElementById('ghToken').value;
+      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
       ghData.token = token;
-      ghData.branch = (document.getElementById('ghBranch') ? document.getElementById('ghBranch').value : '') || 'main';
-      
+      ghData.branch = document.getElementById('ghBranch').value || 'main';
+
       var preview = document.getElementById('heroPreview');
-      if (!preview) return;
-      
-      // 限制最多上传3个
-      var filesToUpload = Array.from(input.files).slice(0, 3 - ghData.heroImages.length);
-      
-      filesToUpload.forEach(function(file, idx){
+      Array.from(input.files).slice(0,3).forEach(function(file, idx){
         var reader = new FileReader();
         reader.onload = function(e){
-          try {
-            var item = document.createElement('div');
-            item.className = 'admin-preview-item';
-            item.innerHTML = '<img src="'+e.target.result+'" alt="preview" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
-            preview.appendChild(item);
+          var item = document.createElement('div');
+          item.className = 'admin-preview-item';
+          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
+          preview.appendChild(item);
 
-            // 上传到 GitHub
-            uploadToGitHub(e.target.result, 'hero-'+Date.now()+'-'+file.name.replace(/\s/g,'_'), 'images/hero/', function(err, url){
-              if(err){ showAdminMsg('error', (AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + err); return; }
-              // 更新 hero 幻灯片
-              if(ghData.heroImages.length < 3) {
-                ghData.heroImages.push(url);
-                updateHeroSlides();
-                showAdminMsg('success', (AppState.currentLang === 'zh' ? 'Hero 图片 #' : 'Hero Image #') + (ghData.heroImages.length) + (AppState.currentLang === 'zh' ? ' 上传成功！' : ' uploaded successfully!'));
-                updateAdminStats();
-              }
-            });
-          } catch(ex) {
-            console.error('[HeroUpload] Error:', ex);
-            showAdminMsg('error', 'Upload preparation failed');
-          }
-        };
-        reader.onerror = function() {
-          showAdminMsg('error', 'File reading failed');
+          // 上传到 GitHub
+          uploadToGitHub(e.target.result, 'hero-'+Date.now()+'-'+file.name.replace(/\s/g,'_'), 'images/hero/', function(err, url){
+            if(err){ showAdminMsg('error','上传失败: '+err); return; }
+            // 更新 hero 幻灯片
+            if(ghData.heroImages.length < 3) ghData.heroImages.push(url);
+            updateHeroSlides();
+            showAdminMsg('success','Hero 图片 #'+(ghData.heroImages.length)+' 上传成功！');
+            updateAdminStats();
+          });
         };
         reader.readAsDataURL(file);
       });
@@ -1909,161 +1377,103 @@
     }
 
     function handleGalleryUpload(input){
-      if(!input || !input.files || !input.files.length) return;
-      
-      var token = document.getElementById('ghToken') ? document.getElementById('ghToken').value : '';
-      if(!token){ showAdminMsg('error', AppState.currentLang === 'zh' ? '请先输入 GitHub PAT Token' : 'Please enter GitHub PAT Token first'); return; }
+      if(!input.files.length) return;
+      var token = document.getElementById('ghToken').value;
+      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
       ghData.token = token;
-      
+
       var preview = document.getElementById('galleryPreview');
-      if (!preview) return;
-      
       Array.from(input.files).forEach(function(file){
         var reader = new FileReader();
         reader.onload = function(e){
-          try {
-            var item = document.createElement('div');
-            item.className = 'admin-preview-item';
-            item.innerHTML = '<img src="'+e.target.result+'" alt="preview" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
-            preview.appendChild(item);
+          var item = document.createElement('div');
+          item.className = 'admin-preview-item';
+          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
+          preview.appendChild(item);
 
-            uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'images/gallery/', function(err, url){
-              if(err){ showAdminMsg('error', (AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + err); return; }
-              // 找到第一个空位
-              if (galleryImages) {
-                var emptyIdx = galleryImages.findIndex(function(g){return !g.src;});
-                if(emptyIdx >= 0){
-                  galleryImages[emptyIdx].src = url;
-                }
-              }
-              showAdminMsg('success', AppState.currentLang === 'zh' ? '图库图片上传成功！' : 'Gallery image uploaded!');
-              updateAdminStats();
-            });
-          } catch(ex) {
-            console.error('[GalleryUpload] Error:', ex);
-            showAdminMsg('error', 'Upload preparation failed');
-          }
-        };
-        reader.onerror = function() {
-          showAdminMsg('error', 'File reading failed');
+          uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'images/gallery/', function(err, url){
+            if(err){ showAdminMsg('error','上传失败: '+err); return; }
+            // 找到第一个空位
+            var emptyIdx = galleryImages.findIndex(function(g){return !g.src;});
+            if(emptyIdx >= 0){
+              galleryImages[emptyIdx].src = url;
+            }
+            showAdminMsg('success','图库图片上传成功！');
+            updateAdminStats();
+          });
         };
         reader.readAsDataURL(file);
       });
       input.value = '';
     }
-    
+
     function handleVideoUpload(input){
-      if(!input || !input.files || !input.files.length) return;
-      
-      var token = document.getElementById('ghToken') ? document.getElementById('ghToken').value : '';
-      if(!token){ showAdminMsg('error', AppState.currentLang === 'zh' ? '请先输入 GitHub PAT Token' : 'Please enter GitHub PAT Token first'); return; }
-      
+      if(!input.files.length) return;
+      var token = document.getElementById('ghToken').value;
+      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
+
       var file = input.files[0];
       var status = document.getElementById('videoUploadStatus');
-      if (!status) return;
-      
-      // 检查文件大小（限制100MB）
-      var maxSize = 100 * 1024 * 1024;
-      if (file.size > maxSize) {
-        status.className = 'admin-msg error';
-        status.textContent = AppState.currentLang === 'zh' ? '视频文件过大，请控制在100MB以内' : 'Video too large, max 100MB';
-        status.style.display = 'block';
-        return;
-      }
-      
       status.className = 'admin-msg';
-      status.textContent = AppState.currentLang === 'zh' ? '正在上传视频...' : 'Uploading video...';
+      status.textContent = '正在上传视频...';
       status.style.display = 'block';
-      
+
       var reader = new FileReader();
       reader.onload = function(e){
         uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'videos/', function(err, url){
           if(err){
             status.className = 'admin-msg error';
-            status.textContent = (AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + err;
+            status.textContent = '上传失败: '+err;
             return;
           }
           demoVideoUrl = url;
-          ghData.videoUrl = url;
           status.className = 'admin-msg success';
-          status.textContent = (AppState.currentLang === 'zh' ? '视频上传成功！URL: ' : 'Video uploaded! URL: ') + url;
+          status.textContent = '视频上传成功！URL: '+url;
         });
-      };
-      reader.onerror = function() {
-        status.className = 'admin-msg error';
-        status.textContent = 'File reading failed';
       };
       reader.readAsDataURL(file);
       input.value = '';
     }
-    
+
     function uploadToGitHub(base64Data, filename, folder, callback){
-      if (!callback || typeof callback !== 'function') return;
-      
-      try {
-        var parts = base64Data.split(',');
-        var content = parts[1] || parts[0];
-        var token = ghData.token;
-        var repo = ghData.repo;
-        var branch = ghData.branch || 'main';
-        var path = folder + filename;
-        
-        if (!token) {
-          callback('No token available');
-          return;
+      var parts = base64Data.split(',');
+      var content = parts[1] || parts[0];
+      var token = ghData.token;
+      var repo = ghData.repo;
+      var branch = ghData.branch;
+      var path = folder + filename;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('PUT', 'https://api.github.com/repos/'+repo+'/contents/'+path, true);
+      xhr.setRequestHeader('Authorization','token '+token);
+      xhr.setRequestHeader('Accept','application/vnd.github.v3+json');
+      xhr.setRequestHeader('Content-Type','application/json');
+
+      xhr.onload = function(){
+        if(xhr.status === 200 || xhr.status === 201){
+          var res = JSON.parse(xhr.responseText);
+          callback(null, res.content.download_url);
+        } else if(xhr.status === 401){
+          callback('Token 无效，请检查权限');
+        } else if(xhr.status === 403){
+          callback('权限不足，请确认 Token 有 repo 权限');
+        } else {
+          callback('上传失败: '+xhr.status);
         }
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open('PUT', 'https://api.github.com/repos/'+repo+'/contents/'+path, true);
-        xhr.setRequestHeader('Authorization','token '+token);
-        xhr.setRequestHeader('Accept','application/vnd.github.v3+json');
-        xhr.setRequestHeader('Content-Type','application/json');
-        
-        xhr.onload = function(){
-          if(xhr.status === 200 || xhr.status === 201){
-            try {
-              var res = JSON.parse(xhr.responseText);
-              callback(null, res.content.download_url);
-            } catch(e) {
-              callback('Parse response failed');
-            }
-          } else if(xhr.status === 401){
-            callback(AppState.currentLang === 'zh' ? 'Token 无效，请检查权限' : 'Invalid token, please check permissions');
-          } else if(xhr.status === 403){
-            callback(AppState.currentLang === 'zh' ? '权限不足，请确认 Token 有 repo 权限' : 'Insufficient permissions, ensure Token has repo scope');
-          } else if(xhr.status === 422){
-            callback(AppState.currentLang === 'zh' ? '文件路径无效或文件已存在' : 'Invalid path or file already exists');
-          } else {
-            callback((AppState.currentLang === 'zh' ? '上传失败: ' : 'Upload failed: ') + xhr.status);
-          }
-        };
-        xhr.onerror = function(){ 
-          callback(AppState.currentLang === 'zh' ? '网络错误，请检查网络连接' : 'Network error, please check connection'); 
-        };
-        xhr.ontimeout = function() {
-          callback(AppState.currentLang === 'zh' ? '请求超时，请重试' : 'Request timeout, please retry');
-        };
-        xhr.timeout = 60000; // 60秒超时
-        xhr.send(JSON.stringify({
-          message: 'Upload '+filename,
-          content: content,
-          branch: branch
-        }));
-      } catch(e) {
-        console.error('[UploadToGitHub] Error:', e);
-        callback('Unexpected error: ' + e.message);
-      }
+      };
+      xhr.onerror = function(){ callback('网络错误'); };
+      xhr.send(JSON.stringify({
+        message: 'Upload '+filename,
+        content: content,
+        branch: branch
+      }));
     }
-    
+
     function updateHeroSlides(){
-      // 确保 ghData.heroImages 存在
-      if (ghData && ghData.heroImages) {
-        heroImages = ghData.heroImages.slice(0, 3);
-      }
-      
+      heroImages = ghData.heroImages.slice(0,3);
       for(var i=0;i<3;i++){
         var slide = document.getElementById('heroSlide'+i);
-        if(slide && heroImages && heroImages[i]){
+        if(slide && heroImages[i]){
           var bg = slide.querySelector('.slide-bg') || slide;
           bg.style.backgroundImage = 'url('+heroImages[i]+')';
           bg.style.backgroundSize = 'cover';
@@ -2071,84 +1481,45 @@
         }
       }
     }
-    
+
     function showAdminMsg(type, text){
       var msg = document.getElementById('adminMsg');
-      if (!msg) return;
-      
-      msg.className = 'admin-msg ' + (type || '');
-      msg.textContent = text || '';
-      msg.style.display = 'block';
-      
-      // 5秒后自动清除消息
-      if (msg._timeout) clearTimeout(msg._timeout);
-      msg._timeout = setTimeout(function(){ 
-        msg.textContent = ''; 
-        msg.className = 'admin-msg'; 
-        msg.style.display = 'none';
-      }, 5000);
-    }
-    
-    function savePageText(){
-      var announce1El = document.getElementById('cfgAnnounce1');
-      var announce2El = document.getElementById('cfgAnnounce2');
-      
-      if (!announce1El || !announce2El) return;
-      
-      var announce1 = announce1El.value;
-      var announce2 = announce2El.value;
-      
-      if(announce1 && i18n.zh) i18n.zh.announce_p1 = announce1;
-      if(announce2 && i18n.zh) i18n.zh.announce_p2 = announce2;
-      if(announce1 && i18n.en) i18n.en.announce_p1 = announce1;
-      if(announce2 && i18n.en) i18n.en.announce_p2 = announce2;
-      
-      // 使用 AppState 获取当前语言
-      switchLang(AppState.currentLang);
-      showAdminMsg('success', AppState.currentLang === 'zh' ? '文案已保存（仅本次会话有效）' : 'Text saved (valid for this session only)');
-    }
+      msg.className = 'admin-msg '+type;
+      msg.textContent = text;
+      setTimeout(function(){ msg.textContent=''; msg.className='admin-msg'; }, 5000);
     }
 
-    // ===== 页面初始化 =====
-    // 安全初始化语言（带状态锁防止竞态）
+    function savePageText(){
+      var announce1 = document.getElementById('cfgAnnounce1').value;
+      var announce2 = document.getElementById('cfgAnnounce2').value;
+      if(announce1) i18n.zh.announce_p1 = announce1;
+      if(announce2) i18n.zh.announce_p2 = announce2;
+      if(announce1) i18n.en.announce_p1 = announce1;
+      if(announce2) i18n.en.announce_p2 = announce2;
+      switchLang(currentLang);
+      showAdminMsg('success','文案已保存（仅本次会话有效）');
+    }
+
+    // 从 localStorage 恢复设置
+    window.addEventListener('load', function(){
+      try {
+        var saved = JSON.parse(localStorage.getItem('siteConfig') || '{}');
+        if(saved.heroImages) ghData.heroImages = saved.heroImages;
+        if(saved.videoUrl) demoVideoUrl = saved.videoUrl;
+        heroImages = ghData.heroImages;
+        updateHeroSlides();
+      } catch(e){}
+    });
+    
+    // Initialize language and map on page load
+    // Call immediately with 'en' as default (bypass any caching issues)
     (function(){
-      AppState.lock(); // 锁定防止中间状态冲突
-      
-      // 延迟执行确保 DOM 完全加载
-      function doInit() {
-        // 恢复保存的设置
-        try {
-          var saved = JSON.parse(localStorage.getItem('siteConfig') || '{}');
-          if(saved.heroImages && Array.isArray(saved.heroImages)) {
-            ghData.heroImages = saved.heroImages;
-            heroImages = ghData.heroImages.slice(0, 3);
-          }
-          if(saved.videoUrl) {
-            demoVideoUrl = saved.videoUrl;
-            ghData.videoUrl = saved.videoUrl;
-          }
-          updateHeroSlides();
-        } catch(e) {
-          console.warn('[Init] Failed to restore settings:', e);
-        }
-        
-        // 设置初始语言为英文（与 SEO 和默认体验一致）
-        AppState.setLanguage('en');
-        switchLang('en');
-        
-        // 启动 Hero 轮播
-        startHeroSlider();
-        
-        // 触发一次滚动检测（用于设置初始 header 状态）
-        handleHeaderScroll();
-      }
-      
-      // 根据文档状态决定何时初始化
+      var initialLang = 'en';
+      // Small delay to ensure DOM is ready
       if(document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', doInit);
+        document.addEventListener('DOMContentLoaded', function(){ switchLang(initialLang); });
       } else {
-        // DOM 已就绪，延迟一小段时间确保所有脚本执行完成
-        setTimeout(doInit, 0);
+        switchLang(initialLang);
       }
     })();
   </script>
