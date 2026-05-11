@@ -7,6 +7,11 @@
   <meta name="description" content="张家界国家森林公园官方网站 — 世界自然遗产，阿凡达取景地，中国第一个国家森林公园。" />
   <meta name="theme-color" content="#1a4a30" />
   
+  <!-- Performance Optimizations -->
+  <link rel="preload" href="assets/images/hero-stream.jpg" as="image" fetchpriority="high" />
+  <link rel="preload" href="assets/images/hero-pillars.jpg" as="image" fetchpriority="high" />
+  <link rel="preload" href="assets/images/hero-clouds.jpg" as="image" fetchpriority="high" />
+  
   <!-- Preconnect for Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1582,7 +1587,7 @@
       
       expData.forEach(function(item) {
         html += '<a href="exp-detail.html?id=' + item.id + '" class="exp-card">';
-        html += '<div class="exp-img"><img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '"></div>';
+        html += '<div class="exp-img"><img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '" loading="lazy"></div>';
         html += '<div class="exp-body">';
         html += '<h4 class="exp-title">' + (lang === 'zh' ? item.title : item.titleEn) + '</h4>';
         html += '<p class="exp-desc">' + (lang === 'zh' ? item.desc : item.descEn) + '</p>';
@@ -1680,7 +1685,7 @@
       
       galleryData.forEach(function(item, index) {
         html += '<div class="gallery-item" data-category="' + item.cat + '" onclick="openLightbox(' + index + ')">';
-        html += '<img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '">';
+        html += '<img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '" loading="lazy" decoding="async">';
         html += '<div class="gallery-overlay">';
         html += '<span class="gallery-title">' + (lang === 'zh' ? item.title : item.titleEn) + '</span>';
         html += '</div></div>';

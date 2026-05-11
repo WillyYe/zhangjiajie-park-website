@@ -655,7 +655,7 @@
       
       exp.images.forEach(function(img, index) {
         html += '<div class="gallery-item">';
-        html += '<img src="' + img + '" alt="' + exp.title + ' - Image ' + (index + 1) + '">';
+        html += '<img src="' + img + '" alt="' + exp.title + ' - Image ' + (index + 1) + '" loading="lazy" decoding="async">';
         html += '</div>';
       });
       
