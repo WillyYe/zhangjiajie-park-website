@@ -767,18 +767,21 @@
   <!-- VIDEO MODAL -->
   <div class="video-modal" id="videoModal">
     <button class="video-modal-close" onclick="closeVideoModal()" aria-label="关闭视频">✕</button>
-    <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
-      <source src="assets/videos/promotional.mp4" type="video/mp4">
-      <!-- 视频加载失败时显示占位符 -->
-      您的浏览器不支持视频播放
-    </video>
+    <!-- 视频嵌入容器（动态加载 YouTube/B站 嵌入或本地视频） -->
+    <div id="videoEmbedContainer">
+      <!-- 默认本地视频播放器 -->
+      <video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;">
+        <source src="assets/videos/promotional.mp4" type="video/mp4">
+        您的浏览器不支持视频播放
+      </video>
+    </div>
     <!-- 视频加载失败时的备用显示 -->
     <div id="videoPlaceholder" style="display:none;width:80vw;max-width:900px;aspect-ratio:16/9;background:linear-gradient(135deg,var(--green-dark),var(--green-mid));border-radius:12px;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
       <div style="font-size:48px;opacity:0.6;">🎬</div>
       <div style="text-align:center;color:#fff;">
-        <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 宣传片</p>
-        <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">请将宣传视频命名为 promotional.mp4 放入 assets/videos/ 目录</p>
-        <p style="font-size:11px;opacity:0.4;">推荐尺寸: 1920×1080, 格式: MP4 (H.264)</p>
+        <p style="font-size:16px;opacity:0.9;margin-bottom:8px;">📹 <span data-i18n="video_placeholder_title">宣传片</span></p>
+        <p style="font-size:13px;opacity:0.6;margin-bottom:16px;" data-i18n="video_placeholder_hint">请在 VideoConfig 中配置 YouTube（英文）或 B站（中文）视频链接</p>
+        <p style="font-size:11px;opacity:0.4;" data-i18n="video_placeholder_tip">或本地视频放入 assets/videos/promotional.mp4</p>
       </div>
     </div>
   </div>
@@ -953,20 +956,117 @@
       isLightboxOpen: false,
       heroSliderInterval: null,
       isScrollHandlerBound: false,
-      
+
       // 原子化状态更新
       setLanguage(lang) {
         this.currentLang = lang;
       },
-      
+
       lock() {
         this.isInitializing = true;
       },
-      
+
       unlock() {
         this.isInitializing = false;
       }
     };
+
+    // ===== 视频配置（YouTube/B站双语支持） =====
+    // 请将你的视频链接填入下方
+    const VideoConfig = {
+      // YouTube 英文视频（填写嵌入链接，如 https://www.youtube.com/embed/VIDEO_ID）
+      youtube: '',
+
+      // B站 中文视频（填写嵌入链接）
+      bilibili: '',
+
+      // 本地备用视频（当在线视频无法加载时）
+      local: 'assets/videos/promotional.mp4',
+
+      // 备用占位符消息（可从管理后台设置）
+      placeholderMsg: ''
+    };
+
+    // ===== 检测视频链接是否有效 =====
+    function hasVideoSource() {
+      return VideoConfig.youtube || VideoConfig.bilibili;
+    }
+
+    // ===== 获取当前语言对应的视频嵌入代码 =====
+    function getVideoEmbed() {
+      var lang = AppState.currentLang || 'en';
+      var videoId = '';
+      var platform = '';
+      var embedCode = '';
+
+      if (lang === 'zh' && VideoConfig.bilibili) {
+        // 中文：使用 B站 嵌入
+        videoId = extractBilibiliId(VideoConfig.bilibili);
+        platform = 'bilibili';
+      } else if (lang === 'en' && VideoConfig.youtube) {
+        // 英文：使用 YouTube 嵌入
+        videoId = extractYouTubeId(VideoConfig.youtube);
+        platform = 'youtube';
+      }
+
+      if (videoId && platform) {
+        embedCode = createVideoEmbed(videoId, platform);
+      }
+
+      return { videoId, platform, embedCode, hasEmbed: !!embedCode };
+    }
+
+    // ===== 提取 YouTube Video ID =====
+    function extractYouTubeId(url) {
+      if (!url) return '';
+      var patterns = [
+        /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
+        /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+        /youtube\.com\/v\/([a-zA-Z0-9_-]{11})/
+      ];
+      for (var i = 0; i < patterns.length; i++) {
+        var match = url.match(patterns[i]);
+        if (match) return match[1];
+      }
+      return '';
+    }
+
+    // ===== 提取 B站 Video ID =====
+    function extractBilibiliId(url) {
+      if (!url) return '';
+      // B站支持 av号 或 BV号
+      var patterns = [
+        /bilibili\.com\/video\/(av\d+|BV[a-zA-Z0-9]+)/,
+        /b23\.tv\/([a-zA-Z0-9]+)/
+      ];
+      for (var i = 0; i < patterns.length; i++) {
+        var match = url.match(patterns[i]);
+        if (match) return match[1];
+      }
+      return '';
+    }
+
+    // ===== 创建视频嵌入代码 =====
+    function createVideoEmbed(videoId, platform) {
+      if (!videoId || !platform) return '';
+
+      if (platform === 'youtube') {
+        return '<iframe ' +
+          'src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0" ' +
+          'frameborder="0" ' +
+          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+          'allowfullscreen ' +
+          'style="width:80vw;max-width:900px;aspect-ratio:16/9;border-radius:12px;background:#000;"></iframe>';
+      } else if (platform === 'bilibili') {
+        return '<iframe ' +
+          'src="https://player.bilibili.com/player.html?bvid=' + videoId + '&autoplay=1" ' +
+          'frameborder="0" ' +
+          'allowfullscreen ' +
+          'style="width:80vw;max-width:900px;aspect-ratio:16/9;border-radius:12px;background:#000;"></iframe>';
+      }
+      return '';
+    }
 
     // ===== i18n 双语字典 =====
     const i18n = {
@@ -1013,7 +1113,8 @@
         map_label:'📍 张家界国家森林公园区位图',
         admin_title:'内容管理后台', admin_tip:'💡 使用提示：输入 GitHub PAT Token 上传图片到仓库。', admin_gh_auth:'🔐 GitHub 授权',
         admin_hero:'🖼 Hero 幻灯片管理', admin_gallery:'🎨 图库管理', admin_video:'🎬 视频管理',
-        admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传'
+        admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传',
+        video_placeholder_title:'宣传片', video_placeholder_hint:'请在 VideoConfig 中配置 YouTube（英文）或 B站（中文）视频链接', video_placeholder_tip:'或本地视频放入 assets/videos/promotional.mp4'
       },
       en: {
         announce_title:'Park Announcement', announce_sub:'ANNOUNCEMENT', announce_tag:'Latest Notice',
@@ -1059,7 +1160,8 @@
         admin_title:'Content Management', admin_tip:'💡 Enter your GitHub PAT Token to upload images to the repository.',
         admin_gh_auth:'🔐 GitHub Authorization',
         admin_hero:'🖼 Hero Slides Management', admin_gallery:'🎨 Gallery Management', admin_video:'🎬 Video Management',
-        admin_text:'📝 Page Text', admin_save:'Save Text', admin_upload:'Click to upload'
+        admin_text:'📝 Page Text', admin_save:'Save Text', admin_upload:'Click to upload',
+        video_placeholder_title:'Promotional Video', video_placeholder_hint:'Configure YouTube (EN) or Bilibili (ZH) video link in VideoConfig', video_placeholder_tip:'Or place local video at assets/videos/promotional.mp4'
       }
     };
 
@@ -1420,76 +1522,95 @@
       if(e.target===this) closeLightbox();
     });
 
-    // ===== VIDEO MODAL =====
-    var currentVideoUrl = '';
-    var demoVideoUrl = ''; // 可从管理后台设置
+    // ===== VIDEO MODAL（支持 YouTube/B站 双语嵌入） =====
 
     function openVideoModal(){
       // 防止重复打开
       if (AppState.isVideoModalOpen) {
         return;
       }
-      
+
       var modal = document.getElementById('videoModal');
+      var embedContainer = document.getElementById('videoEmbedContainer');
       var video = document.getElementById('mainVideo');
       var placeholder = document.getElementById('videoPlaceholder');
-      
+
       // 防御性检查
-      if (!modal || !video) {
-        console.warn('[VideoModal] Required elements not found');
+      if (!modal) {
+        console.warn('[VideoModal] Modal element not found');
         return;
       }
-      
-      // 先隐藏占位符，显示视频元素
+
+      // 隐藏占位符和本地视频
       if (placeholder) {
         placeholder.style.display = 'none';
       }
-      video.style.display = 'block';
-      
-      // 设置视频源
-      if (demoVideoUrl) {
-        video.src = demoVideoUrl;
-      } else {
-        video.src = 'assets/videos/promotional.mp4';
+      if (video) {
+        video.style.display = 'none';
       }
-      
+
+      // 获取当前语言的视频嵌入信息
+      var videoInfo = getVideoEmbed();
+
+      if (videoInfo.hasEmbed && embedContainer) {
+        // 使用在线嵌入视频（YouTube 或 B站）
+        embedContainer.innerHTML = videoInfo.embedCode;
+      } else if (embedContainer) {
+        // 回退到本地视频
+        embedContainer.innerHTML = '';
+        var localVideo = document.createElement('video');
+        localVideo.id = 'mainVideo';
+        localVideo.controls = true;
+        localVideo.playsInline = true;
+        localVideo.poster = 'assets/images/hero-pillars.jpg';
+        localVideo.style = 'width:80vw;max-width:900px;border-radius:12px;background:#000;';
+        localVideo.innerHTML = '<source src="' + (VideoConfig.local || 'assets/videos/promotional.mp4') + '" type="video/mp4">您的浏览器不支持视频播放';
+        embedContainer.appendChild(localVideo);
+
+        // 监听本地视频错误
+        localVideo.addEventListener('error', function() {
+          if (placeholder) {
+            embedContainer.innerHTML = '';
+            placeholder.style.display = 'flex';
+          }
+        });
+
+        // 尝试播放，失败时显示占位符
+        localVideo.play().catch(function() {
+          // 自动播放被阻止，静默处理
+        });
+      }
+
       modal.classList.add('open');
       AppState.isVideoModalOpen = true;
-      
-      // 监听视频加载错误，显示占位符
-      video.onerror = function() {
-        video.style.display = 'none';
-        if (placeholder) {
-          placeholder.style.display = 'flex';
-        }
-      };
-      
-      // 尝试播放视频，自动播放被阻止时显示占位符
-      video.play().catch(function() {
-        // 自动播放被阻止，静默处理
-        video.style.display = 'none';
-        if (placeholder) {
-          placeholder.style.display = 'flex';
-        }
-      });
     }
 
     function closeVideoModal(){
-      var video = document.getElementById('mainVideo');
       var modal = document.getElementById('videoModal');
-      
-      if (video) {
-        video.pause();
-        video.src = '';
+      var embedContainer = document.getElementById('videoEmbedContainer');
+
+      // 停止并清空嵌入容器中的内容
+      if (embedContainer) {
+        var iframe = embedContainer.querySelector('iframe');
+        if (iframe) {
+          // 停止 iframe 视频播放
+          iframe.src = '';
+        }
+        var video = embedContainer.querySelector('video');
+        if (video) {
+          video.pause();
+        }
+        // 恢复默认的本地视频播放器
+        embedContainer.innerHTML = '<video id="mainVideo" controls playsinline poster="assets/images/hero-pillars.jpg" style="width:80vw;max-width:900px;border-radius:12px;background:#000;"><source src="assets/videos/promotional.mp4" type="video/mp4">您的浏览器不支持视频播放</video>';
       }
-      
+
       if (modal) {
         modal.classList.remove('open');
       }
-      
+
       AppState.isVideoModalOpen = false;
     }
-    
+
     // 点击遮罩关闭
     var videoModal = document.getElementById('videoModal');
     if (videoModal) {
