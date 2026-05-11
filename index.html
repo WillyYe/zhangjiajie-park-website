@@ -1338,6 +1338,7 @@
 
     var expData = [
       {
+        id: 'hiking',
         title: '徒步探险',
         titleEn: 'Hiking Adventure',
         desc: '穿越金鞭溪，探秘原始森林',
@@ -1345,6 +1346,7 @@
         img: 'assets/images/exp-hiking.jpg'
       },
       {
+        id: 'photography',
         title: '摄影之旅',
         titleEn: 'Photography Tour',
         desc: '用镜头捕捉大自然的鬼斧神工',
@@ -1352,6 +1354,7 @@
         img: 'assets/images/exp-photo.jpg'
       },
       {
+        id: 'eco',
         title: '生态研学',
         titleEn: 'Eco Education',
         desc: '了解地质奇观与生态系统',
@@ -1359,6 +1362,7 @@
         img: 'assets/images/exp-eco.jpg'
       },
       {
+        id: 'stargazing',
         title: '云海星空',
         titleEn: 'Sea of Clouds & Stargazing',
         desc: '观赏日出云海与满天繁星',
@@ -1577,12 +1581,12 @@
       var html = '';
       
       expData.forEach(function(item) {
-        html += '<div class="exp-card">';
+        html += '<a href="exp-detail.html?id=' + item.id + '" class="exp-card">';
         html += '<div class="exp-img"><img src="' + item.img + '" alt="' + (lang === 'zh' ? item.title : item.titleEn) + '"></div>';
         html += '<div class="exp-body">';
         html += '<h4 class="exp-title">' + (lang === 'zh' ? item.title : item.titleEn) + '</h4>';
         html += '<p class="exp-desc">' + (lang === 'zh' ? item.desc : item.descEn) + '</p>';
-        html += '</div></div>';
+        html += '</div></a>';
       });
       
       grid.innerHTML = html;
