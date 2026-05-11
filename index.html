@@ -269,6 +269,65 @@
       .exp-grid{grid-template-columns:1fr}
       .lang-switch{display:none}
     }
+    /* GALLERY LIGHTBOX */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:none;align-items:center;justify-content:center;flex-direction:column}
+    .lightbox.open{display:flex}
+    .lightbox-img{max-width:90vw;max-height:75vh;border-radius:12px;object-fit:contain}
+    .lightbox-title{color:#fff;margin-top:16px;font-size:16px;text-align:center}
+    .lightbox-close{position:absolute;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
+    .lightbox-close:hover{background:rgba(255,255,255,0.25)}
+    .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
+    .lightbox-nav:hover{background:rgba(255,255,255,0.25)}
+    .lightbox-prev{left:20px}.lightbox-next{right:20px}
+    /* VIDEO MODAL */
+    .video-modal{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:3000;display:none;align-items:center;justify-content:center;flex-direction:column}
+    .video-modal.open{display:flex}
+    .video-modal video{max-width:90vw;max-height:75vh;border-radius:12px}
+    .video-modal-close{position:absolute;top:20px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
+    .video-modal-close:hover{background:rgba(255,255,255,0.25)}
+    /* ADMIN PANEL */
+    .admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2500;display:none;align-items:flex-start;justify-content:flex-end}
+    .admin-overlay.open{display:flex}
+    .admin-panel{width:380px;max-width:92vw;height:100vh;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.15);overflow-y:auto;transform:translateX(100%);transition:transform .3s}
+    .admin-overlay.open .admin-panel{transform:translateX(0)}
+    .admin-header{background:linear-gradient(135deg,var(--green-dark),var(--green-mid));padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+    .admin-header h3{color:#fff;font-size:16px;font-weight:500}
+    .admin-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.15);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;border:none}
+    .admin-close:hover{background:rgba(255,255,255,0.3)}
+    .admin-body{padding:24px}
+    .admin-section{margin-bottom:28px}
+    .admin-section h4{font-size:13px;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+    .admin-field{margin-bottom:14px}
+    .admin-field label{display:block;font-size:13px;color:var(--text-mid);margin-bottom:6px;font-weight:500}
+    .admin-field input,.admin-field select,.admin-field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;transition:border-color .2s;background:#fafafa}
+    .admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--green-accent);background:#fff}
+    .admin-field textarea{resize:vertical;min-height:80px;font-family:inherit}
+    .admin-btn{display:block;width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s;border:none;text-align:center}
+    .admin-btn.primary{background:var(--green-accent);color:#fff}
+    .admin-btn.primary:hover{background:var(--green-mid)}
+    .admin-btn.secondary{background:#f0f0f0;color:var(--text-mid)}
+    .admin-btn.secondary:hover{background:#e0e0e0}
+    .admin-upload{border:2px dashed var(--border);border-radius:12px;padding:32px 16px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s}
+    .admin-upload:hover{border-color:var(--green-accent);background:#f8fdf9}
+    .admin-upload input{display:none}
+    .admin-upload-icon{font-size:36px;margin-bottom:8px}
+    .admin-upload-text{font-size:13px;color:var(--text-mid)}
+    .admin-upload-text span{color:var(--green-accent);font-weight:500}
+    .admin-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .admin-preview-item{width:72px;height:72px;border-radius:8px;overflow:hidden;position:relative;border:1px solid var(--border)}
+    .admin-preview-item img{width:100%;height:100%;object-fit:cover}
+    .admin-preview-item .remove-btn{position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.6);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none}
+    .admin-msg{padding:12px 16px;border-radius:8px;font-size:13px;margin-top:12px;display:none}
+    .admin-msg.success{background:#e8f5e9;color:#2e7d32;display:block}
+    .admin-msg.error{background:#ffebee;color:#c62828;display:block}
+    .admin-tip{background:#f0faf4;border-radius:8px;padding:14px 16px;font-size:12px;color:var(--green-accent);line-height:1.6;margin-bottom:16px}
+    .admin-tip strong{display:block;margin-bottom:4px}
+    .admin-stat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .admin-stat-item{background:#f8f8f8;border-radius:10px;padding:14px;text-align:center}
+    .admin-stat-item .stat-num{font-size:24px;font-weight:600;color:var(--green-dark)}
+    .admin-stat-item .stat-label{font-size:11px;color:var(--text-light);margin-top:2px}
+    .admin-danger{background:#fff5f5;border:1px solid #ffcdd2;border-radius:8px;padding:14px 16px;font-size:12px;color:#c62828;line-height:1.6;margin-bottom:16px}
+    .admin-danger strong{display:block;margin-bottom:4px}
   </style>
 
 </head>
@@ -304,12 +363,12 @@
         </div>
       </a>
       <nav class="nav-links" id="navLinks">
-        <a href="#" class="active" data-i18n="nav_about">关于公园</a>
-        <a href="#" data-i18n="nav_plan">规划游览</a>
-        <a href="#" data-i18n="nav_exp">体验活动</a>
-        <a href="#" data-i18n="nav_explore">探索发现</a>
-        <a href="#" data-i18n="nav_ticket">预订中心</a>
-        <a href="#" data-i18n="nav_news">最新动态</a>
+        <a href="#news" onclick="scrollToSection('news')" data-i18n="nav_about">关于公园</a>
+        <a href="#scenic" onclick="scrollToSection('scenic')" data-i18n="nav_plan">规划游览</a>
+        <a href="#experience" onclick="scrollToSection('exp')" data-i18n="nav_exp">体验活动</a>
+        <a href="#gallery" onclick="scrollToSection('gallery')" data-i18n="nav_explore">探索发现</a>
+        <a href="#virtual" onclick="scrollToSection('virtual')" data-i18n="nav_ticket">预订中心</a>
+        <a href="#news" onclick="scrollToSection('news')" data-i18n="nav_news">最新动态</a>
       </nav>
       <div class="nav-right">
         <div class="lang-switch">
@@ -325,7 +384,7 @@
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-slide slide1 active">
+    <div class="hero-slide slide1 active" id="heroSlide0" onclick="openLightbox(0)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p1"></div>
@@ -339,7 +398,7 @@
       </div>
       <div class="slide-overlay"></div>
     </div>
-    <div class="hero-slide slide2">
+    <div class="hero-slide slide2" id="heroSlide1" onclick="openLightbox(1)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p3"></div>
@@ -350,7 +409,7 @@
       </div>
       <div class="slide-overlay"></div>
     </div>
-    <div class="hero-slide slide3">
+    <div class="hero-slide slide3" id="heroSlide2" onclick="openLightbox(2)">
       <div class="slide-bg">
         <div class="pillars">
           <div class="pillar p7"></div>
@@ -373,8 +432,8 @@
       </h1>
       <p data-i18n="hero_desc">探索云端石柱，感受自然奇观。中国第一个国家森林公园，世界自然遗产，阿凡达取景地。</p>
       <div class="hero-actions">
-        <button class="hero-btn primary" data-i18n="hero_btn1">规划我的行程</button>
-        <button class="hero-btn outline" data-i18n="hero_btn2">观看宣传片</button>
+        <button class="hero-btn primary" onclick="scrollToSection('scenic')" data-i18n="hero_btn1">规划我的行程</button>
+        <button class="hero-btn outline" onclick="openVideoModal()" data-i18n="hero_btn2">观看宣传片</button>
       </div>
     </div>
     <div class="hero-dots">
@@ -509,7 +568,7 @@
       <p data-i18n="exp_desc">丰富多彩的户外体验，让每一次游览都独特难忘</p>
     </div>
     <div class="exp-grid">
-      <div class="exp-card fade-up">
+      <div class="exp-card fade-up" onclick="showExpDetail('hiking')">
         <div class="exp-img">
           <div class="exp-icon-bg">🥾</div>
         </div>
@@ -519,7 +578,7 @@
           <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
         </div>
       </div>
-      <div class="exp-card fade-up">
+      <div class="exp-card fade-up" onclick="showExpDetail('photo')">
         <div class="exp-img">
           <div class="exp-icon-bg">📸</div>
         </div>
@@ -529,7 +588,7 @@
           <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
         </div>
       </div>
-      <div class="exp-card fade-up">
+      <div class="exp-card fade-up" onclick="showExpDetail('eco')">
         <div class="exp-img">
           <div class="exp-icon-bg">🎓</div>
         </div>
@@ -539,7 +598,7 @@
           <span class="exp-link" data-i18n="exp_more">了解详情 →</span>
         </div>
       </div>
-      <div class="exp-card fade-up">
+      <div class="exp-card fade-up" onclick="showExpDetail('stargaze')">
         <div class="exp-img">
           <div class="exp-icon-bg">🌉</div>
         </div>
@@ -599,40 +658,40 @@
       <button onclick="filterGallery('culture',this)" data-i18n="gal_culture">人文</button>
       <button onclick="filterGallery('season',this)" data-i18n="gal_season">四季</button>
     </div>
-    <div class="gallery-masonry">
-      <div class="gallery-item g1" data-category="scenic">
+    <div class="gallery-masonry" id="galleryMasonry">
+      <div class="gallery-item g1" data-category="scenic" onclick="openLightboxFromGallery(0)">
         <div class="g-img-placeholder">🏔</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal1">袁家界晨曦</span></div>
       </div>
-      <div class="gallery-item g2" data-category="scenic">
+      <div class="gallery-item g2" data-category="scenic" onclick="openLightboxFromGallery(1)">
         <div class="g-img-placeholder">🌊</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal2">云海翻涌</span></div>
       </div>
-      <div class="gallery-item g3" data-category="season">
+      <div class="gallery-item g3" data-category="season" onclick="openLightboxFromGallery(2)">
         <div class="g-img-placeholder">🍂</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal3">秋染森林</span></div>
       </div>
-      <div class="gallery-item g4" data-category="culture">
+      <div class="gallery-item g4" data-category="culture" onclick="openLightboxFromGallery(3)">
         <div class="g-img-placeholder">🎭</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal4">土家风情</span></div>
       </div>
-      <div class="gallery-item g5" data-category="scenic">
+      <div class="gallery-item g5" data-category="scenic" onclick="openLightboxFromGallery(4)">
         <div class="g-img-placeholder">🌅</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal5">天子山日出</span></div>
       </div>
-      <div class="gallery-item g6" data-category="season">
+      <div class="gallery-item g6" data-category="season" onclick="openLightboxFromGallery(5)">
         <div class="g-img-placeholder">❄</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal6">冬雪覆盖</span></div>
       </div>
-      <div class="gallery-item g7" data-category="scenic">
+      <div class="gallery-item g7" data-category="scenic" onclick="openLightboxFromGallery(6)">
         <div class="g-img-placeholder">🌿</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal7">金鞭溪畔</span></div>
       </div>
-      <div class="gallery-item g8" data-category="culture">
+      <div class="gallery-item g8" data-category="culture" onclick="openLightboxFromGallery(7)">
         <div class="g-img-placeholder">🏡</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal8">山村民宿</span></div>
       </div>
-      <div class="gallery-item g9" data-category="season">
+      <div class="gallery-item g9" data-category="season" onclick="openLightboxFromGallery(8)">
         <div class="g-img-placeholder">🌸</div>
         <div class="g-overlay"><span class="g-title" data-i18n="gal9">春花烂漫</span></div>
       </div>
@@ -654,7 +713,7 @@
         <div class="map-pin p3"></div>
       </div>
       <div class="transport-ways">
-        <div class="transport-card fade-up">
+        <div class="transport-card fade-up" onclick="showTransportDetail('air')">
           <div class="transport-icon">✈️</div>
           <div class="transport-info">
             <h4 data-i18n="trans1_title">飞机</h4>
@@ -662,7 +721,7 @@
             <span class="transport-tag" data-i18n="trans1_tag">推荐 · 最快捷</span>
           </div>
         </div>
-        <div class="transport-card fade-up">
+        <div class="transport-card fade-up" onclick="showTransportDetail('train')">
           <div class="transport-icon">🚆</div>
           <div class="transport-info">
             <h4 data-i18n="trans2_title">火车/高铁</h4>
@@ -670,7 +729,7 @@
             <span class="transport-tag" data-i18n="trans2_tag">经济实惠</span>
           </div>
         </div>
-        <div class="transport-card fade-up">
+        <div class="transport-card fade-up" onclick="showTransportDetail('bus')">
           <div class="transport-icon">🚌</div>
           <div class="transport-info">
             <h4 data-i18n="trans3_title">旅游巴士</h4>
@@ -678,7 +737,7 @@
             <span class="transport-tag" data-i18n="trans3_tag">性价比高</span>
           </div>
         </div>
-        <div class="transport-card fade-up">
+        <div class="transport-card fade-up" onclick="showTransportDetail('car')">
           <div class="transport-icon">🚗</div>
           <div class="transport-info">
             <h4 data-i18n="trans4_title">自驾</h4>
@@ -689,6 +748,109 @@
       </div>
     </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+    <div class="lightbox-title" id="lightboxTitle"></div>
+  </div>
+
+  <!-- VIDEO MODAL -->
+  <div class="video-modal" id="videoModal">
+    <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
+    <video id="mainVideo" controls></video>
+  </div>
+
+  <!-- ADMIN PANEL (hidden, accessible via keyboard shortcut) -->
+  <div class="admin-overlay" id="adminOverlay">
+    <div class="admin-panel">
+      <div class="admin-header">
+        <h3>📸 内容管理后台</h3>
+        <button class="admin-close" onclick="closeAdmin()">✕</button>
+      </div>
+      <div class="admin-body">
+        <div class="admin-tip">
+          <strong>💡 使用提示</strong>
+          输入 GitHub PAT Token 上传图片到仓库。请确保 Token 有 <code>repo</code> 权限。
+        </div>
+
+        <div class="admin-stat">
+          <div class="admin-stat-item">
+            <div class="stat-num" id="statHero">0</div>
+            <div class="stat-label">Hero 幻灯片</div>
+          </div>
+          <div class="admin-stat-item">
+            <div class="stat-num" id="statGallery">0</div>
+            <div class="stat-label">图库图片</div>
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h4>🔐 GitHub 授权</h4>
+          <div class="admin-field">
+            <label>PAT Token（仅上传用）</label>
+            <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" />
+          </div>
+          <div class="admin-field">
+            <label>仓库分支</label>
+            <input type="text" id="ghBranch" value="main" placeholder="main" />
+          </div>
+        </div>
+
+        <div class="admin-section">
+          <h4>🖼 Hero 幻灯片管理</h4>
+          <div class="admin-upload" id="heroUpload" onclick="document.getElementById('heroInput').click()">
+            <input type="file" id="heroInput" accept="image/*" multiple onchange="handleHeroUpload(this)" />
+            <div class="admin-upload-icon">📷</div>
+            <div class="admin-upload-text">点击上传 Hero 图片<br/><span>支持 JPG/PNG/WebP</span></div>
+          </div>
+          <div class="admin-preview" id="heroPreview"></div>
+        </div>
+
+        <div class="admin-section">
+          <h4>🎨 图库管理</h4>
+          <div class="admin-upload" id="galleryUpload" onclick="document.getElementById('galleryInput').click()">
+            <input type="file" id="galleryInput" accept="image/*" multiple onchange="handleGalleryUpload(this)" />
+            <div class="admin-upload-icon">🖼</div>
+            <div class="admin-upload-text">点击上传图库图片<br/><span>支持 JPG/PNG/WebP</span></div>
+          </div>
+          <div class="admin-preview" id="galleryPreview"></div>
+        </div>
+
+        <div class="admin-section">
+          <h4>🎬 视频管理</h4>
+          <div class="admin-field">
+            <label>视频标题</label>
+            <input type="text" id="videoTitle" placeholder="如：张家界宣传片" />
+          </div>
+          <div class="admin-upload" onclick="document.getElementById('videoInput').click()">
+            <input type="file" id="videoInput" accept="video/*" onchange="handleVideoUpload(this)" />
+            <div class="admin-upload-icon">🎬</div>
+            <div class="admin-upload-text">点击上传视频<br/><span>支持 MP4/WebM</span></div>
+          </div>
+          <div id="videoUploadStatus" class="admin-msg"></div>
+        </div>
+
+        <div class="admin-section">
+          <h4>📝 页面文案</h4>
+          <div class="admin-field">
+            <label>公告内容（第一段）</label>
+            <textarea id="cfgAnnounce1" placeholder="公告内容第一段..."></textarea>
+          </div>
+          <div class="admin-field">
+            <label>公告内容（第二段）</label>
+            <textarea id="cfgAnnounce2" placeholder="公告内容第二段..."></textarea>
+          </div>
+          <button class="admin-btn primary" onclick="savePageText()">保存文案</button>
+        </div>
+
+        <div id="adminMsg" class="admin-msg"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer id="footer">
@@ -725,8 +887,8 @@
         <h4 data-i18n="footer_col3">订阅资讯</h4>
         <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:8px" data-i18n="footer_subscribe">订阅获取最新活动与优惠信息</p>
         <div class="footer-subscribe">
-          <input type="email" placeholder="your@email.com" data-i18n-placeholder="footer_email_placeholder" />
-          <button data-i18n="footer_subscribe_btn">订阅</button>
+          <input type="email" id="subscribeEmail" placeholder="your@email.com" data-i18n-placeholder="footer_email_placeholder" />
+          <button onclick="handleSubscribe()" data-i18n="footer_subscribe_btn">订阅</button>
         </div>
       </div>
     </div>
@@ -783,7 +945,10 @@
         footer_subscribe:'订阅获取最新活动与优惠信息', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'订阅',
         footer_icp:'湘ICP备XXXXXXXX号', footer_privacy:'隐私政策', footer_terms:'使用条款',
         nav_about:'关于公园', nav_plan:'规划游览', nav_exp:'体验活动', nav_explore:'探索发现', nav_ticket:'预订中心', nav_news:'最新动态',
-        map_label:'📍 张家界国家森林公园区位图'
+        map_label:'📍 张家界国家森林公园区位图',
+        admin_title:'内容管理后台', admin_tip:'💡 使用提示：输入 GitHub PAT Token 上传图片到仓库。', admin_gh_auth:'🔐 GitHub 授权',
+        admin_hero:'🖼 Hero 幻灯片管理', admin_gallery:'🎨 图库管理', admin_video:'🎬 视频管理',
+        admin_text:'📝 页面文案', admin_save:'保存文案', admin_upload:'点击上传'
       },
       en: {
         announce_title:'Park Announcement', announce_sub:'ANNOUNCEMENT', announce_tag:'Latest Notice',
@@ -825,7 +990,11 @@
         footer_subscribe:'Subscribe for latest events and offers', footer_email_placeholder:'your@email.com', footer_subscribe_btn:'Subscribe',
         footer_icp:'Xiang ICP XXXXXXXX', footer_privacy:'Privacy Policy', footer_terms:'Terms of Use',
         nav_about:'About', nav_plan:'Plan Visit', nav_exp:'Experiences', nav_explore:'Explore', nav_ticket:'Book Now', nav_news:'News',
-        map_label:'📍 Zhangjiajie National Forest Park Location'
+        map_label:'📍 Zhangjiajie National Forest Park Location',
+        admin_title:'Content Management', admin_tip:'💡 Enter your GitHub PAT Token to upload images to the repository.',
+        admin_gh_auth:'🔐 GitHub Authorization',
+        admin_hero:'🖼 Hero Slides Management', admin_gallery:'🎨 Gallery Management', admin_video:'🎬 Video Management',
+        admin_text:'📝 Page Text', admin_save:'Save Text', admin_upload:'Click to upload'
       }
     };
 
@@ -919,6 +1088,348 @@
 
     // 初始化语言
     switchLang("zh");
+
+    // ===== SCROLL TO SECTION =====
+    function scrollToSection(id){
+      var el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      document.getElementById('navLinks').classList.remove('open');
+    }
+
+    // ===== LIGHTBOX =====
+    var lightboxIndex = 0;
+    var heroImages = ['','','']; // 可从管理后台设置
+    var galleryImages = [
+      {src:'', title:{zh:'袁家界晨曦',en:'Yuanjiajie Dawn'}},
+      {src:'', title:{zh:'云海翻涌',en:'Sea of Clouds'}},
+      {src:'', title:{zh:'秋染森林',en:'Autumn Forest'}},
+      {src:'', title:{zh:'土家风情',en:'Tujia Culture'}},
+      {src:'', title:{zh:'天子山日出',en:'Tianzi Sunrise'}},
+      {src:'', title:{zh:'冬雪覆盖',en:'Winter Snow'}},
+      {src:'', title:{zh:'金鞭溪畔',en:'Golden Whip Stream'}},
+      {src:'', title:{zh:'山村民宿',en:'Mountain Lodge'}},
+      {src:'', title:{zh:'春花烂漫',en:'Spring Blossoms'}}
+    ];
+
+    function openLightbox(idx){
+      lightboxIndex = idx;
+      var img = heroImages[idx] || '';
+      document.getElementById('lightboxImg').src = img;
+      document.getElementById('lightboxTitle').textContent = 'Hero 幻灯片 ' + (idx + 1);
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function openLightboxFromGallery(idx){
+      lightboxIndex = 100 + idx; // gallery images start at 100
+      var img = galleryImages[idx];
+      document.getElementById('lightboxImg').src = img ? img.src : '';
+      document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox(){
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    function lightboxNav(dir){
+      var total = 3 + galleryImages.length;
+      lightboxIndex = (lightboxIndex + dir + total) % total;
+      if(lightboxIndex < 3){
+        document.getElementById('lightboxImg').src = heroImages[lightboxIndex] || '';
+        document.getElementById('lightboxTitle').textContent = 'Hero 幻灯片 ' + (lightboxIndex + 1);
+      } else {
+        var gi = lightboxIndex - 3;
+        var img = galleryImages[gi];
+        document.getElementById('lightboxImg').src = img ? img.src : '';
+        document.getElementById('lightboxTitle').textContent = currentLang === 'zh' ? img.title.zh : img.title.en;
+      }
+    }
+
+    document.addEventListener('keydown',function(e){
+      if(document.getElementById('lightbox').classList.contains('open')){
+        if(e.key==='Escape') closeLightbox();
+        if(e.key==='ArrowLeft') lightboxNav(-1);
+        if(e.key==='ArrowRight') lightboxNav(1);
+      }
+      if(document.getElementById('videoModal').classList.contains('open')){
+        if(e.key==='Escape') closeVideoModal();
+      }
+    });
+
+    document.getElementById('lightbox').addEventListener('click',function(e){
+      if(e.target===this) closeLightbox();
+    });
+
+    // ===== VIDEO MODAL =====
+    var currentVideoUrl = '';
+    var demoVideoUrl = ''; // 可从管理后台设置
+
+    function openVideoModal(){
+      var modal = document.getElementById('videoModal');
+      var video = document.getElementById('mainVideo');
+      if(demoVideoUrl){
+        video.src = demoVideoUrl;
+      } else {
+        video.src = '';
+      }
+      modal.classList.add('open');
+      video.play();
+    }
+
+    function closeVideoModal(){
+      var video = document.getElementById('mainVideo');
+      video.pause();
+      video.src = '';
+      document.getElementById('videoModal').classList.remove('open');
+    }
+
+    document.getElementById('videoModal').addEventListener('click',function(e){
+      if(e.target===this) closeVideoModal();
+    });
+
+    // ===== EXP DETAIL MODAL =====
+    const expDetails = {
+      hiking: {zh:'徒步探险路线：\n\n• 金鞭溪全程7.5公里，约3小时\n• 袁家界精华段，约4小时\n• 天子山步道，约2小时\n\n建议装备：登山鞋、防晒霜、足够饮用水。\n\n提前查看天气，雨天部分路段湿滑。',en:'Hiking Routes:\n\n• Golden Whip Stream: 7.5km, ~3hrs\n• Yuanjiajie Highlights: ~4hrs\n• Tianzi Mountain Trail: ~2hrs\n\nRecommended: hiking boots, sunscreen, water.'},
+      photo: {zh:'摄影之旅特色：\n\n• 专业摄影师向导\n• 最佳拍摄时间：日出/日落\n• 云海季节：春秋季\n• 提供后期处理指导\n\n推荐装备：单反/微单、三脚架、渐变灰滤镜。',en:'Photography Tour:\n\n• Pro photographer guide\n• Best time: sunrise/sunset\n• Sea of clouds: spring/autumn\n• Post-processing guidance included.'},
+      eco: {zh:'生态研学课程：\n\n• 地质地貌科普\n• 植物多样性认知\n• 野生动物观察\n• 环保意识培养\n\n适合年龄：6-18岁团体\n课程时长：2-4小时',en:'Eco-Education Program:\n\n• Geology & landforms\n• Plant biodiversity\n• Wildlife observation\n• Environmental awareness\n\nAges: 6-18 years\nDuration: 2-4 hours'},
+      stargaze: {zh:'云海星空体验：\n\n• 山顶精品民宿\n• 专业天文望远镜观星\n• 日出云海观赏\n• 土家文化体验\n\n最佳季节：夏秋季\n建议提前一周预订。',en:'Stargazing Experience:\n\n• Mountain-top boutique lodging\n• Telescope stargazing sessions\n• Sunrise & sea-of-clouds viewing\n• Tujia culture experience\n\nBest season: summer/autumn'}
+    };
+
+    function showExpDetail(type){
+      var info = expDetails[type] || {zh:'暂无详情',en:'No details available'};
+      alert(currentLang === 'zh' ? info.zh : info.en);
+    }
+
+    // ===== TRANSPORT DETAIL MODAL =====
+    const transportDetails = {
+      air: {zh:'✈️ 飞机出行指南\n\n机场：张家界荷花国际机场 (DYG)\n\n📍 距离公园：约40公里，车程40-60分钟\n\n🚌 机场大巴：20元/人，直达市区\n🚕 出租车：约100-120元\n\n📞 机场客服：0744-1234567',en:'✈️ By Air\n\nAirport: Zhangjiajie Hehua (DYG)\n\n📍 Distance to Park: ~40km, 40-60min\n\n🚌 Airport Bus: ¥20/person\n🚕 Taxi: ~¥100-120'},
+      train: {zh:'🚆 火车/高铁出行指南\n\n站名：张家界西站（高铁站）\n\n📍 距离公园：约35公里\n\n🚌 公交：4路/5路直达汽车站，换乘景区巴士\n🚕 出租车：约80-100元\n\n📞 车站客服：0744-8888888',en:'🚆 By Train/HSR\n\nStation: Zhangjiajie West (HSR)\n\n📍 Distance to Park: ~35km\n\n🚌 Bus: Lines 4/5 to bus station\n🚕 Taxi: ~¥80-100'},
+      bus: {zh:'🚌 旅游巴士指南\n\n📍 起点：张家界中心汽车站\n\n🕐 发车间隔：约30分钟一班\n💰 票价：15元/人\n\n🕐 首班：06:30\n🕐 末班：18:00\n\n📍 终点：森林公园门票站',en:'🚌 Tour Bus Guide\n\n📍 From: Downtown Bus Station\n\n🕐 Interval: ~30min\n💰 Fare: ¥15/person\n\n🕐 First: 06:30\n🕐 Last: 18:00'},
+      car: {zh:'🚗 自驾出行指南\n\n📍 东门（吴家峪）门票站\n• 导航：张家界国家森林公园-东门\n• 停车：2000+车位，20元/次\n\n📍 南门（森林公园门票站）\n• 导航：张家界国家森林公园-南门\n• 停车：500+车位\n\n💡 旺季建议早8点前到达',en:'🚗 Self-Driving Guide\n\n📍 East Gate: 2000+ spaces, ¥20/entry\n📍 South Gate: 500+ spaces\n\n💡 Arrive before 8am in peak season'}
+    };
+
+    function showTransportDetail(type){
+      var info = transportDetails[type] || {zh:'暂无详情',en:'No details available'};
+      alert(currentLang === 'zh' ? info.zh : info.en);
+    }
+
+    // ===== SUBSCRIBE =====
+    function handleSubscribe(){
+      var email = document.getElementById('subscribeEmail').value;
+      if(!email || !email.includes('@')){
+        alert(currentLang === 'zh' ? '请输入有效的邮箱地址' : 'Please enter a valid email address');
+        return;
+      }
+      // 保存到本地存储（演示用）
+      var subs = JSON.parse(localStorage.getItem('subscribers') || '[]');
+      if(!subs.includes(email)) subs.push(email);
+      localStorage.setItem('subscribers', JSON.stringify(subs));
+      document.getElementById('subscribeEmail').value = '';
+      alert(currentLang === 'zh' ? '订阅成功！感谢您的关注。' : 'Subscribed successfully! Thank you.');
+    }
+
+    // ===== ADMIN PANEL =====
+    function openAdmin(){
+      document.getElementById('adminOverlay').classList.add('open');
+      updateAdminStats();
+    }
+
+    function closeAdmin(){
+      document.getElementById('adminOverlay').classList.remove('open');
+    }
+
+    document.getElementById('adminOverlay').addEventListener('click',function(e){
+      if(e.target===this) closeAdmin();
+    });
+
+    // 键盘快捷键：Ctrl+Shift+A 打开管理后台
+    document.addEventListener('keydown',function(e){
+      if(e.ctrlKey && e.shiftKey && e.key==='A'){
+        e.preventDefault();
+        openAdmin();
+      }
+    });
+
+    function updateAdminStats(){
+      document.getElementById('statHero').textContent = heroImages.filter(function(i){return i;}).length + '/3';
+      document.getElementById('statGallery').textContent = galleryImages.filter(function(i){return i.src;}).length + '/9';
+    }
+
+    // 上传到 GitHub
+    var ghData = {
+      token: '',
+      branch: 'main',
+      repo: 'WillyYe/zhangjiajie-park-website',
+      heroImages: [],
+      galleryImages: [],
+      videoUrl: ''
+    };
+
+    function handleHeroUpload(input){
+      if(!input.files.length) return;
+      var token = document.getElementById('ghToken').value;
+      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
+      ghData.token = token;
+      ghData.branch = document.getElementById('ghBranch').value || 'main';
+
+      var preview = document.getElementById('heroPreview');
+      Array.from(input.files).slice(0,3).forEach(function(file, idx){
+        var reader = new FileReader();
+        reader.onload = function(e){
+          var item = document.createElement('div');
+          item.className = 'admin-preview-item';
+          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
+          preview.appendChild(item);
+
+          // 上传到 GitHub
+          uploadToGitHub(e.target.result, 'hero-'+Date.now()+'-'+file.name.replace(/\s/g,'_'), 'images/hero/', function(err, url){
+            if(err){ showAdminMsg('error','上传失败: '+err); return; }
+            // 更新 hero 幻灯片
+            if(ghData.heroImages.length < 3) ghData.heroImages.push(url);
+            updateHeroSlides();
+            showAdminMsg('success','Hero 图片 #'+(ghData.heroImages.length)+' 上传成功！');
+            updateAdminStats();
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+      input.value = '';
+    }
+
+    function handleGalleryUpload(input){
+      if(!input.files.length) return;
+      var token = document.getElementById('ghToken').value;
+      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
+      ghData.token = token;
+
+      var preview = document.getElementById('galleryPreview');
+      Array.from(input.files).forEach(function(file){
+        var reader = new FileReader();
+        reader.onload = function(e){
+          var item = document.createElement('div');
+          item.className = 'admin-preview-item';
+          item.innerHTML = '<img src="'+e.target.result+'" /><button class="remove-btn" onclick="this.parentElement.remove()">✕</button>';
+          preview.appendChild(item);
+
+          uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'images/gallery/', function(err, url){
+            if(err){ showAdminMsg('error','上传失败: '+err); return; }
+            // 找到第一个空位
+            var emptyIdx = galleryImages.findIndex(function(g){return !g.src;});
+            if(emptyIdx >= 0){
+              galleryImages[emptyIdx].src = url;
+            }
+            showAdminMsg('success','图库图片上传成功！');
+            updateAdminStats();
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+      input.value = '';
+    }
+
+    function handleVideoUpload(input){
+      if(!input.files.length) return;
+      var token = document.getElementById('ghToken').value;
+      if(!token){ showAdminMsg('error','请先输入 GitHub PAT Token'); return; }
+
+      var file = input.files[0];
+      var status = document.getElementById('videoUploadStatus');
+      status.className = 'admin-msg';
+      status.textContent = '正在上传视频...';
+      status.style.display = 'block';
+
+      var reader = new FileReader();
+      reader.onload = function(e){
+        uploadToGitHub(e.target.result, file.name.replace(/\s/g,'_'), 'videos/', function(err, url){
+          if(err){
+            status.className = 'admin-msg error';
+            status.textContent = '上传失败: '+err;
+            return;
+          }
+          demoVideoUrl = url;
+          status.className = 'admin-msg success';
+          status.textContent = '视频上传成功！URL: '+url;
+        });
+      };
+      reader.readAsDataURL(file);
+      input.value = '';
+    }
+
+    function uploadToGitHub(base64Data, filename, folder, callback){
+      var parts = base64Data.split(',');
+      var content = parts[1] || parts[0];
+      var token = ghData.token;
+      var repo = ghData.repo;
+      var branch = ghData.branch;
+      var path = folder + filename;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('PUT', 'https://api.github.com/repos/'+repo+'/contents/'+path, true);
+      xhr.setRequestHeader('Authorization','token '+token);
+      xhr.setRequestHeader('Accept','application/vnd.github.v3+json');
+      xhr.setRequestHeader('Content-Type','application/json');
+
+      xhr.onload = function(){
+        if(xhr.status === 200 || xhr.status === 201){
+          var res = JSON.parse(xhr.responseText);
+          callback(null, res.content.download_url);
+        } else if(xhr.status === 401){
+          callback('Token 无效，请检查权限');
+        } else if(xhr.status === 403){
+          callback('权限不足，请确认 Token 有 repo 权限');
+        } else {
+          callback('上传失败: '+xhr.status);
+        }
+      };
+      xhr.onerror = function(){ callback('网络错误'); };
+      xhr.send(JSON.stringify({
+        message: 'Upload '+filename,
+        content: content,
+        branch: branch
+      }));
+    }
+
+    function updateHeroSlides(){
+      heroImages = ghData.heroImages.slice(0,3);
+      for(var i=0;i<3;i++){
+        var slide = document.getElementById('heroSlide'+i);
+        if(slide && heroImages[i]){
+          var bg = slide.querySelector('.slide-bg') || slide;
+          bg.style.backgroundImage = 'url('+heroImages[i]+')';
+          bg.style.backgroundSize = 'cover';
+          bg.style.backgroundPosition = 'center';
+        }
+      }
+    }
+
+    function showAdminMsg(type, text){
+      var msg = document.getElementById('adminMsg');
+      msg.className = 'admin-msg '+type;
+      msg.textContent = text;
+      setTimeout(function(){ msg.textContent=''; msg.className='admin-msg'; }, 5000);
+    }
+
+    function savePageText(){
+      var announce1 = document.getElementById('cfgAnnounce1').value;
+      var announce2 = document.getElementById('cfgAnnounce2').value;
+      if(announce1) i18n.zh.announce_p1 = announce1;
+      if(announce2) i18n.zh.announce_p2 = announce2;
+      if(announce1) i18n.en.announce_p1 = announce1;
+      if(announce2) i18n.en.announce_p2 = announce2;
+      switchLang(currentLang);
+      showAdminMsg('success','文案已保存（仅本次会话有效）');
+    }
+
+    // 从 localStorage 恢复设置
+    window.addEventListener('load', function(){
+      try {
+        var saved = JSON.parse(localStorage.getItem('siteConfig') || '{}');
+        if(saved.heroImages) ghData.heroImages = saved.heroImages;
+        if(saved.videoUrl) demoVideoUrl = saved.videoUrl;
+        heroImages = ghData.heroImages;
+        updateHeroSlides();
+      } catch(e){}
+    });
   </script>
 </body>
 </html>
