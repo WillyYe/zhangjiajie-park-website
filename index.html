@@ -1405,12 +1405,28 @@
     }
 
     // ===== 懒加载地图（Intersection Observer） =====
+    // 延迟加载地图，等待 DOM 完全构建
+    var _lazyMapInitialized = false;
     function lazyLoadMap() {
+      // 防止重复初始化
+      if (_lazyMapInitialized) return;
+      
+      // 等待 DOM 完全加载
+      if (document.readyState !== 'complete') {
+        window.addEventListener('load', lazyLoadMap);
+        return;
+      }
+      
+      _lazyMapInitialized = true;
+      
       var mapPlaceholder = document.getElementById('mapPlaceholder');
       var googleMap = document.getElementById('google-map-frame');
       var amap = document.getElementById('amap-frame');
 
-      if (!mapPlaceholder) return;
+      if (!mapPlaceholder) {
+        console.warn('[lazyLoadMap] mapPlaceholder not found');
+        return;
+      }
 
       var mapObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
@@ -1429,7 +1445,7 @@
             }
 
             // 隐藏占位符
-            mapPlaceholder.style.display = 'none';
+            if (mapPlaceholder) mapPlaceholder.style.display = 'none';
 
             // 停止观察
             mapObserver.disconnect();
@@ -1440,9 +1456,10 @@
       mapObserver.observe(mapPlaceholder);
     }
 
-    // 页面加载后启动地图懒加载
+    // 页面加载后启动地图懒加载（延迟执行确保 DOM 完全就绪）
     if ('IntersectionObserver' in window) {
-      lazyLoadMap();
+      // 延迟 100ms 执行，确保 DOM 完全构建
+      setTimeout(lazyLoadMap, 100);
     } else {
       // 降级：直接显示地图
       var googleMap = document.getElementById('google-map-frame');
@@ -1450,6 +1467,8 @@
         if (googleMap.dataset.src) googleMap.src = googleMap.dataset.src;
         googleMap.style.display = 'block';
       }
+      var mapPlaceholder = document.getElementById('mapPlaceholder');
+      if (mapPlaceholder) mapPlaceholder.style.display = 'none';
     }
 
     // ===== GALLERY FILTER =====
